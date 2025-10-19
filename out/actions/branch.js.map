@@ -1,0 +1,1 @@
+{"version":3,"file":"branch.js","sourceRoot":"","sources":["../../src/actions/branch.ts"],"names":[],"mappings":";;;AAWA,SAAgB,SAAS,CAAC,QAAgB;IACxC,OAAO;QACL,IAAI,EAAE,YAAY;QAClB,OAAO,EAAE,QAAQ;KAClB,CAAC;AACJ,CAAC;AALD,8BAKC;AAED,SAAgB,WAAW;IACzB,OAAO;QACL,IAAI,EAAE,cAAc;KACrB,CAAC;AACJ,CAAC;AAJD,kCAIC"}

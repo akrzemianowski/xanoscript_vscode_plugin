@@ -1,0 +1,1 @@
+{"version":3,"file":"stashChanges.js","sourceRoot":"","sources":["../../src/commands/stashChanges.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,6CAAiD;AAEjD,SAAsB,eAAe;;QACnC,IAAI;YACF,MAAM,IAAA,oBAAY,GAAE,CAAC;YACrB,OAAO,CAAC,IAAI,CAAC,oCAAoC,CAAC,CAAC;SACpD;QAAC,OAAO,KAAK,EAAE;YACd,OAAO,CAAC,KAAK,CAAC,+BAA+B,EAAE,KAAK,CAAC,CAAC;SACvD;IACH,CAAC;CAAA;AAPD,0CAOC"}

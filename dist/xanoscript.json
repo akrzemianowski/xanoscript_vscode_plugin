@@ -1,0 +1,747 @@
+{
+  "api.lambda": {
+    "prefix": "api.lambda",
+    "description": "Create a JS or TS function to return data.",
+    "body": "api.lambda {\n  code = \"\"\"\n    // Your Javascript or Typescript code goes here\n    console.log(\"hello world\");\n    \"\"\"\n  timeout = 10\n} as ${1:\\$script}"
+  },
+  "api.realtime event": {
+    "prefix": "api.realtime_event",
+    "description": "Send an event over Realtime",
+    "body": "api.realtime_event {\n  channel = ${1:\"channel_name\"}\n  data = ${2:\\$data}\n  auth_table = {3:\"table_id\"}\n  auth_id = {4:\"user_id\"}\n}"
+  },
+  "api.request": {
+    "prefix": "api.request",
+    "description": "makes an API request",
+    "body": "api.request {\n  url = ${1:\"https://www.example.com\"}\n  method = ${2|\"POST\",\"GET\",\"PUT\",\"DELETE\", \"PATCH\"|}\n  params = ${3:{\\}|set:\"key\":\"value\"}\n  headers = ${4:[]|push:\"Set-Cookie: sessionId=e8bb43229de9; Domain=foo.example.com\"}\n  timeout = ${5:25}\n} as ${6:\\$api_req}"
+  },
+  "api.stream": {
+    "prefix": "api.stream",
+    "description": "Respond with data when the API response type is set to 'Stream'.",
+    "body": "api.stream {\n  value = ${1:\\$data}\n}"
+  },
+  "array.every": {
+    "prefix": "array.every",
+    "description": "check that all elements in an array satisfy a condition",
+    "body": "array.every (${1:`[\"Bar\",\"Baz\"]`}) if (${2:`\\$this|istarts_with:\"b\" == true`}) as ${3:\\$x4}\n"
+  },
+  "array.filter": {
+    "prefix": "array.filter",
+    "description": "filter an array based on a condition",
+    "body": "array.filter (${1:\\$arr}) if (${2:`\\$this == 2`}) as ${3:\\$match}\n"
+  },
+  "array.filter count": {
+    "prefix": "array.filter_count",
+    "description": "count the number of elements in an array that match a condition",
+    "body": "array.filter_count (${1:\\$arr}) if (${2:`\\$this == 2`}) as ${3:\\$count}\n"
+  },
+  "array.find": {
+    "prefix": "array.find",
+    "description": "find an element in an array",
+    "body": "array.find (${1:`[1,2,3]`}) if (${2:`\\$this == 1`}) as ${3:\\$item}\n"
+  },
+  "array.find index": {
+    "prefix": "array.find_index",
+    "description": "count the number of elements in an array that match a condition",
+    "body": "array.find_index (${1:\\$my_array}) if (${2:`\\$this == 2`}) as ${3:\\$index}\n"
+  },
+  "array.has": {
+    "prefix": "array.has",
+    "description": "check if any element in an array satisfies a condition",
+    "body": "array.has (${1:`[1,2,3]`}) if (${2:`\\$this == 1`}) as ${3:\\$contains}\n"
+  },
+  "array.merge": {
+    "prefix": "array.merge",
+    "description": "merge two arrays together",
+    "body": "array.merge ${1:\\$my_array} {\n  value =${2:\\$other_array}\n}"
+  },
+  "array.pop": {
+    "prefix": "array.pop",
+    "description": "pop the last element from an array",
+    "body": "array.pop ${1:\\$my_array} ${2:\\$removed}"
+  },
+  "array.push": {
+    "prefix": "array.push",
+    "description": "Push an element a the end of an array",
+    "body": "array.push ${1:\\$variable} {\n  value = ${2:\"value\"}\n}"
+  },
+  "array.shift": {
+    "prefix": "array.shift",
+    "description": "removed the first element from an array",
+    "body": "array.shift ${1:\\$my_array} as ${2:\\$removed}\n"
+  },
+  "array.unshift": {
+    "prefix": "array.unshift",
+    "description": "Unshift an element a the end of an array",
+    "body": "array.unshift ${1:\\$variable} {\n  value = ${2:\"value\"}\n}"
+  },
+  "await": {
+    "prefix": "await",
+    "description": "await for asynchronous functions to complete",
+    "body": "await {\n  ids = []|push:${1:\\$func1}\n  timeout = ${2:10}\n} as ${3:\\$values}"
+  },
+  "break": {
+    "prefix": "break",
+    "description": "Break out of loop",
+    "body": "break "
+  },
+  "cloud.algolia.request": {
+    "prefix": "cloud.algolia.request",
+    "description": "Query Algolia",
+    "body": "cloud.algolia.request {\n    application_id = \"${1:algolia_application_id}\"\n    api_key = \"${2:algolia_api_key}\"\n    url = \"${3:algolia_url}\"\n    method = ${4|\"POST\",\"GET\",\"PUT\",\"DELETE\", \"PATCH\"|}\n    payload = {${5}}\n} as ${6:\\$algolia_response}"
+  },
+  "cloud.aws.opensearch.document": {
+    "prefix": "cloud.aws.opensearch.document",
+    "description": "AWS OpenSearch: Manage AWS OpenSearch records",
+    "body": "cloud.aws.opensearch.document {\n    auth_type = \"${1:IAM}\"\n    key_id = \"${2:key_id}\"\n    access_key = \"${3:access_key}\"\n    region = \"${4:|us-east-2|us-east-1|us-west-1|us-west-2|af-south-1|ap-east-1|ap-south-2|ap-southeast-3|ap-southeast-5|ap-southeast-4|ap-south-1|ap-northeast-3|ap-northeast-2|ap-southeast-1|ap-southeast-2|ap-southeast-7|ap-northeast-1|ca-central-1|ca-west-1|eu-central-1|eu-west-1|eu-west-2|eu-south-1|eu-west-3|eu-south-2|eu-north-1|eu-central-2|il-central-1|mx-central-1|me-south-1|me-central-1|sa-east-1|us-gov-east-1|us-gov-west-1|}\"\n    base_url = \"${5:base_url}\"\n    index = \"${6:index}\"\n    method = ${7|\"GET\",\"POST\",\"PUT\",\"DELETE\",\"PATCH\"|}\n    doc_id = \"${8:doc_id}\"\n} as ${9:\\$response}"
+  },
+  "cloud.aws.opensearch.query": {
+    "prefix": "cloud.aws.opensearch.query",
+    "description": "AWS OpenSearch: AWS OpenSearch Search Request",
+    "body": "cloud.aws.opensearch.query {\n    auth_type = \"${1:IAM}\"\n    key_id = \"${2:key_id}\"\n    access_key = \"${3:access_key}\"\n    region = \"${4:|us-east-2|us-east-1|us-west-1|us-west-2|af-south-1|ap-east-1|ap-south-2|ap-southeast-3|ap-southeast-5|ap-southeast-4|ap-south-1|ap-northeast-3|ap-northeast-2|ap-southeast-1|ap-southeast-2|ap-southeast-7|ap-northeast-1|ca-central-1|ca-west-1|eu-central-1|eu-west-1|eu-west-2|eu-south-1|eu-west-3|eu-south-2|eu-north-1|eu-central-2|il-central-1|mx-central-1|me-south-1|me-central-1|sa-east-1|us-gov-east-1|us-gov-west-1|}\"\n    base_url = \"${5:base_url}\"\n    index = \"${6:index}\"\n    return_type = \"${7:search}\"\n    expression = [${8:expression}]\n    size = ${9:0}\n    from = ${10:0}\n    included_fields = [${11:included_fields}]\n    sort = [${12:sort}]\n    payload = {${13:payload}}\n} as ${14:\\$query_result}"
+  },
+  "cloud.aws.opensearch.request": {
+    "prefix": "cloud.aws.opensearch.request",
+    "description": "AWS OpenSearch: Query AWS OpenSearch",
+    "body": "cloud.aws.opensearch.request {\n    auth_type = \"${1:IAM}\"\n    key_id = \"${2:key_id}\"\n    access_key = \"${3:access_key}\"\n    region = \"${4:|us-east-2|us-east-1|us-west-1|us-west-2|af-south-1|ap-east-1|ap-south-2|ap-southeast-3|ap-southeast-5|ap-southeast-4|ap-south-1|ap-northeast-3|ap-northeast-2|ap-southeast-1|ap-southeast-2|ap-southeast-7|ap-northeast-1|ca-central-1|ca-west-1|eu-central-1|eu-west-1|eu-west-2|eu-south-1|eu-west-3|eu-south-2|eu-north-1|eu-central-2|il-central-1|mx-central-1|me-south-1|me-central-1|sa-east-1|us-gov-east-1|us-gov-west-1|}\"\n    method = ${5|\"GET\",\"POST\",\"PUT\",\"DELETE\",\"PATCH\"|}\n    url = \"${6:url}\"\n    query = {${7:query}}\n} as ${8:\\$result}"
+  },
+  "cloud.aws.s3.delete file": {
+    "prefix": "cloud.aws.s3.delete_file",
+    "description": "AWS S3: Delete a file",
+    "body": "cloud.aws.s3.delete_file {\n    bucket = \"${1:bucket}\"\n    region = \"${2:|us-east-2|us-east-1|us-west-1|us-west-2|af-south-1|ap-east-1|ap-south-2|ap-southeast-3|ap-southeast-5|ap-southeast-4|ap-south-1|ap-northeast-3|ap-northeast-2|ap-southeast-1|ap-southeast-2|ap-southeast-7|ap-northeast-1|ca-central-1|ca-west-1|eu-central-1|eu-west-1|eu-west-2|eu-south-1|eu-west-3|eu-south-2|eu-north-1|eu-central-2|il-central-1|mx-central-1|me-south-1|me-central-1|sa-east-1|us-gov-east-1|us-gov-west-1|}\"\n    key = \"${3:key}\"\n    secret = \"${4:secret}\"\n    file_key = \"${5:file_key}\"\n}"
+  },
+  "cloud.aws.s3.get file info": {
+    "prefix": "cloud.aws.s3.get_file_info",
+    "description": "AWS S3: Creates a variable with metadata about the file",
+    "body": "cloud.aws.s3.get_file_info {\n    bucket = \"${1:bucket}\"\n    region = \"${2:|us-east-2|us-east-1|us-west-1|us-west-2|af-south-1|ap-east-1|ap-south-2|ap-southeast-3|ap-southeast-5|ap-southeast-4|ap-south-1|ap-northeast-3|ap-northeast-2|ap-southeast-1|ap-southeast-2|ap-southeast-7|ap-northeast-1|ca-central-1|ca-west-1|eu-central-1|eu-west-1|eu-west-2|eu-south-1|eu-west-3|eu-south-2|eu-north-1|eu-central-2|il-central-1|mx-central-1|me-south-1|me-central-1|sa-east-1|us-gov-east-1|us-gov-west-1|}\"\n    key = \"${3:key}\"\n    secret = \"${4:secret}\"\n    file_key = \"${5:file_key}\"\n} as ${6:\\$file_metadata}"
+  },
+  "cloud.aws.s3.list directory": {
+    "prefix": "cloud.aws.s3.list_directory",
+    "description": "AWS S3: List the contents of a bucket",
+    "body": "cloud.aws.s3.list_directory {\n    bucket = \"${1:bucket}\"\n    region = \"${2:|us-east-2|us-east-1|us-west-1|us-west-2|af-south-1|ap-east-1|ap-south-2|ap-southeast-3|ap-southeast-5|ap-southeast-4|ap-south-1|ap-northeast-3|ap-northeast-2|ap-southeast-1|ap-southeast-2|ap-southeast-7|ap-northeast-1|ca-central-1|ca-west-1|eu-central-1|eu-west-1|eu-west-2|eu-south-1|eu-west-3|eu-south-2|eu-north-1|eu-central-2|il-central-1|mx-central-1|me-south-1|me-central-1|sa-east-1|us-gov-east-1|us-gov-west-1|}\"\n    key = \"${3:key}\"\n    secret = \"${4:secret}\"\n    prefix = \"${5:prefix}\"\n    next_page_token = ${6:next_page_token}\n} as ${7:\\$directory_contents}"
+  },
+  "cloud.aws.s3.read file": {
+    "prefix": "cloud.aws.s3.read_file",
+    "description": "AWS S3: Creates a variable with information about the file",
+    "body": "cloud.aws.s3.read_file {\n    bucket = \"${1:bucket}\"\n    region = \"${2:|us-east-2|us-east-1|us-west-1|us-west-2|af-south-1|ap-east-1|ap-south-2|ap-southeast-3|ap-southeast-5|ap-southeast-4|ap-south-1|ap-northeast-3|ap-northeast-2|ap-southeast-1|ap-southeast-2|ap-southeast-7|ap-northeast-1|ca-central-1|ca-west-1|eu-central-1|eu-west-1|eu-west-2|eu-south-1|eu-west-3|eu-south-2|eu-north-1|eu-central-2|il-central-1|mx-central-1|me-south-1|me-central-1|sa-east-1|us-gov-east-1|us-gov-west-1|}\"\n    key = \"${3:key}\"\n    secret = \"${4:secret}\"\n    file_key = \"${5:file_key}\"\n} as ${6:\\$file_resource}"
+  },
+  "cloud.aws.s3.sign url": {
+    "prefix": "cloud.aws.s3.sign_url",
+    "description": "AWS S3: Generates a signed URL for the bucket",
+    "body": "cloud.aws.s3.sign_url {\n    bucket = \"${1:bucket}\"\n    region = \"${2:|us-east-2|us-east-1|us-west-1|us-west-2|af-south-1|ap-east-1|ap-south-2|ap-southeast-3|ap-southeast-5|ap-southeast-4|ap-south-1|ap-northeast-3|ap-northeast-2|ap-southeast-1|ap-southeast-2|ap-southeast-7|ap-northeast-1|ca-central-1|ca-west-1|eu-central-1|eu-west-1|eu-west-2|eu-south-1|eu-west-3|eu-south-2|eu-north-1|eu-central-2|il-central-1|mx-central-1|me-south-1|me-central-1|sa-east-1|us-gov-east-1|us-gov-west-1|}\"\n    key = \"${3:key}\"\n    secret = \"${4:secret}\"\n    file_key = \"${5:file_key}\"\n    ttl = ${6:300}\n}  as ${7:\\$signed_url}"
+  },
+  "cloud.aws.s3.upload file": {
+    "prefix": "cloud.aws.s3.upload_file",
+    "description": "AWS S3: Upload a file",
+    "body": "cloud.aws.s3.upload_file {\n    bucket = \"${1:bucket}\"\n    region = \"${2:|us-east-2|us-east-1|us-west-1|us-west-2|af-south-1|ap-east-1|ap-south-2|ap-southeast-3|ap-southeast-5|ap-southeast-4|ap-south-1|ap-northeast-3|ap-northeast-2|ap-southeast-1|ap-southeast-2|ap-southeast-7|ap-northeast-1|ca-central-1|ca-west-1|eu-central-1|eu-west-1|eu-west-2|eu-south-1|eu-west-3|eu-south-2|eu-north-1|eu-central-2|il-central-1|mx-central-1|me-south-1|me-central-1|sa-east-1|us-gov-east-1|us-gov-west-1|}\"\n    key = \"${3:key}\"\n    secret = \"${4:secret}\"\n    file_key = \"${5:file_key}\"\n    file = ${6:\\$file}\n    metadata = {${7:metadata}}\n    object_lock_mode = ${8|\"governance\",\"compliance\"|}\n    object_lock_retain_until = ${9:timestamp}\n} as ${10:\\$response}"
+  },
+  "cloud.azure.storage.delete file": {
+    "prefix": "cloud.azure.storage.delete_file",
+    "description": "Azure Blob Storage: Delete a file",
+    "body": "cloud.azure.storage.delete_file{\n    account_name = \"${1:account_name}\"\n    account_key = \"${2:account_key}\"\n    container_name = \"${3:container_name}\"\n    filePath = \"${4:file_path}\"\n}"
+  },
+  "cloud.azure.storage.get file info": {
+    "prefix": "cloud.azure.storage.get_file_info",
+    "description": "Azure Blob Storage: Creates a variable with metadata about the file",
+    "body": "cloud.azure.storage.get_file_info{\n    account_name = \"${1:account_name}\"\n    account_key = \"${2:account_key}\"\n    container_name = \"${3:container_name}\"\n    filePath = \"${4:file_path}\"\n} as ${5:\\$file_metadata}"
+  },
+  "cloud.azure.storage.list directory": {
+    "prefix": "cloud.azure.storage.list_directory",
+    "description": "Azure Blob Storage: List the contents of a bucket",
+    "body": "cloud.azure.storage.list_directory{\n    account_name = \"${1:account_name}\"\n    account_key = \"${2:account_key}\"\n    container_name = \"${3:container_name}\"\n    path = \"${4:path}\"\n} as ${5:\\$directory_contents}"
+  },
+  "cloud.azure.storage.read file": {
+    "prefix": "cloud.azure.storage.read_file",
+    "description": "Azure Blob Storage: Creates a variable with information about the file",
+    "body": "cloud.azure.storage.read_file{\n    account_name = \"${1:account_name}\"\n    account_key = \"${2:account_key}\"\n    container_name = \"${3:container_name}\"\n    filePath = \"${4:file_path}\"\n} as ${5:\\$file_resource}"
+  },
+  "cloud.azure.storage.sign url": {
+    "prefix": "cloud.azure.storage.sign_url",
+    "description": "Azure Blob Storage: Generates a signed URL for the bucket",
+    "body": "cloud.azure.storage.sign_url{\n    account_name = \"${1:account_name}\"\n    account_key = \"${2:account_key}\"\n    container_name = \"${3:container_name}\"\n    path = \"${4:path}\"\n    ttl = ${5:300}\n} as ${6:\\$signed_url}"
+  },
+  "cloud.azure.storage.upload file": {
+    "prefix": "cloud.azure.storage.upload_file",
+    "description": "Azure Blob Storage: Upload a file",
+    "body": "cloud.azure.storage.upload_file{\n    account_name = \"${1:account_name}\"\n    account_key = \"${2:account_key}\"\n    container_name = \"${3:container_name}\"\n    filePath = \"${4:file_path}\"\n    file = ${6:\\$file}\n    metadata = {${7:metadata}}\n} as ${8:\\$response}"
+  },
+  "cloud.elasticsearch.document": {
+    "prefix": "cloud.elasticsearch.document",
+    "description": "Elastic Search: Manage Elastic Search records",
+    "body": "cloud.elasticsearch.document{\n    auth_type = \"${1:API Key}\"\n    key_id = \"${2:key_id}\"\n    access_key = \"${3:access_key}\"\n    base_url = \"${4:base_url}\"\n    index = \"${5:index}\"\n    method = ${6|\"GET\",\"POST\",\"PUT\",\"DELETE\",\"PATCH\"|}\n    doc_id = \"${7:doc_id}\"\n} as ${8:\\$response}"
+  },
+  "cloud.elasticsearch.query": {
+    "prefix": "cloud.elasticsearch.query",
+    "description": "Elastic Search: Elastic Search search request",
+    "body": "cloud.elasticsearch.query{\n    auth_type = \"${1:API Key}\"\n    key_id = \"${2:key_id}\"\n    access_key = \"${3:access_key}\"\n    base_url = \"${4:base_url}\"\n    index = \"${5:index}\"\n    return_type = \"${6:search}\"\n    expression = [${7:expression}]\n    size = ${8:0}\n    from = ${9:0}\n    included_fields = [${10:included_fields}]\n    sort = [${11:sort}]\n    payload = {${12:payload}}\n} as ${13:\\$query_result}"
+  },
+  "cloud.elasticsearch.request": {
+    "prefix": "cloud.elasticsearch.request",
+    "description": "Elastic Search: Query Elastic Search",
+    "body": "cloud.elasticsearch.request{\n    auth_type = \"${1:API Key}\"\n    key_id = \"${2:key_id}\"\n    access_key = \"${3:access_key}\"\n    method = ${4|\"GET\",\"POST\",\"PUT\",\"DELETE\",\"PATCH\"|}\n    url = \"${5:url}\"\n    payload = {${6:payload}}\n} as ${7:\\$result}"
+  },
+  "cloud.google.storage.delete file": {
+    "prefix": "cloud.google.storage.delete_file",
+    "description": "Google Cloud Storage: Delete a file",
+    "body": "cloud.google.storage.delete_file {\n      service_account = \"${1:service_account}\"\n      bucket = \"${2:bucket_name}\"\n      filePath = \"${3:file_path}\"\n}"
+  },
+  "cloud.google.storage.get file info": {
+    "prefix": "cloud.google.storage.get_file_info",
+    "description": "Google Cloud Storage: Creates a variable with metadata about the file",
+    "body": "cloud.google.storage.get_file_info {\n      service_account = \"${1:service_account}\"\n      bucket = \"${2:bucket_name}\"\n      filePath = \"${3:file_path}\"\n} as ${4:\\$file}"
+  },
+  "cloud.google.storage.list directory": {
+    "prefix": "cloud.google.storage.list_directory",
+    "description": "Google Cloud Storage: List the content of a bucket",
+    "body": "cloud.google.storage.list_directory {\n      service_account = \"${1:service_account}\"\n      bucket = \"${2:bucket_name}\"\n      path = \"${3:path}\"\n} as ${4:\\$directory_contents}"
+  },
+  "cloud.google.storage.read file": {
+    "prefix": "cloud.google.storage.read_file",
+    "description": "Google Cloud Storage: Create a variable, with information about the file",
+    "body": "cloud.google.storage.read_file {\n      service_account = \"${1:service_account}\"\n      bucket = \"${2:bucket_name}\"\n      filePath = \"${3:file_path}\"\n} as ${4:\\$file}"
+  },
+  "cloud.google.storage.sign url": {
+    "prefix": "cloud.google.storage.sign_url",
+    "description": "Google Cloud Storage: Generates a signed URL for the bucket",
+    "body": "cloud.google.storage.sign_url {\n      service_account = \"${1:service_account}\"\n      bucket = \"${2:bucket_name}\"\n      filePath = \"${3:file_path}\"\n      method = ${4|\"GET\",\"POST\",\"PUT\",\"DELETE\",\"PATCH\"|}\n      ttl = ${5:300}\n} as ${6:\\$signed_url}"
+  },
+  "cloud.google.storage.upload file": {
+    "prefix": "cloud.google.storage.upload_file",
+    "description": "Google Cloud Storage: Upload a file",
+    "body": "cloud.google.storage.upload_file {\n      service_account = \"${1:service_account}\"\n      bucket = \"${2:bucket_name}\"\n      filePath = \"${3:file_path}\"\n      file = ${4:\\$file_resource}\n      metadata = {$5}\n}"
+  },
+  "conditional.with elif": {
+    "prefix": "conditional.with-elif",
+    "description": "Conditionals let you control when functions run based on specific conditions",
+    "body": "conditional {\n  if (${1:condition}) {\n  }\n\n  else if (${2:condition}) {\n  }\n\n  else {\n  }\n}"
+  },
+  "conditional.with else": {
+    "prefix": "conditional.with-else",
+    "description": "Conditionals let you control when functions run based on specific conditions",
+    "body": "conditional {\n  if (${0:condition}) {\n  }\n\n  else {\n  }\n}"
+  },
+  "conditional": {
+    "prefix": "conditional",
+    "description": "Conditionals let you control when functions run based on specific conditions",
+    "body": "conditional {\n  if (${0:condition}) {\n  }\n}"
+  },
+  "continue": {
+    "prefix": "continue",
+    "description": "continue to next iteration of loop",
+    "body": "continue"
+  },
+  "db.add": {
+    "prefix": "db.add",
+    "description": "add a record to your database",
+    "body": "db.add ${1:user} {\n  data = {\n    name: ${4:\\$input.name},\n    email : ${5:\\$input.email}\n  }\n} as ${6:\\$new_user}"
+  },
+  "db.del": {
+    "prefix": "db.del",
+    "description": "delete a record from your database",
+    "body": "db.del ${1:comment} {\n  field_name = ${2:\"id\"}\n  field_value = ${3:\\$input.commentId}\n}"
+  },
+  "db.direct query": {
+    "prefix": "db.direct_query",
+    "description": "Query your Xano database directly using SQL Statements.",
+    "body": "db.direct_query {\n  code = ${1:\"SELECT * FROM users WHERE users.email = ?\"}\n  response_type = ${2|\"list\",\"single\"}\n  arg = ${3:\"\"}\n} as ${4:\\$ext_query_results}"
+  },
+  "db.edit": {
+    "prefix": "db.edit",
+    "description": "edit a record from your database",
+    "body": "db.edit ${1:user} {\n  field_name = ${2:\"email\"}\n  field_value = ${3:\\$input.email}\n  data = {\n    category : ${4:\\$input.category}\n  }\n} as ${5:\\$updated_user}"
+  },
+  "db.external.mssql.direct query": {
+    "prefix": "db.external.mssql.direct_query",
+    "description": "Query an external Microsoft SQL database directly using SQL Statements.",
+    "body": "db.external.mssql.direct_query {\n  code = ${1:\"SELECT * FROM users WHERE users.email = ?\"}\n  response_type = \"list\"\n  connection_string = ${2:\"mssql://user_name:user_password@domain.com:1433/my_db?sslmode=disabled\"}\n  arg = ${3:\"\"}\n} as ${4:\\$ext_query_results}"
+  },
+  "db.external.mysql.direct query": {
+    "prefix": "db.external.mysql.direct_query",
+    "description": "Query an external MySQL database directly using SQL Statements.",
+    "body": "db.external.mysql.direct_query {\n  code = ${1:\"SELECT * FROM users WHERE users.email = ?\"}\n  response_type = \"list\"\n  connection_string = ${2:\"mysql://user_name:user_password@domain.com:3306/my_db?sslmode=disabled\"}\n  arg = ${3:\"\"}\n} as ${4:\\$ext_query_results}"
+  },
+  "db.external.oracle.direct query": {
+    "prefix": "db.external.oracle.direct_query",
+    "description": "Query an external Oracle database directly using SQL Statements.",
+    "body": "db.external.mysql.direct_query {\n  code = ${1:\"SELECT * FROM users WHERE users.email = ?\"}\n  response_type = \"list\"\n  connection_string = ${2:\"oracle://user_name:user_password@domain.com:1521/my_db\"}\n  arg = ${3:\"\"}\n} as ${4:\\$ext_query_results}"
+  },
+  "db.external.postgres.direct query": {
+    "prefix": "db.external.postgres.direct_query",
+    "description": "Query an external Postgres database directly using SQL Statements.",
+    "body": "db.external.postgres.direct_query {\n  code = ${1:\"SELECT * FROM users WHERE users.email = ?\"}\n  response_type = ${2|\"list\",\"single\"}\n  connection_string = ${3:\"postgres://le_user:my%20password@example.com:5432/my_db?sslmode=prefer\"}\n  arg = ${4:\\$input.email}\n} as ${5:\\$ext_query_results}"
+  },
+  "db.get": {
+    "prefix": "db.get",
+    "description": "retrieve a record from a table",
+    "body": "db.get ${1:user} {\n  field_name = ${2:\"email\"}\n  field_value = ${3:\\$input.email}\n} as ${4:\\$user}"
+  },
+  "db.has": {
+    "prefix": "db.has",
+    "description": "check if a record exist",
+    "body": "db.has ${1:user} {\n  field_name = ${2:\"email\"}\n  field_value = ${3:\\$input.email}\n} as ${4:\\$user_exist}"
+  },
+  "db.query": {
+    "prefix": "db.query",
+    "description": "retrieve many records from your database",
+    "body": "db.query ${1:user} {\n  search = ${2:`(\\$db.client.email|to_lower) == (\\$input.email\\|to_lower)`}\n} as ${3:\\$user}"
+  },
+  "db.schema": {
+    "prefix": "db.schema",
+    "description": "return schema at path or the schema for the entire database table",
+    "body": "db.schema ${1:user} {\n  path = ${2:\"email\"}\n} as ${3:\\$email_schema}"
+  },
+  "db.set datasource": {
+    "prefix": "db.set_datasource",
+    "description": "Change datasource for all future queries on this stack",
+    "body": "db.set_datasource {\n  value = ${1:\"test\"}\n}"
+  },
+  "db.transaction": {
+    "prefix": "db.transaction",
+    "description": "run all the contained query in a single transaction",
+    "body": "db.transaction {\n  description = ${1:\"transaction description\"}\n  stack {\n  }\n}"
+  },
+  "db.truncate": {
+    "prefix": "db.truncate",
+    "description": "delete all the records in the provided table",
+    "body": "db.truncate ${1:table_name} {\n  reset = ${2|false,true|}\n}"
+  },
+  "debug.log": {
+    "prefix": "debug.log",
+    "description": "outputs the specified value to the debugger",
+    "body": "debug.log {\n  value = ${1:\\$some_var}\n}"
+  },
+  "debug.stop": {
+    "prefix": "debug.stop",
+    "description": "halts execution and outputs the specified value to the debugger",
+    "body": "debug.stop {\n  value = ${1:\\$some_var}\n}"
+  },
+  "for.each": {
+    "prefix": "for.each",
+    "description": "repeat actions on every item in a list",
+    "body": "foreach (${1:[]|push:1|push:2|push:3|push:4}) {\n  each as ${2:\\$item} {\n    ${3:break}\n  }\n}"
+  },
+  "for": {
+    "prefix": "for",
+    "description": "loop for n iterations",
+    "body": "for (${1:10}) {\n  each as ${2:\\$index} {\n    ${3:break}\n  }\n}"
+  },
+  "function.run": {
+    "prefix": "function.run",
+    "description": "run a custom function",
+    "body": "function.run ${1:add_fn} {\n  input = ${2: {a: \\$input.a, b: \\$input.b}}\n} as ${3:\\$func1}"
+  },
+  "group": {
+    "prefix": "group",
+    "description": "Create a logic group",
+    "body": "group {\n  description = ${1:\"group description\"}\n  stack {\n  }\n}"
+  },
+  "math.add": {
+    "prefix": "math.add",
+    "description": "sum two values into a variable",
+    "body": "math.add ${1:\\$variable} {\n  value = ${2:42}\n}"
+  },
+  "math.bitwise.and": {
+    "prefix": "math.bitwise.and",
+    "description": "apply a bitwise AND between two values",
+    "body": "math.bitwise.and ${1:\\$variable} {\n  value = ${2:42}\n}"
+  },
+  "math.bitwise.or": {
+    "prefix": "math.bitwise.or",
+    "description": "apply a bitwise OR between two values",
+    "body": "math.bitwise.or ${1:\\$variable} {\n  value = ${2:42}\n}"
+  },
+  "math.bitwise.xor": {
+    "prefix": "math.bitwise.xor",
+    "description": "apply a bitwise XOR between two values",
+    "body": "math.bitwise.xor ${1:\\$variable} {\n  value = ${2:42}\n}"
+  },
+  "math.div": {
+    "prefix": "math.div",
+    "description": "divide two values into a variable",
+    "body": "math.div ${1:\\$variable} {\n  value = ${2:42}\n}"
+  },
+  "math.mul": {
+    "prefix": "math.mul",
+    "description": "multiply two values into a variable",
+    "body": "math.mul ${1:\\$variable} {\n  value = ${2:42}\n}"
+  },
+  "math.sub": {
+    "prefix": "math.sub",
+    "description": "subtract two values into a variable",
+    "body": "math.sub ${1:\\$variable} {\n  value = ${2:42}\n}"
+  },
+  "object.entries": {
+    "prefix": "object.entries",
+    "description": "Get the property entries of an object as an array of key/value pairs.",
+    "body": "object.entries {\n  value = ${1:\\$my_object}\n} as ${2:\\$entries}"
+  },
+  "object.keys": {
+    "prefix": "object.keys",
+    "description": "Get the property keys of an object as an array.",
+    "body": "object.keys {\n  value = ${1:\\$my_object}\n} as ${2:\\$keys}"
+  },
+  "object.values": {
+    "prefix": "object.values",
+    "description": "Get the values of an object as an array.",
+    "body": "object.values {\n  value = ${1:\\$my_object}\n} as ${2:\\$values}"
+  },
+  "precondition": {
+    "prefix": "precondition",
+    "description": "throw an exception if the condition is false",
+    "body": "precondition (${1:`true == true`}) {\n  error_type = ${2:\"standard\"}\n  error = ${3:\"Something wrong happened\"}\n}"
+  },
+  "redis.count": {
+    "prefix": "redis.count",
+    "description": "Redis: Get length of a list",
+    "body": "redis.count {\n    key = \"${1:list}\"\n} as ${2:\\$count}"
+  },
+  "redis.decr": {
+    "prefix": "redis.decr",
+    "description": "Redis: Decrement a cache value",
+    "body": "redis.decr {\n    \"key\" = \"${1:key_name}\",\n    \"by\" = ${2:1}\n} as ${3:\\$updated}"
+  },
+  "redis.del": {
+    "prefix": "redis.del",
+    "description": "Redis: Delete a cache value",
+    "body": "redis.del {\n  \"key\" = \"${1:key_to_be_deleted}\"\n}"
+  },
+  "redis.get": {
+    "prefix": "redis.get",
+    "description": "Redis: Get a cache value",
+    "body": "redis.get {\n    \"key\" = \"${1:key_name}\"\n} as ${2:\\$result}"
+  },
+  "redis.has": {
+    "prefix": "redis.has",
+    "description": "Redis: Find out if a cache value exists",
+    "body": "redis.has {\n    \"key\" = \"${1:key_name}\"\n} as ${2:\\$result}"
+  },
+  "redis.incr": {
+    "prefix": "redis.incr",
+    "description": "Redis: Increment a cache value",
+    "body": "redis.incr {\n    \"package_key\" = \"${1:1}\",\n    \"key\" = \"${2:counter}\",\n    \"by\" = ${3:1}\n} as ${4:\\$updated}"
+  },
+  "redis.keys": {
+    "prefix": "redis.keys",
+    "description": "Redis: Get a list of cache keys that match an expression",
+    "body": "redis.keys {\n    \"search\" = \"${1:expression}\"\n} as ${2:\\$keys}"
+  },
+  "redis.pop": {
+    "prefix": "redis.pop",
+    "description": "Redis: Pop a value from a list (Remove from the end)",
+    "body": "redis.pop {\n    \"key\" = \"${1:list}\"\n} as ${2:\\$popped_value}"
+  },
+  "redis.push": {
+    "prefix": "redis.push",
+    "description": "Redis: Add an element to the end of the list",
+    "body": "redis.push {\n    \"package_key\" = \"${1:1}\",\n    \"key\" = \"${2:list_name}\",\n    \"value\" = \"${3:value}\"\n} as ${4:\\$list_length}"
+  },
+  "redis.range": {
+    "prefix": "redis.range",
+    "description": "Redis: Get a range of elements from the list",
+    "body": "redis.range {\n    key = \"${1:list}\"\n    start = ${2:startIndex}\n    stop = ${3:endIndex}\n} as ${4:\\$result}"
+  },
+  "redis.ratelimit": {
+    "prefix": "redis.ratelimit",
+    "description": "Redis: Rate limit requests",
+    "body": "redis.ratelimit {\n    key = \"${1:rateLimitKey}\"\n    max = ${2:100}\n    ttl = ${3:60}\n    error = \"${4:errorMessage}\"\n} as ${5:\\$rateLimitResult}"
+  },
+  "redis.remove": {
+    "prefix": "redis.remove",
+    "description": "Redis: Remove a value from the list",
+    "body": "redis.remove {\n    key = \"${1:keyName}\"\n    value = \"${2:valueToRemove}\"\n    count = ${3:removeCount}\n}"
+  },
+  "redis.set": {
+    "prefix": "redis.set",
+    "description": "Redis: Set a cache value",
+    "body": "redis.set {\n    \"key\" = \"${1:key_name}\"\n    \"data\" = \"${2:key_value}\"\n    \"ttl\" = ${3:60}\n}"
+  },
+  "redis.shift": {
+    "prefix": "redis.shift",
+    "description": "Redis: Remove from the beginning of a list",
+    "body": "redis.shift {\n    key = \"${1:list}\"\n} as ${2:\\$removed_value}"
+  },
+  "redis.unshift": {
+    "prefix": "redis.unshift",
+    "description": "Redis: Add an element to the beginning of the list",
+    "body": "redis.unshift {\n    \"key\" = \"${1:list}\"\n    \"value\" = \"${2:value_to_add}\"\n} as ${3:\\$list_length}"
+  },
+  "return": {
+    "prefix": "return",
+    "description": "interupts the execution of the function and returns a value",
+    "body": "return {\n  value = ${1:\\$var.value}\n}"
+  },
+  "security.check password": {
+    "prefix": "security.check_password",
+    "description": "Security: Validate a match against a hashed password",
+    "body": "security.check_password {\n    text_password = \"${1:text_password}\"\n    hash_password = \"${2:password_hash}\"\n} as ${13:\\$is_match}"
+  },
+  "security.create auth token": {
+    "prefix": "security.create_auth_token",
+    "description": "Security: Create a token used for authentication",
+    "body": "security.create_auth_token {\n    dbtable = \"${1:user}\"\n    extras = {${2:extras}}\n    expiration = ${3:86400}\n    id = \"${4:id}\"\n} as ${5:\\$auth_token}"
+  },
+  "security.create curve key": {
+    "prefix": "security.create_curve_key",
+    "description": "Choose a curve type (P-256, P-384, and P-521)",
+    "body": "security.create_curve_key {\n  curve = ${1|\"P-256\",\"P-384\", \"P-521\"|}\n  format = ${2|\"object\",\"base64\"|}\n} as ${3:\\$crypto_key}"
+  },
+  "security.create password": {
+    "prefix": "security.create_password",
+    "description": "generate a random password based on a set of rules",
+    "body": "security.create_password {\n  character_count = ${1:12}\n  require_lowercase = ${2|true,false|}\n  require_uppercase = ${3|true,false|}\n  require_digit = ${4|true,false|}\n  require_symbol = ${5|false,true|}\n  symbol_whitelist = ${6:\"\"}\n} as ${7:\\$password}"
+  },
+  "security.create secret key": {
+    "prefix": "security.create_secret_key",
+    "description": "Security: Create a secret key for digital signatures and symmetric encryption",
+    "body": "security.create_secret_key {\n    bits = ${1:1024}\n    format = \"${2:object}\"\n} as ${3:\\$symmetric_key}"
+  },
+  "security.create uuid": {
+    "prefix": "security.create_uuid",
+    "description": "Security: Generate a Universally Unique Identifier",
+    "body": "security.create_uuid as ${1:\\$uuid}"
+  },
+  "security.decrypt": {
+    "prefix": "security.decrypt",
+    "description": "Security: Decrypt a payload to its original form",
+    "body": "security.decrypt {\n    data = \"${1:data}\"\n    algorithm = \"${2:|aes-128-cbc|aes-192-cbc|aes-256-cbc|aes-128-gcm|aes-192-gcm|aes-256-gcm|}\"\n    key = \"${3:key}\"\n    iv = \"${4:initialization_vector}\"\n} ${5:\\$decrypted_payload}"
+  },
+  "security.encrypt": {
+    "prefix": "security.encrypt",
+    "description": "Security: Encrypt a payload as raw binary data",
+    "body": "security.encrypt{\n    data = \"${1:data}\"\n    algorithm = \"${2:|aes-128-cbc|aes-192-cbc|aes-256-cbc|aes-128-gcm|aes-192-gcm|aes-256-gcm|}\"\n    key = \"${3:key}\"\n    iv = \"${4:initialization_vector}\"\n} ${5:\\$encrypted_payload}"
+  },
+  "security.jwe decode": {
+    "prefix": "security.jwe_decode",
+    "description": "Security: Decode a JWE token",
+    "body": "security.jwe_decode {\n    token = \"${1:jwe_token}\"\n    key = \"${2:key}\"\n    check_claims = {${3:check_claims}}\n    key_algorithm = \"${4:|A128KW|A192KW|A256KW|A128GCMKW|A192GCMKW|A256GCMKW|ECDH-ES+A128KW|ECDH-ES+A192KW|ECDH-ES+A256KW|}\"\n    content_algorithm = \"${5:|A128GCM|A192GCM|A256GCM|A128CBC-HS256|A192CBC-HS384|A256CBC-HS512|}\"\n    timeDrift = ${6:0}\n} ${7:\\$decoded_jew_token}"
+  },
+  "security.jwe encode": {
+    "prefix": "security.jwe_encode",
+    "description": "Security: Encode a payload as a JWE token",
+    "body": "security.jwe_encode {\n    headers = {${1:headers}}\n    claims = {${2:claims}}\n    key = \"${3:key}\"\n    key_algorithm = \"${4:|A128KW|A192KW|A256KW|A128GCMKW|A192GCMKW|A256GCMKW|ECDH-ES+A128KW|ECDH-ES+A192KW|ECDH-ES+A256KW|}\"\n    content_algorithm = \"${5:|A128GCM|A192GCM|A256GCM|A128CBC-HS256|A192CBC-HS384|A256CBC-HS512|}\"\n    ttl = ${6:0}\n} ${7:\\$encoded_payload}"
+  },
+  "security.jws decode": {
+    "prefix": "security.jws_decode",
+    "description": "Security: Decode a JWS token",
+    "body": "security.jws_decode {\n    token = \"${1:jws_token}\"\n    key = \"${2:key}\"\n    check_claims = {${3:check_claims}}\n    signature_algorithm = ${4:|\"PS256\"|\"PS384\"|\"PS512\"|\"RS256\"|\"RS384\"|\"RS512\"|\"HS256\"|\"HS384\"|\"HS512\"|\"ES256\"|\"ES384\"|\"ES512\"|}\n    timeDrift = ${5:0}\n} ${6:\\$decoded_token}"
+  },
+  "security.jws encode": {
+    "prefix": "security.jws_encode",
+    "description": "Security: Encode a payload as a JWS token",
+    "body": "security.jws_encode {\n    headers = {${1:headers}}\n    claims = {${2:claims}}\n    key = \"${3:key}\"\n    signature_algorithm = ${4:|\"PS256\"|\"PS384\"|\"PS512\"|\"RS256\"|\"RS384\"|\"RS512\"|\"HS256\"|\"HS384\"|\"HS512\"|\"ES256\"|\"ES384\"|\"ES512\"|}\n    ttl = ${5:0}\n} ${6:\\$encrypted_payload}\n\n\n"
+  },
+  "security.random bytes": {
+    "prefix": "security.random_bytes",
+    "description": "Security: Generate a string of random bytes",
+    "body": "security.random_bytes {\n    length = ${1:16}\n} ${2:\\$random_bytes}"
+  },
+  "security.random number": {
+    "prefix": "security.random_number",
+    "description": "Security: Generate a random number",
+    "body": "security.random_number {\n    min = ${1:0}\n    max = ${2:9007199254740991}\n} ${3:\\$random_number}"
+  },
+  "storage.create attachment": {
+    "prefix": "storage.create_attachment",
+    "description": "Create attachment metadata from a File Resource.",
+    "body": "storage.create_attachment {\n  value = ${1:$\\input.attachment}\n  access = \"${2|public,private|}\"\n  filename = ${3:\"my_file.txt\"}\n} as ${4:\\$file}"
+  },
+  "storage.create file resource": {
+    "prefix": "storage.create_file_resource",
+    "description": "create a new file with the given data",
+    "body": "storage.create_file_resource {\n  filename = ${1:\"my_file.txt\"}\n  filedata = ${2:\\$file_data_content}\n} as ${3:\\$file}"
+  },
+  "storage.create image": {
+    "prefix": "storage.create_image",
+    "description": "Create attachment metadata from a File Resource.",
+    "body": "storage.create_image {\n  value = ${1:\\$input.image}\n  access = \"${2|public,private|}\"\n  filename = ${3:\"my_image.jpg\"}\n} as ${4:\\$image}\n"
+  },
+  "storage.delete file": {
+    "prefix": "storage.delete_file",
+    "description": "delete a file from storage",
+    "body": "storage.delete_file {\n  pathname = ${1:\"foo_bar.txt\"}\n}"
+  },
+  "storage.read file resource": {
+    "prefix": "storage.read_file_resource",
+    "description": "Get the raw data from a File Resource.",
+    "body": "storage.read_file_resource {\n  value = ${1:\\$input.file}\n} as ${2:\\$file_data_content}"
+  },
+  "storage.sign private url": {
+    "prefix": "storage.sign_private_url",
+    "description": "generate a signed URL for a private file object",
+    "body": "storage.sign_private_url {\n  pathname = ${1:\"foo/bar.txt\"}\n  ttl = ${2:30}\n} as ${3:\\$signed_url}"
+  },
+  "stream.from csv": {
+    "prefix": "stream.from_csv",
+    "description": "Parse a CSV file resource and stream its row data",
+    "body": "stream.from_csv {\n    value = ${1:\\$csv_file_resource}\n    separator = \"${2:,}\"\n    enclosure = \"${3:'}\"\n    escape_char = \"${4:'}\"\n} as ${5:\\$stream}"
+  },
+  "stream.from jsonl": {
+    "prefix": "stream.from_jsonl",
+    "description": "Parse a JSONL file resource and stream its row data",
+    "body": "stream.from_jsonl {\n    value = ${1:\\$jsonl_file_resource}\n} as ${2:\\$stream1}\n"
+  },
+  "stream.from request": {
+    "prefix": "stream.from_request",
+    "description": "convert an external request to a streaming API into an array",
+    "body": "stream.from_request {\n  url = ${1:\"http://example.com/api/v1\"}\n  method = ${2|\"POST\",\"GET\",\"PUT\",\"DELETE\", \"PATCH\"|}\n  params = ${3:{\\}|set:\"key\":\"value\"}\n  headers = ${4:[]|push:\"Set-Cookie: sessionId=e8bb43229de9; Domain=foo.example.com\"}\n  timeout = ${5:10}\n  follow_location = {6|true,false|}\n} as ${6:\\$stream_1}"
+  },
+  "switch.case": {
+    "prefix": "switch.case",
+    "description": "Switch case logic block",
+    "body": "switch (${1:\\$color}) {\n  case (${2:\"yellow\"}) {\n    \n  } break\n  case (${3:\"red\"}) {\n\n  } break\n\n  default {\n\n  }\n}"
+  },
+  "text.append": {
+    "prefix": "text.append",
+    "description": "Append text to an existing variable",
+    "body": "text.append ${1:\\$text} {\n    \"value\" = \"${2:}\"\n}"
+  },
+  "text.contains": {
+    "prefix": "text.contains",
+    "description": "Check if text contains a value",
+    "body": "text.contains ${1:\\$text} {\n    \"value\" = \"${2:}\"\n} as ${3:\\$result}"
+  },
+  "text.ends with": {
+    "prefix": "text.ends_with",
+    "description": "Check if text ends with a value",
+    "body": "text.ends_with ${1:\\$text} {\n    \"value\" = \"${2:}\"\n} as ${3:\\$result}"
+  },
+  "text.icontains": {
+    "prefix": "text.icontains",
+    "description": "Case-insensitive check if text contains a value",
+    "body": "text.icontains ${1:\\$text} {\n    \"value\" = \"${2:}\"\n} as ${3:\\$result}"
+  },
+  "text.iends with": {
+    "prefix": "text.iends_with",
+    "description": "Case-insensitive check if text ends with a value",
+    "body": "text.iends_with ${1:\\$text} {\n    \"value\" = \"${2:}\"\n} as ${3:\\$result}"
+  },
+  "text.istarts with": {
+    "prefix": "text.istarts_with",
+    "description": "Case-insensitive check if text starts with a value",
+    "body": "text.istarts_with ${1:\\$text} {\n    \"value\" = \"${2:}\"\n} as ${3:\\$result}"
+  },
+  "text.ltrim": {
+    "prefix": "text.ltrim",
+    "description": "Trim leading characters(default is whitespace) from text",
+    "body": "text.ltrim ${1:\\$text} {\n    \"value\" = \"${2:}\"\n}"
+  },
+  "text.prepend": {
+    "prefix": "text.prepend",
+    "description": "Prepend text to an existing variable",
+    "body": "text.prepend ${1:\\$text} {\n    \"value\" = \"${2:}\"\n}\n"
+  },
+  "text.rtrim": {
+    "prefix": "text.rtrim",
+    "description": "Trim trailing characters(default is whitespace) from text",
+    "body": "text.rtrim ${1:\\$text} {\n    \"value\" = \"${2:}\"\n}\n"
+  },
+  "text.starts with": {
+    "prefix": "text.starts_with",
+    "description": "Check if text starts with a value",
+    "body": "text.starts_with ${1:\\$text} {\n    \"value\" = \"${2:}\"\n} as ${3:\\$result}\n"
+  },
+  "text.trim": {
+    "prefix": "text.trim",
+    "description": "Trim characters(default is whitespace) from both ends of text",
+    "body": "text.trim ${1:\\$text} {\n    \"value\" = \"${2:}\"\n}"
+  },
+  "throw": {
+    "prefix": "throw",
+    "description": "throws an error and interrupt the current execution of the script",
+    "body": "throw {\n  name = ${1:\"error name\"}\n  value = ${2:\"error message\"}\n}"
+  },
+  "try catch.finally": {
+    "prefix": "try_catch.finally",
+    "description": "try a code block and catch any errors",
+    "body": "try_catch {\n  try {\n    ${1:try block}\n  }\n\n  catch {\n    debug.log {\n      value = ${2:\"Error!\"}\n    }\n  }\n  \n  finally {\n    ${3:finally block}\n  }\n}"
+  },
+  "try catch": {
+    "prefix": "try_catch",
+    "description": "try a code block and catch any errors",
+    "body": "try_catch {\n  try {\n     ${1:try block}\n  }\n\n  catch {\n    debug.log {\n      value = \"Error!\"\n    }\n  }\n}"
+  },
+  "util.geo distance": {
+    "prefix": "util.geo_distance",
+    "description": "compute the distance between two points",
+    "body": "util.geo_distance {\n  latitude_1 = ${1:40.71}\n  longitude_1 = ${2:74}\n  latitude_2 = ${3:48.86}\n  longitude_2 = ${4:2.35}\n} as ${5:\\$distance}"
+  },
+  "util.get all input": {
+    "prefix": "util.get_all_input",
+    "description": "This stores the parsed input data sent to the context in a variable",
+    "body": "util.get_all_input as ${1:\\$all_inputs}"
+  },
+  "util.get env": {
+    "prefix": "util.get_env",
+    "description": "Store all of the environment variables in a variable",
+    "body": "util.get_env as ${1:\\$all_env}"
+  },
+  "util.get input": {
+    "prefix": "util.get_input",
+    "description": "Store the entire RAW input for the request in a variable",
+    "body": "util.get_input as ${1:\\$all_env}"
+  },
+  "util.ip lookup": {
+    "prefix": "util.ip_lookup",
+    "description": "Get the geographic location of an IP Address.",
+    "body": "util.ip_lookup {\n  value = ${1:\"123.234.99.22\"}\n} as {$2:\\$loc}"
+  },
+  "util.post process": {
+    "prefix": "util.post_process",
+    "description": "Execute the function after the response has completed",
+    "body": "util.post_process {\n    stack {\n      ${1:}\n    }\n}"
+  },
+  "util.set header": {
+    "prefix": "util.set_header",
+    "description": "Add information to your response header",
+    "body": "util.set_header {\n  value = ${1:\"Set-Cookie: sessionId=e8bb43229de9; HttpOnly; Secure; Domain=foo.example.com\"}\n  duplicates = ${2:\"replace\"}\n}"
+  },
+  "util.sleep": {
+    "prefix": "util.sleep",
+    "description": "Pause execution for a specified amount of time.",
+    "body": "util.sleep {\n  value = ${1:5}\n}"
+  },
+  "util.template engine": {
+    "prefix": "util.template_engine",
+    "description": "create a text based template",
+    "body": "util.template_engine {\n  value = ${2:\"\"\"\n    hello {{ \\$name \\}\\}!\n    \"\"\"}\n} as ${1:\\$template}\n"
+  },
+  "var.update": {
+    "prefix": "var.update",
+    "description": "update an existing variable",
+    "body": "var.update ${0:\\$my_var.my_attr} {\n  value = ${1:\"new value\"}\n}"
+  },
+  "var": {
+    "prefix": "var",
+    "description": "a variable to contain any value",
+    "body": "var ${0:\\$name} {\n  value = ${1:\"value\"}\n}"
+  },
+  "while": {
+    "prefix": "while",
+    "description": "keep looping until the condition is false",
+    "body": "while (${1:`\\$my_value < 10`}) {\n  each {\n    \n  }\n}"
+  },
+  "zip.add to archive": {
+    "prefix": "zip.add_to_archive",
+    "description": "add a file to an existing archive",
+    "body": "zip.add_to_archive {\n  file = ${1:\\$input.file}\n  zip = ${2:\\$zip_file}\n}"
+  },
+  "zip.create archive": {
+    "prefix": "zip.create_archive",
+    "description": "Create a compressed zip archive",
+    "body": "zip.create_archive {\n  filename = ${1:\"some_file.zip\"}\n} as ${2:\\$zip_file}"
+  },
+  "zip.delete from archive": {
+    "prefix": "zip.delete_from_archive",
+    "description": "delete a file from a zip archive",
+    "body": "zip.delete_from_archive {\n  filename = {$1:\\$input.file}\n  zip = {$2:\\$input.file}\n}"
+  },
+  "zip.extract": {
+    "prefix": "zip.extract",
+    "description": "extract a zip file",
+    "body": "zip.extract {\n  zip = ${1:\\$zip_file}\n} as ${2:\\$output}"
+  },
+  "zip.view contents": {
+    "prefix": "zip.view_contents",
+    "description": "view content of a zip archive",
+    "body": "zip.view_contents {\n  zip = ${1:\\$input.file}\n} as ${2:\\$zip_content}"
+  }
+}
