@@ -497,6 +497,57 @@ function pull() {
                         console.error(`Unknown file operation ${fileOperation.operation}`);
                 }
             }
+            // Clean api_group duplicates before saving registry
+            // This prevents multiple records with the same path but different IDs (especially id=0)
+            const apiGroupsByPath = new Map();
+            const indicesToRemove = [];
+            // First pass: identify duplicates
+            for (let i = 0; i < registry.length; i++) {
+                const record = registry[i];
+                if (record.type === types_1.XanoObjectType.API_GROUP) {
+                    const existing = apiGroupsByPath.get(record.path);
+                    if (existing === undefined) {
+                        // First record for this path
+                        apiGroupsByPath.set(record.path, i);
+                    }
+                    else {
+                        // We have a duplicate
+                        const existingRecord = registry[existing];
+                        // Keep the record with valid ID (not 0)
+                        if (record.id !== 0 && existingRecord.id === 0) {
+                            // Current record is better, mark old one for removal
+                            indicesToRemove.push(existing);
+                            apiGroupsByPath.set(record.path, i);
+                        }
+                        else if (existingRecord.id !== 0 && record.id === 0) {
+                            // Existing is better, mark current for removal
+                            indicesToRemove.push(i);
+                        }
+                        else if (record.id === 0 && existingRecord.id === 0) {
+                            // Both have id=0, keep the first one (mark current for removal)
+                            indicesToRemove.push(i);
+                        }
+                        else if (existingRecord.id !== 0 && record.id !== 0 && existingRecord.id !== record.id) {
+                            // Both have different valid IDs - keep the one with higher ID (more recent)
+                            if (record.id > existingRecord.id) {
+                                indicesToRemove.push(existing);
+                                apiGroupsByPath.set(record.path, i);
+                            } else {
+                                indicesToRemove.push(i);
+                            }
+                        }
+                        // If both have the same valid ID, keep the first one
+                        else if (existingRecord.id === record.id) {
+                            indicesToRemove.push(i);
+                        }
+                    }
+                }
+            }
+            // Second pass: remove duplicates (from end to start to preserve indices)
+            const uniqueIndicesToRemove = [...new Set(indicesToRemove)].sort((a, b) => b - a);
+            for (const index of uniqueIndicesToRemove) {
+                registry.splice(index, 1);
+            }
             yield (0, registry_1.saveRegistry)(registry);
             changesTreeDataProvider_1.changesProvider.refresh();
         }))
@@ -553,6 +604,14 @@ function newRegistryRecord(fileOperations, obj, objType, path) {
         const localFilePath = (0, path_1.join)(config_1.ROOT_PATH, record.path);
         record.sha256 = (0, fsUtils_1.getFileHash)(yield (0, xsUtils_1.getXanoscriptContent)(objType, obj));
         record.original = Buffer.from(yield (0, xsUtils_1.getXanoscriptContent)(objType, obj)).toString("base64");
+        // Ensure parent directory exists before creating the file
+        const parentDir = (0, path_1.dirname)(localFilePath);
+        fileOperations.push({
+            operation: "create",
+            content: "",
+            fileType: vscode.FileType.Directory,
+            filePath: parentDir,
+        });
         fileOperations.push({
             operation: "create",
             content: yield (0, xsUtils_1.getXanoscriptContent)(objType, obj),
@@ -592,6 +651,14 @@ function updateExistingRegistryRecord(fileOperations, record, script) {
         if (record.status === types_1.XanoStatus.UNCHANGED) {
             record.sha256 = (0, fsUtils_1.getFileHash)(script);
             record.original = Buffer.from(script).toString("base64");
+            // Ensure parent directory exists before updating the file
+            const parentDir = (0, path_1.dirname)(localFilePath);
+            fileOperations.push({
+                operation: "update",
+                content: "",
+                fileType: vscode.FileType.Directory,
+                filePath: parentDir,
+            });
             fileOperations.push({
                 operation: "update",
                 content: script,
@@ -607,6 +674,14 @@ function updateExistingRegistryRecord(fileOperations, record, script) {
             if (patchedScript) {
                 record.sha256 = (0, fsUtils_1.getFileHash)(script);
                 record.original = Buffer.from(script).toString("base64");
+                // Ensure parent directory exists before updating the file (in case it was deleted)
+                const parentDir = (0, path_1.dirname)(localFilePath);
+                fileOperations.push({
+                    operation: "update",
+                    content: "",
+                    fileType: vscode.FileType.Directory,
+                    filePath: parentDir,
+                });
                 fileOperations.push({
                     operation: "update",
                     content: patchedScript,
@@ -717,6 +792,11 @@ function compareWithLocalFile(obj, registryRecord) {
     return __awaiter(this, void 0, void 0, function* () {
         const localFilePath = (0, path_1.join)(config_1.ROOT_PATH, registryRecord.path);
         const localScript = yield (0, fsUtils_1.readFile)(localFilePath);
+        // For api_group and other objects without xanoscript, compare with generated content
+        if (!obj.xanoscript) {
+            const generatedContent = yield (0, xsUtils_1.getXanoscriptContent)(registryRecord.type, obj);
+            return generatedContent === localScript;
+        }
         return obj.xanoscript.status === "ok" && obj.xanoscript.value === localScript;
     });
 }
