@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pullCmd = void 0;
+exports.pullCmd = pullCmd;
 const pull_1 = require("../registry/pull");
 const assertHasWorkspace_1 = require("./assertHasWorkspace");
 function pullCmd() {
@@ -24,5 +24,4 @@ function pullCmd() {
         }
     });
 }
-exports.pullCmd = pullCmd;
 //# sourceMappingURL=pull.js.map

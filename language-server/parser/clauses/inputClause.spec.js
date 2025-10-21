@@ -24,6 +24,17 @@ describe("inputClause", () => {
     expect(parser.errors).to.be.empty;
   });
 
+  it("inputClause field accepts a description as a comment", () => {
+    const parser = parse(`input {
+        // this is a label
+        text label
+
+        // another comment
+        int rank
+      }`);
+    expect(parser.errors).to.be.empty;
+  });
+
   it("inputClause accepts a description", () => {
     const parser = parse(`input {
         text label {

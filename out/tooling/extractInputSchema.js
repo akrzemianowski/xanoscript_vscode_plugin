@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.extractInputSchema = void 0;
+exports.extractInputSchema = extractInputSchema;
 const inputTypes_1 = require("./inputTypes");
 function extractInputSchema(tableContent) {
     const lines = tableContent.split("\n");
@@ -60,5 +60,4 @@ function extractInputSchema(tableContent) {
     }
     return schema;
 }
-exports.extractInputSchema = extractInputSchema;
 //# sourceMappingURL=extractInputSchema.js.map

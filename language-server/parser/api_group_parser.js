@@ -21,6 +21,8 @@ export function apiGroupDeclaration($) {
     let hasTags = false;
 
     $.sectionStack.push("apiGroupDeclaration");
+    // Allow leading comments and newlines before the api_group declaration
+    $.SUBRULE($.optionalCommentBlockFn);
     const parent = $.CONSUME(ApiGroupToken); // api_group
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -30,6 +32,9 @@ export function apiGroupDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken));
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasActive,
           ALT: () => {

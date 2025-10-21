@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setupAgentInstructionsCmd = void 0;
+exports.setupAgentInstructionsCmd = setupAgentInstructionsCmd;
 const function_guideline_md_1 = require("../docs/function_guideline.md");
 const function_examples_md_1 = require("../docs/function_examples.md");
 const api_query_guideline_md_1 = require("../docs/api_query_guideline.md");
@@ -69,8 +69,8 @@ const docs = [
     { name: "tool_examples", content: tool_examples_md_1.default },
 ];
 function setupAgentInstructionsCmd() {
-    var _a;
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         // create the main AGENTS.md file at the root of the project
         const rootUri = vscode.Uri.parse(((_a = vscode.workspace.workspaceFolders) === null || _a === void 0 ? void 0 : _a[0].uri.toString()) || "");
         yield (0, fsUtils_1.writeFile)((0, path_1.join)(rootUri.fsPath, "AGENTS.md"), AGENTS_md_1.default);
@@ -123,5 +123,4 @@ function setupAgentInstructionsCmd() {
         vscode.window.showInformationMessage("Agent instruction files have been set up in your project.");
     });
 }
-exports.setupAgentInstructionsCmd = setupAgentInstructionsCmd;
 //# sourceMappingURL=setupAgentInstructions.js.map

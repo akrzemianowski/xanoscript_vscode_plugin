@@ -1,5 +1,5 @@
 import { LCurly, RCurly } from "../../lexer/control.js";
-import { InputToken,NewlineToken } from "../../lexer/tokens.js";
+import { InputToken, NewlineToken } from "../../lexer/tokens.js";
 
 /**
  * @param {import('../base_parser.js').XanoBaseParser} $
@@ -13,6 +13,8 @@ export function inputClause($) {
       $.CONSUME(LCurly); // "{"
       $.MANY(() => {
         $.AT_LEAST_ONE1(() => $.CONSUME1(NewlineToken)); // at least one new line
+        $.SUBRULE($.optionalCommentBlockFn);
+
         $.OR([
           { ALT: () => $.SUBRULE($.objectColumnDefinition) },
           { ALT: () => $.SUBRULE($.enumColumnDefinition) },

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerStatusBar = exports.runTestsStatusBarItem = exports.branchStatusBarItem = exports.workspaceStatusBarItem = exports.instanceStatusBarItem = exports.userStatusBar = void 0;
+exports.runTestsStatusBarItem = exports.branchStatusBarItem = exports.workspaceStatusBarItem = exports.instanceStatusBarItem = exports.userStatusBar = void 0;
+exports.registerStatusBar = registerStatusBar;
 const vscode = require("vscode");
 const lodash_1 = require("lodash");
 const config_1 = require("./config");
@@ -126,5 +127,4 @@ function registerStatusBar(context) {
         onUiStateChange,
     ]);
 }
-exports.registerStatusBar = registerStatusBar;
 //# sourceMappingURL=registerStatusBar.js.map

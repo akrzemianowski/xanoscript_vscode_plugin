@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.openChangedFileCmd = void 0;
+exports.openChangedFileCmd = openChangedFileCmd;
 const vscode = require("vscode");
 const config_1 = require("../config");
 const path_1 = require("path");
@@ -27,5 +27,4 @@ function openChangedFileCmd(node) {
         });
     });
 }
-exports.openChangedFileCmd = openChangedFileCmd;
 //# sourceMappingURL=openFile.js.map

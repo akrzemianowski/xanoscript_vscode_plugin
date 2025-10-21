@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.discardChanges = exports.discardChangesCmd = void 0;
+exports.discardChangesCmd = discardChangesCmd;
+exports.discardChanges = discardChanges;
 const vscode = require("vscode");
 const changesTreeDataProvider_1 = require("../view/changes/changesTreeDataProvider");
 const registry_1 = require("../registry/registry");
@@ -26,7 +27,6 @@ function discardChangesCmd(node) {
         discardChanges(node.path);
     });
 }
-exports.discardChangesCmd = discardChangesCmd;
 function discardChanges(path) {
     return __awaiter(this, void 0, void 0, function* () {
         let registry = yield (0, registry_1.getRegistry)();
@@ -91,5 +91,4 @@ function discardChanges(path) {
         }
     });
 }
-exports.discardChanges = discardChanges;
 //# sourceMappingURL=discardChanges.js.map

@@ -22,6 +22,9 @@ export function middlewareDeclaration($) {
     const testNames = [];
 
     $.sectionStack.push("middlewareDeclaration");
+    // Allow leading comments and newlines before the middleware declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     const parent = $.CONSUME(MiddlewareToken);
     $.OR([
       { ALT: () => $.CONSUME(Identifier) },
@@ -31,6 +34,9 @@ export function middlewareDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasDescription,
           ALT: () => {

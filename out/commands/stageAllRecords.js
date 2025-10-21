@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.stageAllRecordsCmd = void 0;
+exports.stageAllRecordsCmd = stageAllRecordsCmd;
 const vscode = require("vscode");
 const registry_1 = require("../registry/registry");
 const changesTreeDataProvider_1 = require("../view/changes/changesTreeDataProvider");
@@ -31,5 +31,4 @@ function stageAllRecordsCmd() {
         return true;
     });
 }
-exports.stageAllRecordsCmd = stageAllRecordsCmd;
 //# sourceMappingURL=stageAllRecords.js.map

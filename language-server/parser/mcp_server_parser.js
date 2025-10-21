@@ -20,6 +20,8 @@ export function mcpServerDeclaration($) {
     let hasTools = false;
 
     $.sectionStack.push("mcpServerDeclaration");
+    // Allow leading comments and newlines before the mcp_server declaration
+    $.SUBRULE($.optionalCommentBlockFn);
     const parent = $.CONSUME(McpServerToken); // mcp_server
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -29,6 +31,9 @@ export function mcpServerDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasActive,
           ALT: () => {

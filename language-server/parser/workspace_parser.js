@@ -16,6 +16,9 @@ export function workspaceDeclaration($) {
     let hasRealtime = false;
 
     $.sectionStack.push("workspaceDeclaration");
+    // Allow leading comments and newlines before the workspace declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     $.CONSUME(WorkspaceToken); // workspace
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -25,6 +28,9 @@ export function workspaceDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasAcceptance,
           ALT: () => {

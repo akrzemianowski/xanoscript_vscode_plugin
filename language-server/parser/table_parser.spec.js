@@ -19,6 +19,7 @@ describe("table_parser", () => {
         auth = false
 
         schema {
+          // Primary key
           int id
         }
 
@@ -42,7 +43,6 @@ describe("table_parser", () => {
         }
       }`);
 
-    console.log(parser.errors[0].message);
     expect(parser.errors).to.not.be.empty;
   });
 

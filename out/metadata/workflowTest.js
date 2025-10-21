@@ -9,7 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteWorkflowTest = exports.runWorkflowTestFromXs = exports.createWorkflowTestFromXs = exports.createWorkflowTest = exports.updateWorkflowTest = exports.fetchWorkflowTest = exports.fetchWorkflowTests = void 0;
+exports.fetchWorkflowTests = fetchWorkflowTests;
+exports.fetchWorkflowTest = fetchWorkflowTest;
+exports.updateWorkflowTest = updateWorkflowTest;
+exports.createWorkflowTest = createWorkflowTest;
+exports.createWorkflowTestFromXs = createWorkflowTestFromXs;
+exports.runWorkflowTestFromXs = runWorkflowTestFromXs;
+exports.deleteWorkflowTest = deleteWorkflowTest;
 const config_1 = require("../config");
 const request_1 = require("./request");
 const vscode = require("vscode");
@@ -39,7 +45,6 @@ function fetchWorkflowTests(instanceName, workspaceId) {
         return customFunctions;
     });
 }
-exports.fetchWorkflowTests = fetchWorkflowTests;
 /**
  * Fetch a workflow test with its XanoScript definition
  *
@@ -58,7 +63,6 @@ function fetchWorkflowTest(instanceName, workspaceId, workflowTestId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/workflow_test/${workflowTestId}?${queryParams.toString()}`);
     });
 }
-exports.fetchWorkflowTest = fetchWorkflowTest;
 /**
  * Update a workflow test with XanoScript
  *
@@ -87,7 +91,6 @@ function updateWorkflowTest(instanceName, workspaceId, workflowTestId, xanoscrip
         return fetchWorkflowTest(instanceName, workspaceId, workflowTestId);
     });
 }
-exports.updateWorkflowTest = updateWorkflowTest;
 /**
  * Create a new workflow test using XanoScript
  *
@@ -114,7 +117,6 @@ function createWorkflowTest(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createWorkflowTest = createWorkflowTest;
 /**
  * Create a new workflow test using XanoScript
  *
@@ -136,7 +138,6 @@ function createWorkflowTestFromXs(instanceName, workspaceId, xanoscript) {
         });
     });
 }
-exports.createWorkflowTestFromXs = createWorkflowTestFromXs;
 /**
  * Run a workflow test using XanoScript
  *
@@ -158,7 +159,6 @@ function runWorkflowTestFromXs(instanceName, workspaceId, xanoscript) {
         });
     });
 }
-exports.runWorkflowTestFromXs = runWorkflowTestFromXs;
 /**
  * Delete a workflow test
  *
@@ -173,5 +173,4 @@ function deleteWorkflowTest(instanceName, workspaceId, workflowTestId) {
         });
     });
 }
-exports.deleteWorkflowTest = deleteWorkflowTest;
 //# sourceMappingURL=workflowTest.js.map

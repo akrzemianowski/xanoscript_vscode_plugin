@@ -52,31 +52,43 @@ export const AuthVariable = createUniqToken({
 export const RemoteIpVariable = createUniqToken({
   name: "$remote_ip",
   pattern: /\$remote_ip/,
+  longer_alt: ShortFormVariable,
+});
+
+export const ErrorVariable = createUniqToken({
+  name: "$error",
+  pattern: /\$error/,
+  longer_alt: ShortFormVariable,
 });
 
 export const RemotePortVariable = createUniqToken({
   name: "$remote_port",
   pattern: /\$remote_port/,
+  longer_alt: ShortFormVariable,
 });
 
 export const RemoteUserVariable = createUniqToken({
   name: "$remote_user",
   pattern: /\$remote_user/,
+  longer_alt: ShortFormVariable,
 });
 
 export const RemotePasswordVariable = createUniqToken({
   name: "$remote_passwd",
   pattern: /\$remote_passwd/,
+  longer_alt: ShortFormVariable,
 });
 
 export const RemoteHostVariable = createUniqToken({
   name: "$remote_host",
   pattern: /\$remote_host/,
+  longer_alt: ShortFormVariable,
 });
 
 export const RequestMethod = createUniqToken({
   name: "$request_method",
   pattern: /\$request_method/,
+  longer_alt: ShortFormVariable,
 });
 
 export const VariableTokens = [
@@ -86,6 +98,7 @@ export const VariableTokens = [
   InputVariable,
   EnvVariable,
   AuthVariable,
+  ErrorVariable,
   RemoteIpVariable,
   RemotePortVariable,
   RemoteUserVariable,
@@ -102,6 +115,7 @@ export const VariableTokens = [
 export function mapTokenToType(token) {
   switch (token) {
     case InputVariable.name:
+    case ErrorVariable.name:
     case EnvVariable.name:
     case AuthVariable.name:
     case RemoteIpVariable.name:

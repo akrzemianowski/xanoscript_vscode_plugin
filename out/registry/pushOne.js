@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pushOne = void 0;
+exports.pushOne = pushOne;
 const vscode = require("vscode");
 const push_1 = require("./push");
 const pull_1 = require("./pull");
@@ -58,5 +58,4 @@ function pushOne(record) {
         }
     });
 }
-exports.pushOne = pushOne;
 //# sourceMappingURL=pushOne.js.map

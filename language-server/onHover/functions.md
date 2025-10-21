@@ -1684,6 +1684,26 @@ try_catch {
 
 Executes a block of code in the `try` section, catching any errors in the `catch` block for error handling (e.g., logging the error). The optional `finally` block runs regardless of success or failure, useful for cleanup tasks.
 
+# util.send_email
+
+```xs
+util.send_email {
+  service_provider = "resend"
+  api_key = $env.RESEND_API_KEY
+  from = $.env.EMAIL_SENDER
+  to = "user@example.com"
+  subject = "Hello " ~ $user.name
+  message = """
+    Hello {{ $user.name }},
+    {{ $message }}
+  """
+} as $email_status
+```
+
+Sends an email using the specified `service_provider` (e.g., `"resend"` or `"xano"`). The `api_key` authenticates the request, while `from`, `to`, `subject`, and `message` define the email details. The result of the email operation is stored in the variable defined by `as`, here `$email_status`.
+
+Service provider can be one of: `"xano"`, `"resend"`. When using `"xano"`, you are limited to sending emails only to your account admin email address.
+
 # util.template_engine
 
 ```xs
@@ -2431,3 +2451,65 @@ api_group "products" {
 ```
 
 Defines a unique identifier for the API group or other resources. In the case of an API group, this identifier will be used as part of the URL of each endpoint it contains.
+
+# $input
+
+```xs
+$input.user_id
+```
+
+The `$input` variable provides access to all input parameters sent to the script’s context. It is an object containing key-value pairs representing the input data, which can be accessed and manipulated within the script.
+
+# $env
+
+The `$env` variable allows access to environment variables defined within your workspace. These variables can store sensitive information like API keys or configuration settings, which can be referenced securely within your script.
+
+Xano also defines a series of default environment variables for you to use within your functions:
+
+- `$env.$remote_ip`: resolves to the IP address of the individual accessing the API endpoint.
+- `$env.$http_headers`: this is a text array of headers that are sent to the API endpoint.
+- `$env.$api_baseurl`: contains the base URL of the active endpoint.
+- `$env.$request_uri`: contains the URI that is being accessed from the API.
+- `$env.$request_method`: this is the method (GET, POST, DELETE, etc) of the incoming API request.
+- `$env.$request_querystring`: contains the query string of the URI that is being accessed from the API.
+- `$env.$request_auth_token`: contains the authorization token of the API request.
+- `$env.$datasource`: contains which datasource is being used.
+- `$env.$branch`: contains which branch is being used.
+
+# $error
+
+The `$error` variable only exists within the `catch` of a `try_catch` block and provides details about the most recent error that occurred within a `try` block. It contains properties such as `code`, `message`, `name`, and `result`, which can be used for error handling and logging purposes.
+
+```xs
+try_catch {
+  try {
+    function.run some_function {
+      input = { param: "value" }
+    }
+  }
+  catch {
+    var.update $my_error {
+      code = $error.code
+      message = $error.message
+      name = $error.name
+      result = $error.result
+    }
+  }
+}
+```
+
+# $var
+
+The `$var` variable provides access to all user-defined variables within the script. `$var` can also be accessed through their short form (e.g., `$counter`) so long that these do not conflict with reserved keywords (`$input`, `$env`, `$error`...).
+
+You may use `var.update` to modify the value of a variable during script execution.
+
+```xs
+var $counter {
+  value = 1
+}
+
+var.update $counter {
+  value = $var.counter + 1
+}
+```

@@ -21,6 +21,8 @@ export function agentTriggerDeclaration($) {
     let hasTags = false;
 
     $.sectionStack.push("agentTriggerDeclaration");
+    // Allow leading comments and newlines before the agent_trigger declaration
+    $.SUBRULE($.optionalCommentBlockFn);
     const parent = $.CONSUME(AgentTriggerToken); // agent_trigger
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -30,6 +32,9 @@ export function agentTriggerDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasActions,
           ALT: () => {

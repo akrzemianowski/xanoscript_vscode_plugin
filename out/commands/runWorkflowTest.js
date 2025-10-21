@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.runWorkflowTestCmd = void 0;
+exports.runWorkflowTestCmd = runWorkflowTestCmd;
 const vscode = require("vscode");
 const workflowTest_1 = require("../metadata/workflowTest");
 const config_1 = require("../config");
@@ -41,5 +41,4 @@ function runWorkflowTestCmd() {
         }
     });
 }
-exports.runWorkflowTestCmd = runWorkflowTestCmd;
 //# sourceMappingURL=runWorkflowTest.js.map

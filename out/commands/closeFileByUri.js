@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.closeFileByUri = void 0;
+exports.closeFileByUri = closeFileByUri;
 const vscode = require("vscode");
 function closeFileByUri(uri) {
     return new Promise((resolve) => {
@@ -25,5 +25,4 @@ function closeFileByUri(uri) {
         }));
     });
 }
-exports.closeFileByUri = closeFileByUri;
 //# sourceMappingURL=closeFileByUri.js.map

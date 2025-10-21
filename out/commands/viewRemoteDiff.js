@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.viewRemoteDiffCmd = void 0;
+exports.viewRemoteDiffCmd = viewRemoteDiffCmd;
 const vscode = require("vscode");
 const config_1 = require("../config");
 const path_1 = require("path");
@@ -31,5 +31,4 @@ function viewRemoteDiffCmd(path) {
         vscode.commands.executeCommand("vscode.diff", originalUri, modifiedUri, `${path.split("/").pop()} (Remote ↔ Local)`);
     });
 }
-exports.viewRemoteDiffCmd = viewRemoteDiffCmd;
 //# sourceMappingURL=viewRemoteDiff.js.map

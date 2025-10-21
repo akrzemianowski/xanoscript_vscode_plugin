@@ -8,9 +8,7 @@ describe("task_parser", () => {
   stack {
   }
 
-  schedule {
-    events = []
-  }
+  schedule = []
 }`);
     expect(parser.errors).to.be.empty;
   });
@@ -21,9 +19,9 @@ describe("task_parser", () => {
   stack {
   }
 
-  schedule {
-    events = [{starts_on: 2025-08-27 20:13:22+0000, freq: 86400}]
-  }
+  schedule = [
+    {starts_on: 2025-08-27 20:13:22+0000, freq: 86400}
+  ]
 
   history = "inherit"
 }`);
@@ -36,9 +34,8 @@ describe("task_parser", () => {
   stack {
   }
 
-  schedule {
-    events = []
-  }
+  schedule = []
+
 }`);
     expect(parser.errors).to.be.empty;
   });
@@ -53,14 +50,34 @@ describe("task_parser", () => {
   stack {
   }
 
-  schedule {
-    events = [{starts_on: 2025-08-27 20:13:22+0000, freq: 86400}]
-  }
+  schedule = [
+    {starts_on: 2025-08-27 20:13:22+0000, freq: 86400}
+  ]
 
   history = "inherit"
 
   tags = ["production", "critical"]
 }`);
+    expect(parser.errors).to.be.empty;
+  });
+
+  it("should handle multiple schedules", () => {
+    const parser = xanoscriptParser(`task foo {
+      active = false
+    
+      stack {
+      }
+    
+      schedule = [
+        {starts_on: 2025-10-14 12:47:59+0000}
+        {starts_on: 2025-10-14 12:48:02+0000, freq: 86400}
+        {
+          starts_on: 2025-10-14 12:48:05+0000
+          freq     : 259200
+          ends_on  : 2025-10-14 12:48:05+0000
+        }
+      ]
+    }`);
     expect(parser.errors).to.be.empty;
   });
 });

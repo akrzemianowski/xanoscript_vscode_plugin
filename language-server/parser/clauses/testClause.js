@@ -4,6 +4,7 @@ import {
   Identifier,
   InputToken,
   NewlineToken,
+  StaticPathToken,
   TestToken,
 } from "../../lexer/tokens.js";
 import { DatasourceToken } from "../../lexer/workflow_test.js";
@@ -24,6 +25,7 @@ export function testClause($) {
     const testNameToken = $.OR([
       { ALT: () => $.CONSUME(StringLiteral) }, // "foo"
       { ALT: () => $.CONSUME(Identifier) }, // foo
+      { ALT: () => $.CONSUME(StaticPathToken) }, // foo/bar/baz
     ]);
 
     if (testNameToken && testNameToken.image) {

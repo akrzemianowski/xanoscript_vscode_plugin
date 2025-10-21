@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createApiEndpointCmd = void 0;
+exports.createApiEndpointCmd = createApiEndpointCmd;
 const vscode = require("vscode");
 const lodash_1 = require("lodash");
 const openXanoscriptEditor_1 = require("./openXanoscriptEditor");
@@ -90,5 +90,4 @@ function createApiEndpointCmd() {
         }
     });
 }
-exports.createApiEndpointCmd = createApiEndpointCmd;
 //# sourceMappingURL=createApiEndpoint.js.map

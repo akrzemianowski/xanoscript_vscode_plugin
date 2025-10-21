@@ -15,12 +15,20 @@ does that
 and that
 # api
 does that
+# $var
+a variable
 `;
 
 describe("FunctionMessageProvider", () => {
   it("should return the message of the function", () => {
     const messageProvider = new FunctionMessageProvider(testdoc);
     expect(messageProvider.__functionDoc["api.lambda"]).to.not.be.undefined;
+  });
+
+  it("should define the $var", () => {
+    const messageProvider = new FunctionMessageProvider(testdoc);
+    console.log(messageProvider.__functionDoc);
+    expect(messageProvider.__functionDoc["$var"]).to.not.be.undefined;
   });
 
   it("should parse the functions from the documentation", () => {
@@ -76,6 +84,9 @@ describe("FunctionMessageProvider", () => {
         foo: {
           api: { __value: "api.foo.lambda" },
         },
+      },
+      $var: {
+        __value: "$var",
       },
       api: {
         __value: "api",

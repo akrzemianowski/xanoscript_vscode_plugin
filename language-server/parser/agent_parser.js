@@ -1,4 +1,5 @@
 import { AgentToken, LLMToken, ToolsToken } from "../lexer/agent.js";
+import { CommentToken } from "../lexer/comment.js";
 import { EqualToken, LCurly, RCurly } from "../lexer/control.js";
 import { StringLiteral } from "../lexer/literal.js";
 import { Identifier, NewlineToken } from "../lexer/tokens.js";
@@ -16,6 +17,8 @@ export function agentDeclaration($) {
     let hasOutput = false;
 
     $.sectionStack.push("agentDeclaration");
+    // Allow leading comments and newlines before the agent declaration
+    $.SUBRULE($.optionalCommentBlockFn);
     const parent = $.CONSUME(AgentToken); // agent
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -24,7 +27,13 @@ export function agentDeclaration($) {
     $.CONSUME(LCurly); // "{"
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
+      // Allow comments between newlines and clauses
+      $.MANY4(() => $.CONSUME5(CommentToken));
+      $.MANY5(() => $.CONSUME6(NewlineToken)); // more newlines after comments
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasCanonical,
           ALT: () => {

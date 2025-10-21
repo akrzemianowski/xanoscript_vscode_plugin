@@ -38,7 +38,11 @@ const schemeByFirstWord = {
   workspace_trigger: "workspace_trigger",
 };
 
-const firstWordRegex = /^\s*(\w+)/;
+// Matches the first keyword after optional whitespace and comments
+// Skips:
+// - Whitespace (spaces, tabs, newlines)
+// - Comments (// ... until end of line)
+const firstWordRegex = /^(?:\s|\/\/[^\n]*\n)*(\w+)/;
 /**
  * detects the scheme to used based on the first word of the document
  * @param {string} source The source code of the document

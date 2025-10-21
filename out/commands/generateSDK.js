@@ -9,12 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateSDK = exports.generateSDKCmd = void 0;
+exports.generateSDKCmd = generateSDKCmd;
+exports.generateSDK = generateSDK;
 const vscode = require("vscode");
 const api_1 = require("../metadata/api");
 const config_1 = require("../config");
-const path_1 = require("path");
-const OpenAPI = require("ts-openapi-codegen");
+// import * as OpenAPI from "ts-openapi-codegen";
 function generateSDKCmd(outputPath) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!outputPath) {
@@ -37,10 +37,9 @@ function generateSDKCmd(outputPath) {
         }
     });
 }
-exports.generateSDKCmd = generateSDKCmd;
 function generateSDK(outputPath) {
-    var _a;
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         const apiGroups = yield (0, api_1.fetchApiGroups)(config_1.config.instanceName, config_1.config.workspaceId);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const paths = {};
@@ -65,19 +64,18 @@ function generateSDK(outputPath) {
                 paths[`${apiGroupPath}${path}`] = jsonSpec.paths[path];
             }
         }
-        yield OpenAPI.generate({
-            input: Object.assign(Object.assign({}, jsonSpec), { paths, servers: [{ url: serverUrl }] }),
-            output: (0, path_1.join)(config_1.ROOT_PATH, outputPath),
-            httpClient: OpenAPI.HttpClient.FETCH,
-            useUnionTypes: true,
-            exportCore: true,
-            exportSchemas: false,
-            exportServices: true,
-            typePrefix: "Xano",
-            clean: true,
-            write: true,
-        });
+        // await OpenAPI.generate({
+        //   input: { ...jsonSpec, paths, servers: [{ url: serverUrl }] },
+        //   output: join(ROOT_PATH, outputPath),
+        //   httpClient: OpenAPI.HttpClient.FETCH,
+        //   useUnionTypes: true,
+        //   exportCore: true,
+        //   exportSchemas: false,
+        //   exportServices: true,
+        //   typePrefix: "Xano",
+        //   clean: true,
+        //   write: true,
+        // });
     });
 }
-exports.generateSDK = generateSDK;
 //# sourceMappingURL=generateSDK.js.map

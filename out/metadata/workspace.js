@@ -9,7 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchWorkspaceDataSources = exports.fetchWorkspaceBranch = exports.fetchWorkspaceBranches = exports.fetchInstanceWorkspaces = exports.fetchInstanceWorkspace = exports.fetchInstance = exports.fetchInstances = void 0;
+exports.fetchInstances = fetchInstances;
+exports.fetchInstance = fetchInstance;
+exports.fetchInstanceWorkspace = fetchInstanceWorkspace;
+exports.fetchInstanceWorkspaces = fetchInstanceWorkspaces;
+exports.fetchWorkspaceBranches = fetchWorkspaceBranches;
+exports.fetchWorkspaceBranch = fetchWorkspaceBranch;
+exports.fetchWorkspaceDataSources = fetchWorkspaceDataSources;
 const request_1 = require("./request");
 /**
  * Retrieve all the instances the user has access to
@@ -19,7 +25,6 @@ function fetchInstances() {
         return (0, request_1.metadataXanoRequest)("instance");
     });
 }
-exports.fetchInstances = fetchInstances;
 /**
  * Retrieve the instance info provided that the current user
  * has access to it.
@@ -43,7 +48,6 @@ function fetchInstance(instanceName) {
         }
     });
 }
-exports.fetchInstance = fetchInstance;
 /**
  * Retrieve the instance info provided that the current user
  * has access to it.
@@ -53,7 +57,6 @@ function fetchInstanceWorkspace(instanceName, workspaceId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}`);
     });
 }
-exports.fetchInstanceWorkspace = fetchInstanceWorkspace;
 /**
  * Retrieve all the workspaces within a given instance
  * /workspace
@@ -63,7 +66,6 @@ function fetchInstanceWorkspaces(instanceName) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace`);
     });
 }
-exports.fetchInstanceWorkspaces = fetchInstanceWorkspaces;
 /**
  * Get workspace branches
  */
@@ -72,7 +74,6 @@ function fetchWorkspaceBranches(instanceName, workspaceId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/branch`);
     });
 }
-exports.fetchWorkspaceBranches = fetchWorkspaceBranches;
 /**
  * Get workspace branch
  */
@@ -86,7 +87,6 @@ function fetchWorkspaceBranch(instanceName, workspaceId, branchLabel) {
         throw new Error(`Branch ${branchLabel} not found`);
     });
 }
-exports.fetchWorkspaceBranch = fetchWorkspaceBranch;
 /**
  * Get workspace data sources
  */
@@ -95,5 +95,4 @@ function fetchWorkspaceDataSources(instanceName, workspaceId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/datasource`);
     });
 }
-exports.fetchWorkspaceDataSources = fetchWorkspaceDataSources;
 //# sourceMappingURL=workspace.js.map

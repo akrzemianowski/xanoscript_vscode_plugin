@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerViews = void 0;
+exports.registerViews = registerViews;
 const vscode = require("vscode");
 const changesTreeDataProvider_1 = require("./view/changes/changesTreeDataProvider");
 const registerState_1 = require("./registerState");
@@ -17,7 +17,6 @@ function registerViews(context) {
     ];
     context.subscriptions.push(...views);
 }
-exports.registerViews = registerViews;
 class XanoShortcutViewProvider {
     constructor(_context) {
         this._context = _context;

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unstageAllRecordsCmd = void 0;
+exports.unstageAllRecordsCmd = unstageAllRecordsCmd;
 const vscode = require("vscode");
 const registry_1 = require("../registry/registry");
 const changesTreeDataProvider_1 = require("../view/changes/changesTreeDataProvider");
@@ -28,5 +28,4 @@ function unstageAllRecordsCmd() {
         changesTreeDataProvider_1.changesProvider.refresh();
     });
 }
-exports.unstageAllRecordsCmd = unstageAllRecordsCmd;
 //# sourceMappingURL=unstageAllRecords.js.map

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getInstanceDomainFromCache = void 0;
+exports.getInstanceDomainFromCache = getInstanceDomainFromCache;
 const workspace_1 = require("./workspace");
 const DOMAIN_CACHE_TTL = 10 * 60 * 1000; // cache domains for 10 minutes
 // maintain a cache of instance names to their respective domains
@@ -39,5 +39,4 @@ function getInstanceDomainFromCache(instanceName) {
         return instance.xano_domain;
     });
 }
-exports.getInstanceDomainFromCache = getInstanceDomainFromCache;
 //# sourceMappingURL=cache.js.map

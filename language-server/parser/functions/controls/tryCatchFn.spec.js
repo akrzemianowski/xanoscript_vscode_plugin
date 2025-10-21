@@ -37,6 +37,62 @@ describe("tryCatchFn", () => {
     expect(parser.errors).to.be.empty;
   });
 
+  it("tryCatchFn allows $error", () => {
+    const parser = parse(`try_catch {
+      try {
+        var $x1 {
+          value = "try"
+        }
+      }
+    
+      catch {
+        var $x1 {
+          value = {
+            name: $error.name
+            code: $error.code
+            message: $error.message
+            result: $error.result
+          }
+        }
+      }
+    }`);
+    expect(parser.errors).to.be.empty;
+  });
+
+  it("tryCatchFn rejects unknown $error attributes", () => {
+    const parser = parse(`try_catch {
+      try {
+        var $x1 {
+          value = "try"
+        }
+      }
+    
+      catch {
+        var $x1 {
+          value = $error.unknown
+        }
+      }
+    }`);
+    expect(parser.errors).to.not.be.empty;
+  });
+
+  it("tryCatchFn rejects $error outside of catch block", () => {
+    const parser = parse(`try_catch {
+      try {
+        var $x1 {
+          value = $error.message
+        }
+      }
+    
+      catch {
+        var $x1 {
+          value = $error.code
+        }
+      }
+    }`);
+    expect(parser.errors).to.not.be.empty;
+  });
+
   it("tryCatchFn accepts a description", () => {
     const parser = parse(`try_catch {
       description = "try catch block"

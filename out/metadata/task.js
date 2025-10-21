@@ -9,7 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTask = exports.createTask = exports.createTaskFromXs = exports.fetchTasks = exports.activateTask = exports.updateTaskScript = exports.fetchTask = void 0;
+exports.fetchTask = fetchTask;
+exports.updateTaskScript = updateTaskScript;
+exports.activateTask = activateTask;
+exports.fetchTasks = fetchTasks;
+exports.createTaskFromXs = createTaskFromXs;
+exports.createTask = createTask;
+exports.deleteTask = deleteTask;
 const request_1 = require("./request");
 const config_1 = require("../config");
 const vscode = require("vscode");
@@ -29,7 +35,6 @@ function fetchTask(instanceName, workspaceId, taskId) {
     queryParams.set("include_xanoscript", "true");
     return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/task/${taskId}?${queryParams.toString()}`);
 }
-exports.fetchTask = fetchTask;
 /**
  * Update the Xanoscript version of a given Task within your workspace.
  *
@@ -55,7 +60,6 @@ function updateTaskScript(instanceName, workspaceId, taskId, script) {
         });
     });
 }
-exports.updateTaskScript = updateTaskScript;
 /**
  * Update the metadata of a given Task within your workspace.
  *
@@ -73,7 +77,6 @@ function activateTask(instanceName, workspaceId, taskId, active) {
         });
     });
 }
-exports.activateTask = activateTask;
 /**
  * Fetch the list of tasks within your workspace.
  *
@@ -101,7 +104,6 @@ function fetchTasks(instanceName, workspaceId) {
         return tasks;
     });
 }
-exports.fetchTasks = fetchTasks;
 /**
  * Create a new task ysing XanoScript
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -122,7 +124,6 @@ function createTaskFromXs(instanceName, workspaceId, script) {
         });
     });
 }
-exports.createTaskFromXs = createTaskFromXs;
 /**
  * Create a new Task within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -156,7 +157,6 @@ function createTask(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createTask = createTask;
 /**
  * Delete a task within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -170,5 +170,4 @@ function deleteTask(instanceName, workspaceId, taskId) {
         });
     });
 }
-exports.deleteTask = deleteTask;
 //# sourceMappingURL=task.js.map

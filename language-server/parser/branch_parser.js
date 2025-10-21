@@ -1,53 +1,48 @@
-import { BranchToken, ColorToken } from "../lexer/branch.js";
-import { EqualToken, LCurly, RCurly } from "../lexer/control.js";
+import { BranchToken } from "../lexer/branch.js";
 import { StringLiteral } from "../lexer/literal.js";
 import { Identifier, NewlineToken } from "../lexer/tokens.js";
 
 export function branchDeclaration($) {
   return () => {
-    let hasColor = false;
-    let hasDescription = false;
-    let hasMiddleware = false;
-
     $.sectionStack.push("branchDeclaration");
-    $.CONSUME(BranchToken); // branch
+    // Allow leading comments and newlines before the branch declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
+    const parent = $.CONSUME(BranchToken); // branch
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
       { ALT: () => $.CONSUME(Identifier) },
     ]);
-    $.CONSUME(LCurly); // "{"
-    $.MANY(() => {
-      $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
-      $.OR2([
-        {
-          GATE: () => !hasDescription,
-          ALT: () => {
-            hasDescription = true;
-            $.SUBRULE($.descriptionFieldAttribute);
-          },
-        },
-        {
-          GATE: () => !hasColor,
-          ALT: () => {
-            hasColor = true;
 
-            $.CONSUME(ColorToken); // "color"
-            $.CONSUME(EqualToken); // "="
-            $.CONSUME2(StringLiteral);
-          },
-        },
+    const middlewareSchema = {
+      pre: [{ name: "[string]" }],
+      post: [{ name: "[string]" }],
+    };
+
+    $.SUBRULE($.schemaParseAttributeFn, {
+      ARGS: [
+        parent,
         {
-          GATE: () => !hasMiddleware,
-          ALT: () => {
-            hasMiddleware = true;
-            $.SUBRULE($.middlewareClause);
+          color: "[string]",
+          "description?": "[string]",
+          middleware: {
+            function: middlewareSchema,
+            query: middlewareSchema,
+            task: middlewareSchema,
+            tool: middlewareSchema,
+          },
+          history: {
+            function: [false, 10, 100, 1000, 10000, "all"],
+            query: [false, 10, 100, 1000, 10000, "all"],
+            task: [false, 10, 100, 1000, 10000, "all"],
+            tool: [false, 10, 100, 1000, 10000, "all"],
+            trigger: [false, 10, 100, 1000, 10000, "all"],
+            middleware: [false, 10, 100, 1000, 10000, "all"],
           },
         },
-      ]);
+      ],
     });
 
-    $.MANY1(() => $.CONSUME1(NewlineToken)); // optional new line
-    $.CONSUME(RCurly); // "}"
     $.MANY2(() => $.CONSUME2(NewlineToken)); // optional new line
     $.sectionStack.pop();
   };

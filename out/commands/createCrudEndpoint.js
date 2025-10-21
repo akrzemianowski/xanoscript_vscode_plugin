@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createCrudEndpoint = exports.createCrudEndpointCmd = void 0;
+exports.createCrudEndpointCmd = createCrudEndpointCmd;
+exports.createCrudEndpoint = createCrudEndpoint;
 const vscode = require("vscode");
 const registry_1 = require("../registry/registry");
 const lodash_1 = require("lodash");
@@ -90,7 +91,6 @@ function createCrudEndpointCmd() {
         }
     });
 }
-exports.createCrudEndpointCmd = createCrudEndpointCmd;
 const validActions = ["create", "read", "list", "delete", "update"];
 function createCrudEndpoint(args) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -128,7 +128,6 @@ function createCrudEndpoint(args) {
         }
     });
 }
-exports.createCrudEndpoint = createCrudEndpoint;
 const createCrudFile = (args) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { content, filename, apiGroup } = args;
@@ -172,7 +171,7 @@ function getDeleteCrudEndpointContent(table) {
   }
 
   response = null
-  history = {inherit: true}
+  history = "inherit"
 }`;
     return { content, filename };
 }
@@ -196,7 +195,7 @@ function getReadCrudEndpointContent(table) {
 
   response = $var.record
   
-  history = {inherit: true}
+  history = "inherit"
 }`;
     return { content, filename };
 }
@@ -223,7 +222,7 @@ function getListCrudEndpointContent(table) {
   }
 
   response = $${snakeCaseTable}_records
-  history = {inherit: true}
+  history = "inherit"
 }`;
     return { content, filename };
 }
@@ -254,7 +253,7 @@ function getUpdateCrudEndpointContent(table) {
   }
 
   response = $${snakeCaseTable}_updated_record
-  history = {inherit: true}
+  history = "inherit"
 }`;
     return { content, filename };
 }
@@ -290,7 +289,7 @@ function getCreateCrudEndpointContent(table) {
   }
 
   response = $model
-  history = {inherit: true}
+  history = "inherit"
 }`;
         return { content, filename };
     });

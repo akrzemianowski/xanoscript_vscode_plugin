@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.diagnosticCollection = exports.addErrorToDiagnosticCollection = exports.createDiagnosticCollection = void 0;
+exports.diagnosticCollection = void 0;
+exports.createDiagnosticCollection = createDiagnosticCollection;
+exports.addErrorToDiagnosticCollection = addErrorToDiagnosticCollection;
 const vscode = require("vscode");
 /**
  * This allows us to highlight errors in the editor.
@@ -13,7 +15,6 @@ function createDiagnosticCollection() {
     const diagnosticCollection = vscode.languages.createDiagnosticCollection("customFunctions");
     return diagnosticCollection;
 }
-exports.createDiagnosticCollection = createDiagnosticCollection;
 /**
  * Add an error to the diagnostic collection
  * @param diagnosticCollection
@@ -28,7 +29,6 @@ function addErrorToDiagnosticCollection(diagnosticCollection, uri, line, fromCha
     const diagnostic = new vscode.Diagnostic(range, message, vscode.DiagnosticSeverity.Error);
     diagnosticCollection.set(uri, [diagnostic]);
 }
-exports.addErrorToDiagnosticCollection = addErrorToDiagnosticCollection;
 // singleton instance of the diagnostic collection, so it's trivial to clear any errors
 exports.diagnosticCollection = createDiagnosticCollection();
 //# sourceMappingURL=diagnostic.js.map

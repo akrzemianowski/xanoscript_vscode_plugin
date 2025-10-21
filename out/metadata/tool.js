@@ -9,7 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTool = exports.createTool = exports.createToolFromXs = exports.fetchTools = exports.updateToolScript = exports.fetchTool = void 0;
+exports.fetchTool = fetchTool;
+exports.updateToolScript = updateToolScript;
+exports.fetchTools = fetchTools;
+exports.createToolFromXs = createToolFromXs;
+exports.createTool = createTool;
+exports.deleteTool = deleteTool;
 const request_1 = require("./request");
 const config_1 = require("../config");
 const vscode = require("vscode");
@@ -29,7 +34,6 @@ function fetchTool(instanceName, workspaceId, toolId) {
     queryParams.set("include_xanoscript", "true");
     return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/tool/${toolId}?${queryParams.toString()}`);
 }
-exports.fetchTool = fetchTool;
 /**
  * Update the Xanoscript version of a given Tool within your workspace.
  *
@@ -55,7 +59,6 @@ function updateToolScript(instanceName, workspaceId, toolId, script) {
         });
     });
 }
-exports.updateToolScript = updateToolScript;
 /**
  * Fetch the list of tools within your workspace.
  *
@@ -83,7 +86,6 @@ function fetchTools(instanceName, workspaceId) {
         return tools;
     });
 }
-exports.fetchTools = fetchTools;
 /**
  * Create a new tool using XanoScript
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -104,7 +106,6 @@ function createToolFromXs(instanceName, workspaceId, script) {
         });
     });
 }
-exports.createToolFromXs = createToolFromXs;
 /**
  * Create a new Tool within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -112,8 +113,8 @@ exports.createToolFromXs = createToolFromXs;
  * @param name the name of the tool
  * @param instructions the instructions for the tool (optional)
  */
-function createTool(instanceName, workspaceId, name, instructions = "") {
-    return __awaiter(this, void 0, void 0, function* () {
+function createTool(instanceName_1, workspaceId_1, name_1) {
+    return __awaiter(this, arguments, void 0, function* (instanceName, workspaceId, name, instructions = "") {
         const queryParams = new URLSearchParams();
         queryParams.set("branch", config_1.config.branch);
         queryParams.set("include_xanoscript", "true");
@@ -136,7 +137,7 @@ ${instructionsLine}  input {
   }
 
   tags = []
-  history = {inherit: true}
+  history = "inherit"
 }`;
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/tool?${queryParams.toString()}`, {
             method: "POST",
@@ -147,7 +148,6 @@ ${instructionsLine}  input {
         });
     });
 }
-exports.createTool = createTool;
 /**
  * Delete a tool within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -161,5 +161,4 @@ function deleteTool(instanceName, workspaceId, toolId) {
         });
     });
 }
-exports.deleteTool = deleteTool;
 //# sourceMappingURL=tool.js.map

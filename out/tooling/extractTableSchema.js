@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.extractTableSchema = void 0;
+exports.extractTableSchema = extractTableSchema;
 const inputTypes_1 = require("./inputTypes");
 function extractTableSchema(tableContent) {
     const schema = {};
@@ -47,7 +47,7 @@ function extractTableSchema(tableContent) {
                             type: cleanType,
                             isArray: isArray,
                             default: name.split("?=")[1],
-                            optional: type.includes("?") && !isArray,
+                            optional: type.includes("?") && !isArray, // ? on type makes it optional (but not for arrays)
                             nullable: name.endsWith("?"), // ? on name makes it nullable
                         };
                     }
@@ -62,5 +62,4 @@ function extractTableSchema(tableContent) {
     }
     return schema;
 }
-exports.extractTableSchema = extractTableSchema;
 //# sourceMappingURL=extractTableSchema.js.map

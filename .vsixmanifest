@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 	<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
 		<Metadata>
-			<Identity Language="en-US" Id="xanoscript" Version="0.0.70" Publisher="xano" />
+			<Identity Language="en-US" Id="xanoscript" Version="0.0.80" Publisher="xano" />
 			<DisplayName>XanoScript</DisplayName>
 			<Description xml:space="preserve">A language to represent your workspace</Description>
 			<Tags>snippet,tools,language-model-tools,xanoscript,XanoScript,xs,__ext_xs</Tags>

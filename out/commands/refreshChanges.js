@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.refreshChangesCmd = void 0;
+exports.refreshChangesCmd = refreshChangesCmd;
 const init_1 = require("../registry/init");
 const changesTreeDataProvider_1 = require("../view/changes/changesTreeDataProvider");
 function refreshChangesCmd() {
@@ -18,5 +18,4 @@ function refreshChangesCmd() {
         changesTreeDataProvider_1.changesProvider.refresh();
     });
 }
-exports.refreshChangesCmd = refreshChangesCmd;
 //# sourceMappingURL=refreshChanges.js.map

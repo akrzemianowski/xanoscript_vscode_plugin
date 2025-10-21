@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetAndPullCmd = void 0;
+exports.resetAndPullCmd = resetAndPullCmd;
 const vscode = require("vscode");
 const config_1 = require("../config");
 const path_1 = require("path");
@@ -41,5 +41,4 @@ function resetAndPullCmd() {
         }
     });
 }
-exports.resetAndPullCmd = resetAndPullCmd;
 //# sourceMappingURL=resetAndPull.js.map

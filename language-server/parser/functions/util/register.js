@@ -5,6 +5,7 @@ import { utilGetInputFn } from "./utilGetInputFn.js";
 import { utilGetVarsFn } from "./utilGetVarsFn.js";
 import { utilIpLookupFn } from "./utilIpLookupFn.js";
 import { utilPostProcessFn } from "./utilPostProcessFn.js";
+import { utilSendEmailFn } from "./utilSendEmailFn.js";
 import { utilSetHeaderFn } from "./utilSetHeaderFn.js";
 import { utilSleepFn } from "./utilSleepFn.js";
 import { utilTemplateFn } from "./utilTemplateFn.js";
@@ -24,4 +25,5 @@ export const register = ($) => {
   $.utilSetHeaderFn = $.RULE("utilSetHeaderFn", utilSetHeaderFn($));
   $.utilSleepFn = $.RULE("utilSleepFn", utilSleepFn($));
   $.utilTemplateFn = $.RULE("utilTemplateFn", utilTemplateFn($));
+  $.utilSendEmailFn = $.RULE("utilSendEmailFn", utilSendEmailFn($));
 };

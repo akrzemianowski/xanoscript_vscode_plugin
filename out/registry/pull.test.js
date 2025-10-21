@@ -305,7 +305,7 @@ const types_1 = require("./types");
                 id: 33,
                 type: "table",
                 path: "tables/123_table1.xs",
-                status: "changed",
+                status: "changed", // there are still local changes after a merge
                 staged: false,
                 // the original now is the remote (so the local changes are still apparent)
                 sha256: (0, fsUtils_1.getFileHash)(remote),
@@ -406,7 +406,7 @@ const types_1 = require("./types");
             {
                 id: 0,
                 path: "apis/apiGroupName/api_group.xs",
-                status: types_1.XanoStatus.NEW,
+                status: types_1.XanoStatus.NEW, // note that this is a new local api group that will need to be reconciled
                 type: "api_group",
                 staged: false,
             },
@@ -420,7 +420,7 @@ const types_1 = require("./types");
             {
                 id: 42,
                 path: "apis/apiGroupName/api_group.xs",
-                status: types_1.XanoStatus.UNCHANGED,
+                status: types_1.XanoStatus.UNCHANGED, // there are still local changes after a merge
                 type: "api_group",
                 staged: false,
                 sha256: (0, fsUtils_1.getFileHash)(script),
@@ -454,7 +454,7 @@ const types_1 = require("./types");
             {
                 id: 0,
                 path: "apis/apiGroupName/api_group.xs",
-                status: types_1.XanoStatus.NEW,
+                status: types_1.XanoStatus.NEW, // note that this is a new local api group that will need to be reconciled
                 type: "api_group",
                 staged: false,
             },
@@ -468,7 +468,7 @@ const types_1 = require("./types");
             {
                 id: 42,
                 path: "apis/apiGroupName/api_group.xs",
-                status: types_1.XanoStatus.CHANGED,
+                status: types_1.XanoStatus.CHANGED, // there are still local changes after a merge
                 type: "api_group",
                 staged: false,
                 sha256: (0, fsUtils_1.getFileHash)(script),
@@ -524,7 +524,7 @@ const types_1 = require("./types");
                 id: 0,
                 type: "function",
                 path: "functions/folder1/folder2/functionName.xs",
-                status: "new",
+                status: "new", // note that this is a new local function that will need to be reconciled
                 staged: false,
                 // sha256: getFileHash(local_script),
                 // original: Buffer.from(local_script).toString("base64"),
@@ -540,7 +540,7 @@ const types_1 = require("./types");
                 id: 123,
                 type: "function",
                 path: "functions/folder1/folder2/functionName.xs",
-                status: "changed",
+                status: "changed", // there are still local changes after a merge
                 staged: false,
                 sha256: (0, fsUtils_1.getFileHash)(remote_script),
                 original: Buffer.from(remote_script).toString("base64"),
@@ -573,7 +573,7 @@ const types_1 = require("./types");
                 id: 0,
                 type: "api_group",
                 path: "apis/apiGroupName/api_group.xs",
-                status: types_1.XanoStatus.NEW,
+                status: types_1.XanoStatus.NEW, // note that this is a new local api group that will need to be reconciled
                 staged: false,
             },
         ];
@@ -588,7 +588,7 @@ const types_1 = require("./types");
                 id: 42,
                 type: "api_group",
                 path: "apis/apiGroupName/api_group.xs",
-                status: "changed",
+                status: "changed", // there are still local changes after a merge
                 staged: false,
                 sha256: (0, fsUtils_1.getFileHash)(remote_script),
                 original: Buffer.from(remote_script).toString("base64"),

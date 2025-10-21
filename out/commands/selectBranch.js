@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrSelectBranch = exports.selectBranch = exports.selectBranchCmd = void 0;
+exports.selectBranchCmd = selectBranchCmd;
+exports.selectBranch = selectBranch;
+exports.getOrSelectBranch = getOrSelectBranch;
 const vscode = require("vscode");
 const workspace_1 = require("../metadata/workspace");
 const changesTreeDataProvider_1 = require("../view/changes/changesTreeDataProvider");
@@ -40,7 +42,6 @@ function selectBranchCmd() {
         }
     });
 }
-exports.selectBranchCmd = selectBranchCmd;
 function selectBranch(instanceName, workspaceId) {
     return __awaiter(this, void 0, void 0, function* () {
         // Fetch branches but filter out backup branches and the current branch
@@ -63,7 +64,6 @@ function selectBranch(instanceName, workspaceId) {
         return selectedBranch.data;
     });
 }
-exports.selectBranch = selectBranch;
 /**
  * Attempt to use the config branch name to fetch the branch and
  * fallback on asking the user to select a branch.
@@ -116,5 +116,4 @@ function getOrSelectBranch(instanceName, workspaceId) {
         }
     });
 }
-exports.getOrSelectBranch = getOrSelectBranch;
 //# sourceMappingURL=selectBranch.js.map

@@ -23,6 +23,9 @@ export function tableTriggerDeclaration($) {
     // @TODO: search
 
     $.sectionStack.push("tableTriggerDeclaration");
+    // Allow leading comments and newlines before the table_trigger declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     const parent = $.CONSUME(TableTriggerToken); // table_trigger
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -32,6 +35,9 @@ export function tableTriggerDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasActions,
           ALT: () => {

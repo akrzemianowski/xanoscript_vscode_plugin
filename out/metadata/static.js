@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadStaticContent = void 0;
+exports.uploadStaticContent = uploadStaticContent;
 const path_1 = require("path");
 const vscode = require("vscode");
 const config_1 = require("../config");
@@ -77,5 +77,4 @@ function uploadStaticContent(instanceName, workspaceId, name, description, cance
         });
     });
 }
-exports.uploadStaticContent = uploadStaticContent;
 //# sourceMappingURL=static.js.map

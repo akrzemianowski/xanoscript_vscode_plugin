@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getXanoscriptContent = void 0;
+exports.getXanoscriptContent = getXanoscriptContent;
 const cache_1 = require("../metadata/cache");
 const config_1 = require("../config");
 function getXanoscriptContent(objectType, obj) {
@@ -32,5 +32,4 @@ function getXanoscriptContent(objectType, obj) {
         }
     });
 }
-exports.getXanoscriptContent = getXanoscriptContent;
 //# sourceMappingURL=xsUtils.js.map

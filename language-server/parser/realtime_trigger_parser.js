@@ -20,6 +20,9 @@ export function realtimeTriggerDeclaration($) {
     let hasTags = false;
 
     $.sectionStack.push("realtimeTriggerDeclaration");
+    // Allow leading comments and newlines before the realtime_trigger declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     const parent = $.CONSUME(RealtimeTriggerToken); // realtime_trigger
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -29,6 +32,9 @@ export function realtimeTriggerDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasActions,
           ALT: () => {

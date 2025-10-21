@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deactivate = exports.activate = void 0;
+exports.activate = activate;
+exports.deactivate = deactivate;
 const vscode = require("vscode");
 const registerViews_1 = require("./registerViews");
 const registerCommands_1 = require("./registerCommands");
@@ -50,11 +51,9 @@ function activate(context) {
         context.subscriptions.push(diagnostic_1.diagnosticCollection);
     });
 }
-exports.activate = activate;
 function deactivate() {
     if (!client)
         return undefined;
     return client.stop();
 }
-exports.deactivate = deactivate;
 //# sourceMappingURL=extension.js.map

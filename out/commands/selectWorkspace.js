@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrSelectWorkspace = exports.selectWorkspace = exports.selectWorkspaceCmd = void 0;
+exports.selectWorkspaceCmd = selectWorkspaceCmd;
+exports.selectWorkspace = selectWorkspace;
+exports.getOrSelectWorkspace = getOrSelectWorkspace;
 const vscode = require("vscode");
 const workspace_1 = require("../metadata/workspace");
 const lodash_1 = require("lodash");
@@ -33,7 +35,6 @@ function selectWorkspaceCmd() {
         }
     });
 }
-exports.selectWorkspaceCmd = selectWorkspaceCmd;
 function selectWorkspace(instanceName) {
     return __awaiter(this, void 0, void 0, function* () {
         // index each workspace with the ID: Name so we can retrieve
@@ -48,7 +49,6 @@ function selectWorkspace(instanceName) {
         return workspaces[workspaceSelected];
     });
 }
-exports.selectWorkspace = selectWorkspace;
 /**
  * Attempt to use the config workspace ID to fetch the workspace and
  * fallback on asking the user to select a workspace.
@@ -77,5 +77,4 @@ function getOrSelectWorkspace(instanceName) {
         }
     });
 }
-exports.getOrSelectWorkspace = getOrSelectWorkspace;
 //# sourceMappingURL=selectWorkspace.js.map

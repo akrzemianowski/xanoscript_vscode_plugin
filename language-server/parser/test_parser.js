@@ -12,6 +12,11 @@ import { parserExtension as functionAttrReqExtension } from "./generic/functionA
 import { parserExtension as objectAttrReqExtension } from "./generic/objectAttrReq.spec.js";
 import { parserExtension as objectWithAttributesExtension } from "./generic/objectWithAttributes.spec.js";
 
+/**
+ * This parser is used by our unit-tests, it loads
+ * custom rules used in various tests and not part of
+ * the main parser.
+ */
 class TestParser extends XanoBaseParser {
   constructor() {
     super(allTokens);

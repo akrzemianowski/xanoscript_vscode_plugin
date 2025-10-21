@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMatchingNewFileIndex = exports.pull = exports.isPulling = void 0;
+exports.isPulling = isPulling;
+exports.pull = pull;
+exports.getMatchingNewFileIndex = getMatchingNewFileIndex;
 const vscode = require("vscode");
 const types_1 = require("./types");
 const path_1 = require("path");
@@ -42,7 +44,6 @@ let pulling = false;
 function isPulling() {
     return pulling;
 }
-exports.isPulling = isPulling;
 /**
  * Pull remote changes from Xano into the local Xano script filesystem
  *
@@ -155,9 +156,6 @@ function pull() {
                 pulling = false;
                 return;
             }
-            const workspaceConfig = vscode.workspace.getConfiguration("xanoscript");
-            const apiUrl = workspaceConfig.get("xanoUrl", "https://app.xano.com");
-            const isProd = apiUrl === "https://app.xano.com";
             let workflowTests = [];
             let agents = [];
             let agentTriggers = [];
@@ -169,100 +167,98 @@ function pull() {
             let realtimeChannels = [];
             let realtimeTriggers = [];
             // TODO: disable once 2.0 is out
-            if (!isProd) {
-                updateProgress("workflow_tests");
-                workflowTests = yield (0, workflowTest_1.fetchWorkflowTests)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch workflow tests: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
+            updateProgress("workflow_tests");
+            workflowTests = yield (0, workflowTest_1.fetchWorkflowTests)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch workflow tests: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("agents");
+            agents = yield (0, agent_1.fetchAgents)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch agents: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("agent triggers");
+            agentTriggers = yield (0, agentTrigger_1.fetchAgentTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch agent triggers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("MCP servers");
+            mcpServers = yield (0, mcpServer_1.fetchMcpServers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch MCP servers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("MCP server triggers");
+            mcpServerTriggers = yield (0, mcpServerTrigger_1.fetchMcpServerTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch MCP server triggers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("table triggers");
+            tableTriggers = yield (0, tableTrigger_1.fetchTableTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch table triggers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("addons");
+            addOns = yield (0, addon_1.fetchAddOns)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch addons: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("middlewares");
+            middlewares = yield (0, middleware_1.fetchMiddlewares)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch middlewares: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("realtime channels");
+            realtimeChannels = yield (0, realtime_1.fetchRealtimeChannels)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                var _a;
+                if (!((_a = error.message) === null || _a === void 0 ? void 0 : _a.startsWith("Please enable"))) {
+                    vscode.window.showWarningMessage(`Failed to fetch realtime channels: ${error.message || error}`);
                 }
-                updateProgress("agents");
-                agents = yield (0, agent_1.fetchAgents)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch agents: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("agent triggers");
-                agentTriggers = yield (0, agentTrigger_1.fetchAgentTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch agent triggers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("MCP servers");
-                mcpServers = yield (0, mcpServer_1.fetchMcpServers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch MCP servers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("MCP server triggers");
-                mcpServerTriggers = yield (0, mcpServerTrigger_1.fetchMcpServerTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch MCP server triggers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("table triggers");
-                tableTriggers = yield (0, tableTrigger_1.fetchTableTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch table triggers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("addons");
-                addOns = yield (0, addon_1.fetchAddOns)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch addons: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("middlewares");
-                middlewares = yield (0, middleware_1.fetchMiddlewares)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch middlewares: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("realtime channels");
-                realtimeChannels = yield (0, realtime_1.fetchRealtimeChannels)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    var _a;
-                    if (!((_a = error.message) === null || _a === void 0 ? void 0 : _a.startsWith("Please enable"))) {
-                        vscode.window.showWarningMessage(`Failed to fetch realtime channels: ${error.message || error}`);
-                    }
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("realtime triggers");
-                realtimeTriggers = yield (0, realtime_1.fetchRealtimeTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch realtime triggers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("realtime triggers");
+            realtimeTriggers = yield (0, realtime_1.fetchRealtimeTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch realtime triggers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
             }
             // --- from this point, we don't allow cancelling anymore ---
             for (const apiGroup of apiGroups) {
@@ -507,7 +503,6 @@ function pull() {
             .then(() => (pulling = false), () => (pulling = false));
     });
 }
-exports.pull = pull;
 function pullObject(fileOperations, registry, obj, objType, objPath) {
     return __awaiter(this, void 0, void 0, function* () {
         // check if the record is in the registry
@@ -712,7 +707,6 @@ function getMatchingNewFileIndex(registry, obj, objType) {
         return -1;
     });
 }
-exports.getMatchingNewFileIndex = getMatchingNewFileIndex;
 /**
  * Compare a remote xanoscript with a local file
  * @param obj XanoObject the remote Xanoscript record

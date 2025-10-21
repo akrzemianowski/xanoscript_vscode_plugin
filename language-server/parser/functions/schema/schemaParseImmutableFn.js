@@ -4,6 +4,7 @@ import {
   IntegerLiteral,
   SingleQuotedStringLiteral,
   StringLiteral,
+  TimestampLiteralToken,
 } from "../../../lexer/literal.js";
 import { MultiLineStringToken } from "../../../lexer/multiline.js";
 import { isOptionalAttribute, isSchemaGenericType } from "./utils.js";
@@ -16,6 +17,12 @@ export function schemaParseImmutableFn($) {
     let attributeCapturedType;
     const capturedValue = $.OR({
       DEF: [
+        {
+          ALT: () => {
+            attributeCapturedType = "timestamp";
+            return $.CONSUME(TimestampLiteralToken); // e.g., 2024-01-01 12:00:00+0000
+          },
+        },
         {
           ALT: () => {
             attributeCapturedType = "string";
@@ -93,7 +100,7 @@ export function schemaParseImmutableFn($) {
  * @returns {string|null}
  */
 function getImmutableAttributeType(attr) {
-  const validTypes = ["string", "number", "boolean"];
+  const validTypes = ["string", "number", "boolean", "timestamp"];
   if (isSchemaGenericType(attr)) {
     // remove the brackets and optional marker if present
     const typeName = isOptionalAttribute(attr)

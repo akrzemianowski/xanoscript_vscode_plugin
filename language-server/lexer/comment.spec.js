@@ -37,24 +37,24 @@ describe("Comment Lexer", () => {
       expect(result.tokens[0].image).to.equal("//");
     });
 
-    it("should match // even in the middle of a line", () => {
+    it("should NOT match // in the middle of a line", () => {
       const input = "some code // comment";
       const result = lexDocument(input);
 
-      // The lexer will tokenize this as separate tokens including a comment token
+      // Comments are only allowed on their own line (with optional leading whitespace)
+      // So // in the middle of a line should be tokenized as division operators
       expect(result.errors).to.be.empty;
       const commentTokens = result.tokens.filter(
         (token) => token.tokenType === CommentToken
       );
-      expect(commentTokens).to.have.length(1);
-      expect(commentTokens[0].image).to.equal("// comment");
+      expect(commentTokens).to.have.length(0); // No comment token should be found
     });
 
     it("should handle multiple lines with comments", () => {
       const input = `// First comment
-// Second comment
+   // Second comment
 some code
-// Third comment`;
+      // Third comment`;
       const result = lexDocument(input);
 
       expect(result.errors).to.be.empty;

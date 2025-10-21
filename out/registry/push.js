@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.push = exports.setPushing = exports.isPushing = void 0;
+exports.isPushing = isPushing;
+exports.setPushing = setPushing;
+exports.push = push;
 const vscode = require("vscode");
 const registry_1 = require("./registry");
 const types_1 = require("./types");
@@ -22,11 +24,9 @@ let pushing = false;
 function isPushing() {
     return pushing;
 }
-exports.isPushing = isPushing;
 function setPushing(value) {
     pushing = value;
 }
-exports.setPushing = setPushing;
 // There is a preferred order to pushing updates
 // a table has no dependencies while an API endpoint
 // has many (table, function and api group)
@@ -141,5 +141,4 @@ function push(staged) {
         });
     });
 }
-exports.push = push;
 //# sourceMappingURL=push.js.map

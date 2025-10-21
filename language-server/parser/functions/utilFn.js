@@ -13,6 +13,7 @@ import { UtilToken } from "../../lexer/util.js";
  * util.set_header
  * util.sleep
  * util.template
+ * util.send_email
  * @param {import('../base_parser.js').XanoBaseParser} $
  */
 export function utilFn($) {
@@ -31,6 +32,7 @@ export function utilFn($) {
       { ALT: () => $.SUBRULE($.utilPostProcessFn) }, // "util.post_process"
       { ALT: () => $.SUBRULE($.utilSetHeaderFn) }, // "util.set_header"
       { ALT: () => $.SUBRULE($.utilTemplateFn) }, // "util.template"
+      { ALT: () => $.SUBRULE($.utilSendEmailFn) }, // "util.send_email"
     ]);
     $.sectionStack.pop();
   };

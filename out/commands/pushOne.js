@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pushOneCmd = void 0;
+exports.pushOneCmd = pushOneCmd;
 const pushOne_1 = require("../registry/pushOne");
 const vscode = require("vscode");
 const registry_1 = require("../registry/registry");
@@ -53,5 +53,4 @@ function pushOneCmd(path) {
         return (0, pushOne_1.pushOne)(record);
     });
 }
-exports.pushOneCmd = pushOneCmd;
 //# sourceMappingURL=pushOne.js.map

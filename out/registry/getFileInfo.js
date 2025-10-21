@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getApiEndpointInfo = exports.getMiddlewareInfo = exports.getWorkflowTestInfo = exports.getToolInfo = exports.getTaskInfo = exports.getApiGroupInfo = exports.getTableTriggerInfo = exports.getTableInfo = exports.getMcpTriggerServer = exports.getMcpServerTriggerInfo = exports.getMcpServer = exports.getAgentTriggerInfo = exports.getAgentInfo = exports.getRealtimeTriggerInfo = exports.getRealtimeInfo = exports.getAddOnInfo = exports.getFunctionInfo = exports.getSimpleSignature = void 0;
+exports.getMiddlewareInfo = exports.getWorkflowTestInfo = exports.getToolInfo = exports.getTaskInfo = exports.getApiGroupInfo = exports.getTableTriggerInfo = exports.getTableInfo = exports.getMcpTriggerServer = exports.getMcpServerTriggerInfo = exports.getMcpServer = exports.getAgentTriggerInfo = exports.getAgentInfo = exports.getRealtimeTriggerInfo = exports.getRealtimeInfo = exports.getAddOnInfo = exports.getFunctionInfo = exports.getSimpleSignature = void 0;
+exports.getApiEndpointInfo = getApiEndpointInfo;
 /**
  * Get a simple signature for a function, task, or other object.
  *
@@ -46,5 +47,4 @@ function getApiEndpointInfo(content) {
     const verb = apiEndpointInfo[2].trim();
     return { verb, path };
 }
-exports.getApiEndpointInfo = getApiEndpointInfo;
 //# sourceMappingURL=getFileInfo.js.map

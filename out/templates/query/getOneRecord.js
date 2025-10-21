@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOneRecordQuery = void 0;
+exports.getOneRecordQuery = getOneRecordQuery;
 const lodash_1 = require("lodash");
 /**
  * Generates a xanoscript endpoint to retrieve a single record from a database table.
@@ -38,12 +38,11 @@ query "${tableName}/{${safeObjectId}}" verb=GET {
     value = $model
   }
 
-  history = {inherit: true}
+  history = "inherit"
 }`;
     return {
         code: code.trim(),
         path: `${apiGroupName}/${safeTableName}_${safeObjectId}_GET.xs`,
     };
 }
-exports.getOneRecordQuery = getOneRecordQuery;
 //# sourceMappingURL=getOneRecord.js.map

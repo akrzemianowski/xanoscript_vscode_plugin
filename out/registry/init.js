@@ -9,15 +9,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllXanoscriptFiles = exports.getAllFolders = exports.syncRegistry = exports.syncRealtimeTriggers = exports.syncRealtimeChannels = exports.syncMcpServerTriggers = exports.syncAgentTriggers = exports.syncMiddlewares = exports.syncAddOns = exports.syncMcpServers = exports.syncTableTriggers = exports.syncAgent = exports.syncApi = exports.syncAgents = exports.syncApiGroups = exports.syncTools = exports.syncTasks = exports.syncWorkflowTests = exports.syncTables = exports.syncFunctions = void 0;
+exports.syncFunctions = syncFunctions;
+exports.syncTables = syncTables;
+exports.syncWorkflowTests = syncWorkflowTests;
+exports.syncTasks = syncTasks;
+exports.syncTools = syncTools;
+exports.syncApiGroups = syncApiGroups;
+exports.syncAgents = syncAgents;
+exports.syncApi = syncApi;
+exports.syncAgent = syncAgent;
+exports.syncTableTriggers = syncTableTriggers;
+exports.syncMcpServers = syncMcpServers;
+exports.syncAddOns = syncAddOns;
+exports.syncMiddlewares = syncMiddlewares;
+exports.syncAgentTriggers = syncAgentTriggers;
+exports.syncMcpServerTriggers = syncMcpServerTriggers;
+exports.syncRealtimeChannels = syncRealtimeChannels;
+exports.syncRealtimeTriggers = syncRealtimeTriggers;
+exports.syncRegistry = syncRegistry;
+exports.getAllFolders = getAllFolders;
+exports.getAllXanoscriptFiles = getAllXanoscriptFiles;
 const config_1 = require("../config");
 const path_1 = require("path");
 const registry_1 = require("./registry");
 const types_1 = require("./types");
 const changesTreeDataProvider_1 = require("../view/changes/changesTreeDataProvider");
 const fsUtils_1 = require("./fsUtils");
-function syncFunctions(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncFunctions(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.functions || "functions");
         yield (0, fsUtils_1.createDirectory)(folder);
         const functionsFolder = yield getAllXanoscriptFiles(folder);
@@ -28,9 +47,8 @@ function syncFunctions(registry, paths = []) {
         return registry;
     });
 }
-exports.syncFunctions = syncFunctions;
-function syncTables(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncTables(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.tables || "tables");
         yield (0, fsUtils_1.createDirectory)(folder);
         const tablesFolder = yield getAllXanoscriptFiles(folder);
@@ -41,9 +59,8 @@ function syncTables(registry, paths = []) {
         return registry;
     });
 }
-exports.syncTables = syncTables;
-function syncWorkflowTests(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncWorkflowTests(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.workflowTests || "workflow_tests");
         yield (0, fsUtils_1.createDirectory)(folder);
         const workflowTestsFolder = yield getAllXanoscriptFiles(folder);
@@ -54,9 +71,8 @@ function syncWorkflowTests(registry, paths = []) {
         return registry;
     });
 }
-exports.syncWorkflowTests = syncWorkflowTests;
-function syncTasks(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncTasks(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.tasks || "tasks");
         yield (0, fsUtils_1.createDirectory)(folder);
         const tasksFolder = yield getAllXanoscriptFiles(folder);
@@ -67,9 +83,8 @@ function syncTasks(registry, paths = []) {
         return registry;
     });
 }
-exports.syncTasks = syncTasks;
-function syncTools(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncTools(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.tools || "tools");
         yield (0, fsUtils_1.createDirectory)(folder);
         const toolsFolder = yield getAllXanoscriptFiles(folder);
@@ -80,7 +95,6 @@ function syncTools(registry, paths = []) {
         return registry;
     });
 }
-exports.syncTools = syncTools;
 /**
  * read all the folders at the root of the config.paths.apis
  * and refreshes the registry with the files in each folder
@@ -88,8 +102,8 @@ exports.syncTools = syncTools;
  * @param paths
  * @returns
  */
-function syncApiGroups(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncApiGroups(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         // create the API groups folder if it does not exist
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.apis || "apis");
         yield (0, fsUtils_1.createDirectory)(folder);
@@ -107,7 +121,6 @@ function syncApiGroups(registry, paths = []) {
         return registry;
     });
 }
-exports.syncApiGroups = syncApiGroups;
 /**
  * read all the folders at the root of the config.paths.agents
  * and refreshes the registry with the files in each folder
@@ -115,8 +128,8 @@ exports.syncApiGroups = syncApiGroups;
  * @param paths
  * @returns
  */
-function syncAgents(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncAgents(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         // create the Agents folder if it does not exist
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.agents || "agents");
         yield (0, fsUtils_1.createDirectory)(folder);
@@ -134,9 +147,8 @@ function syncAgents(registry, paths = []) {
         return registry;
     });
 }
-exports.syncAgents = syncAgents;
-function syncApi(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncApi(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.apis || "apis");
         yield (0, fsUtils_1.createDirectory)(folder);
         const apiFolder = yield getAllXanoscriptFiles(folder);
@@ -147,9 +159,8 @@ function syncApi(registry, paths = []) {
         return registry;
     });
 }
-exports.syncApi = syncApi;
-function syncAgent(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncAgent(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.agents || "agents");
         yield (0, fsUtils_1.createDirectory)(folder);
         const apiFolder = yield getAllXanoscriptFiles(folder);
@@ -160,9 +171,8 @@ function syncAgent(registry, paths = []) {
         return registry;
     });
 }
-exports.syncAgent = syncAgent;
-function syncTableTriggers(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncTableTriggers(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.tableTriggers || "tables/triggers");
         yield (0, fsUtils_1.createDirectory)(folder);
         const triggersFolder = yield getAllXanoscriptFiles(folder);
@@ -173,9 +183,8 @@ function syncTableTriggers(registry, paths = []) {
         return registry;
     });
 }
-exports.syncTableTriggers = syncTableTriggers;
-function syncMcpServers(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncMcpServers(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.mcpServers || "mcp_servers");
         yield (0, fsUtils_1.createDirectory)(folder);
         const mcpServersFolder = yield getAllXanoscriptFiles(folder);
@@ -186,9 +195,8 @@ function syncMcpServers(registry, paths = []) {
         return registry;
     });
 }
-exports.syncMcpServers = syncMcpServers;
-function syncAddOns(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncAddOns(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.addOns || "addons");
         yield (0, fsUtils_1.createDirectory)(folder);
         const addOnsFolder = yield getAllXanoscriptFiles(folder);
@@ -199,9 +207,8 @@ function syncAddOns(registry, paths = []) {
         return registry;
     });
 }
-exports.syncAddOns = syncAddOns;
-function syncMiddlewares(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncMiddlewares(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.middlewares || "middlewares");
         yield (0, fsUtils_1.createDirectory)(folder);
         const middlewaresFolder = yield getAllXanoscriptFiles(folder);
@@ -212,9 +219,8 @@ function syncMiddlewares(registry, paths = []) {
         return registry;
     });
 }
-exports.syncMiddlewares = syncMiddlewares;
-function syncAgentTriggers(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncAgentTriggers(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.agentTriggers || "agents/triggers");
         yield (0, fsUtils_1.createDirectory)(folder);
         const triggersFolder = yield getAllXanoscriptFiles(folder);
@@ -225,9 +231,8 @@ function syncAgentTriggers(registry, paths = []) {
         return registry;
     });
 }
-exports.syncAgentTriggers = syncAgentTriggers;
-function syncMcpServerTriggers(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncMcpServerTriggers(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.mcpServerTriggers || "mcp_servers/triggers");
         yield (0, fsUtils_1.createDirectory)(folder);
         const triggersFolder = yield getAllXanoscriptFiles(folder);
@@ -238,9 +243,8 @@ function syncMcpServerTriggers(registry, paths = []) {
         return registry;
     });
 }
-exports.syncMcpServerTriggers = syncMcpServerTriggers;
-function syncRealtimeChannels(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncRealtimeChannels(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.realtimeChannels || "realtime/channels");
         yield (0, fsUtils_1.createDirectory)(folder);
         const channelsFolder = yield getAllXanoscriptFiles(folder);
@@ -251,9 +255,8 @@ function syncRealtimeChannels(registry, paths = []) {
         return registry;
     });
 }
-exports.syncRealtimeChannels = syncRealtimeChannels;
-function syncRealtimeTriggers(registry, paths = []) {
-    return __awaiter(this, void 0, void 0, function* () {
+function syncRealtimeTriggers(registry_2) {
+    return __awaiter(this, arguments, void 0, function* (registry, paths = []) {
         const folder = (0, path_1.join)(config_1.ROOT_PATH, config_1.config.paths.realtimeTriggers || "realtime/triggers");
         yield (0, fsUtils_1.createDirectory)(folder);
         const triggersFolder = yield getAllXanoscriptFiles(folder);
@@ -264,7 +267,6 @@ function syncRealtimeTriggers(registry, paths = []) {
         return registry;
     });
 }
-exports.syncRealtimeTriggers = syncRealtimeTriggers;
 function syncRegistry() {
     return __awaiter(this, void 0, void 0, function* () {
         if (!config_1.config.isReady) {
@@ -335,7 +337,6 @@ function syncRegistry() {
         return registry;
     });
 }
-exports.syncRegistry = syncRegistry;
 function getAllFolders(path) {
     return __awaiter(this, void 0, void 0, function* () {
         const folders = [];
@@ -349,7 +350,6 @@ function getAllFolders(path) {
         return folders;
     });
 }
-exports.getAllFolders = getAllFolders;
 function getAllXanoscriptFiles(folderPath) {
     return __awaiter(this, void 0, void 0, function* () {
         const files = [];
@@ -382,5 +382,4 @@ function getAllXanoscriptFiles(folderPath) {
         return files;
     });
 }
-exports.getAllXanoscriptFiles = getAllXanoscriptFiles;
 //# sourceMappingURL=init.js.map

@@ -6,7 +6,7 @@ import { schemaExpectObject } from "./schemaParseObjectFn.js";
 import { schemaExpectOneOf } from "./utils.js";
 
 const getErrorMessageForSchema = (schema) => {
-  if (schemaExpectOneOf(schema, ["string", "number", "boolean"])) {
+  if (schemaExpectOneOf(schema, ["string", "number", "boolean", "timestamp"])) {
     if (isArray(schema)) {
       return `Expected one of the following types:  ${schema.join(", ")}`;
     } else {
@@ -50,7 +50,7 @@ export function schemaFn($) {
           GATE: () =>
             schemaExpectOneOf(
               schema,
-              ["string", "number", "boolean"],
+              ["string", "number", "boolean", "timestamp"],
               captured
             ),
           ALT: () =>

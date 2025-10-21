@@ -9,8 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.batchAddRecordsToTable = exports.deleteTable = exports.createTableFromXs = exports.createTable = exports.fetchTablesForAI = exports.fetchTables = exports.updateTable = exports.fetchTable = void 0;
+exports.fetchTable = fetchTable;
+exports.updateTable = updateTable;
+exports.fetchTables = fetchTables;
+exports.fetchTablesForAI = fetchTablesForAI;
+exports.createTable = createTable;
+exports.createTableFromXs = createTableFromXs;
+exports.deleteTable = deleteTable;
+exports.batchAddRecordsToTable = batchAddRecordsToTable;
+const vscode = require("vscode");
 const request_1 = require("./request");
+const lodash_1 = require("lodash");
 /**
  * Return the Xanoscript version of a given Table within your workspace.
  * @param tableId the table ID to fetch the Xanoscript from
@@ -21,7 +30,6 @@ function fetchTable(instanceName, workspaceId, tableId) {
     queryParams.set("include_xanoscript", "true");
     return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/table/${tableId}?${queryParams.toString()}`);
 }
-exports.fetchTable = fetchTable;
 /**
  * Update the Xanoscript version of a given Table within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -41,13 +49,12 @@ function updateTable(instanceName, workspaceId, tableId, xanoscript) {
         },
     });
 }
-exports.updateTable = updateTable;
 /**
  * Fetch the list of tables within your workspace.
  * @returns list of table objects
  */
-function fetchTables(instanceName, workspaceId, include_xanoscript = true) {
-    return __awaiter(this, void 0, void 0, function* () {
+function fetchTables(instanceName_1, workspaceId_1) {
+    return __awaiter(this, arguments, void 0, function* (instanceName, workspaceId, include_xanoscript = true) {
         let nextPage = 1;
         const tables = [];
         const queryParams = new URLSearchParams();
@@ -62,7 +69,6 @@ function fetchTables(instanceName, workspaceId, include_xanoscript = true) {
         return tables;
     });
 }
-exports.fetchTables = fetchTables;
 function fetchTablesForAI(instanceName, workspaceId) {
     return __awaiter(this, void 0, void 0, function* () {
         const tables = yield fetchTables(instanceName, workspaceId, false);
@@ -74,7 +80,6 @@ function fetchTablesForAI(instanceName, workspaceId) {
         }));
     });
 }
-exports.fetchTablesForAI = fetchTablesForAI;
 /**
  * create a new table within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -88,17 +93,25 @@ function createTable(instanceName, workspaceId, name, description, auth) {
     return __awaiter(this, void 0, void 0, function* () {
         const queryParams = new URLSearchParams();
         queryParams.set("include_xanoscript", "true");
-        const response = yield (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/table?${queryParams.toString()}`, {
-            method: "POST",
-            body: JSON.stringify({ name, description, auth }),
-        });
-        if (!response) {
-            throw new Error("Table creation failed");
-        }
-        return fetchTable(instanceName, workspaceId, response.id);
+        const vsconfig = vscode.workspace.getConfiguration("xanoscript");
+        const tablePrimaryKeyType = vsconfig.get("tablePrimaryKeyType", "int");
+        const xanoscript = `table ${(0, lodash_1.snakeCase)(name)} {
+  description = "${description}"
+  auth = ${auth ? "true" : "false"}
+
+  schema {
+    ${tablePrimaryKeyType} id
+    timestamp created_at?=now
+  }
+
+  index = [
+    {type: "primary", field: [{name: "id"}]}
+    {type: "btree", field: [{name: "created_at", op: "desc"}]}
+  ]
+}`;
+        return createTableFromXs(instanceName, workspaceId, xanoscript);
     });
 }
-exports.createTable = createTable;
 /**
  * create a new table within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -123,7 +136,6 @@ function createTableFromXs(instanceName, workspaceId, xanoscript) {
         return fetchTable(instanceName, workspaceId, response.id);
     });
 }
-exports.createTableFromXs = createTableFromXs;
 /**
  * Delete a table within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -137,7 +149,6 @@ function deleteTable(instanceName, workspaceId, tableId) {
         });
     });
 }
-exports.deleteTable = deleteTable;
 /**
  * Add records as a batch to a given table within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -158,5 +169,4 @@ function batchAddRecordsToTable(instanceName, workspaceId, datasource, tableId, 
         });
     });
 }
-exports.batchAddRecordsToTable = batchAddRecordsToTable;
 //# sourceMappingURL=dbo.js.map

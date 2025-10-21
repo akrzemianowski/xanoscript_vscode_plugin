@@ -11,6 +11,12 @@ export const UtilToken = createTokenByName("util", {
   categories: [Identifier],
 });
 
+// send_email
+export const SendEmailToken = createTokenByName("send_email", {
+  longer_alt: Identifier,
+  categories: [Identifier],
+});
+
 // geo_distance
 export const GeoDistanceToken = createTokenByName("geo_distance", {
   longer_alt: Identifier,
@@ -77,6 +83,7 @@ export const UtilTokens = [
   UtilToken,
   TemplateToken,
   GeoDistanceToken,
+  SendEmailToken,
   GetAllInputToken,
   GetEnvToken,
   GetInputToken,
@@ -102,6 +109,7 @@ export function mapTokenToType(token) {
     case SetHeaderToken.name:
     case SleepToken.name:
     case TemplateToken.name:
+    case SendEmailToken.name:
       return "function";
     default:
       return null;

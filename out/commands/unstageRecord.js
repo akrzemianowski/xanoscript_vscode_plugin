@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unstageRecordCmd = void 0;
+exports.unstageRecordCmd = unstageRecordCmd;
 const vscode = require("vscode");
 const config_1 = require("../config");
 const registry_1 = require("../registry/registry");
@@ -43,5 +43,4 @@ function unstageRecordCmd(node) {
         changesTreeDataProvider_1.changesProvider.refresh();
     });
 }
-exports.unstageRecordCmd = unstageRecordCmd;
 //# sourceMappingURL=unstageRecord.js.map

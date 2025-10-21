@@ -18,6 +18,7 @@ export function chainedIdentifier($) {
       $.OR({
         DEF: [
           { ALT: () => $.SUBRULE($.completeInputVariable) }, // e.g., $input.index
+          { ALT: () => $.SUBRULE($.completeErrorVariable) }, // e.g., $error.code
           { ALT: () => $.SUBRULE($.longFormVariable) }, // e.g., $var.index
           { ALT: () => $.SUBRULE($.shortFormVariable) }, // e.g., $index
           { ALT: () => $.CONSUME(IntegerLiteral) }, // e.g., 123
@@ -39,6 +40,7 @@ export function chainedIdentifier($) {
           DEF: [
             { ALT: () => $.SUBRULE1($.completeInputVariable) }, // e.g., $input.index
             { ALT: () => $.SUBRULE1($.longFormVariable) }, // e.g., $var.index
+            { ALT: () => $.SUBRULE1($.completeErrorVariable) }, // e.g., $error.code
             { ALT: () => $.SUBRULE1($.shortFormVariable) }, // e.g., $index
             { ALT: () => $.CONSUME1(IntegerLiteral) }, // e.g., 123
           ],

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.confirmIfUnsavedCmd = void 0;
+exports.confirmIfUnsavedCmd = confirmIfUnsavedCmd;
 const vscode = require("vscode");
 function confirmIfUnsavedCmd() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -36,5 +36,4 @@ function confirmIfUnsavedCmd() {
         return true;
     });
 }
-exports.confirmIfUnsavedCmd = confirmIfUnsavedCmd;
 //# sourceMappingURL=confirmIfUnsaved.js.map

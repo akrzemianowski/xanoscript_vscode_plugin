@@ -145,12 +145,17 @@ function _schemaParseAttributeFn($) {
       const missingKeyNames = missingKeys.filter(
         (k) => !isOptionalAttribute(k)
       );
-      if (missingKeyNames.length) {
+      if (missingKeyNames.length > 1) {
         $.addInvalidValueError(
           lastToken || token,
-          `The following required attribute(s) are missing: ${missingKeyNames.join(
+          `The following required attributes are missing: ${missingKeyNames.join(
             ", "
           )}`
+        );
+      } else if (missingKeyNames.length === 1) {
+        $.addInvalidValueError(
+          lastToken || token,
+          `Missing required attribute '${missingKeyNames[0]}'`
         );
       }
     }

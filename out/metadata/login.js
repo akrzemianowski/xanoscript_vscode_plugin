@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = void 0;
+exports.login = login;
 const vscode = require("vscode");
 function login(accessToken) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -36,5 +36,4 @@ function login(accessToken) {
         }
     });
 }
-exports.login = login;
 //# sourceMappingURL=login.js.map

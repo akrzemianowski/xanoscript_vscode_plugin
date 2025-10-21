@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isInEmbeddedJS = exports.extractEmbeddedJS = void 0;
+exports.extractEmbeddedJS = extractEmbeddedJS;
+exports.isInEmbeddedJS = isInEmbeddedJS;
 /**
  * Extracts embedded JavaScript from XanoScript documents for virtual document provider
  */
@@ -19,7 +20,6 @@ function extractEmbeddedJS(text) {
     }
     return regions;
 }
-exports.extractEmbeddedJS = extractEmbeddedJS;
 /**
  * Checks if a position is within an embedded JavaScript region
  */
@@ -35,5 +35,4 @@ function isInEmbeddedJS(document, position) {
     }
     return false;
 }
-exports.isInEmbeddedJS = isInEmbeddedJS;
 //# sourceMappingURL=js_embedding.js.map

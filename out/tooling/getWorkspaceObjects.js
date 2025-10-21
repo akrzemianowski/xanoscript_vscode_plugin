@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getWorkspaceObjects = void 0;
+exports.getWorkspaceObjects = getWorkspaceObjects;
 const registry_1 = require("../registry/registry");
 const types_1 = require("../registry/types");
 const extractInputSchema_1 = require("./extractInputSchema");
@@ -98,5 +98,4 @@ function getWorkspaceObjects(category) {
         return objects.map((obj) => JSON.stringify(obj, null, 2));
     });
 }
-exports.getWorkspaceObjects = getWorkspaceObjects;
 //# sourceMappingURL=getWorkspaceObjects.js.map

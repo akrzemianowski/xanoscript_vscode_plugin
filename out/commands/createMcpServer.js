@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createMcpServerCmd = void 0;
+exports.createMcpServerCmd = createMcpServerCmd;
 const vscode = require("vscode");
 const openXanoscriptEditor_1 = require("./openXanoscriptEditor");
 const config_1 = require("../config");
@@ -56,5 +56,4 @@ function createMcpServerCmd() {
         }
     });
 }
-exports.createMcpServerCmd = createMcpServerCmd;
 //# sourceMappingURL=createMcpServer.js.map

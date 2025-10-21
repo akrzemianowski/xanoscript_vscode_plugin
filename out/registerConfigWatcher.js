@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isXanoEnabledInWorkspace = exports.registerConfigWatcher = void 0;
+exports.registerConfigWatcher = registerConfigWatcher;
+exports.isXanoEnabledInWorkspace = isXanoEnabledInWorkspace;
 const vscode = require("vscode");
 const cache_1 = require("./tooling/cache");
 // Watcher for dynamic changes
@@ -36,7 +37,6 @@ function registerConfigWatcher(context) {
         updateXanoContext();
     })));
 }
-exports.registerConfigWatcher = registerConfigWatcher;
 const checkHasXanoConfig = () => __awaiter(void 0, void 0, void 0, function* () {
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (!workspaceFolders) {
@@ -64,5 +64,4 @@ function isXanoEnabledInWorkspace() {
         return (0, cache_1.getCacheOrFillWith)("xano.enabled", checkHasXanoConfig, 5000);
     });
 }
-exports.isXanoEnabledInWorkspace = isXanoEnabledInWorkspace;
 //# sourceMappingURL=registerConfigWatcher.js.map

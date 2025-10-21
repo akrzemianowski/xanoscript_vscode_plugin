@@ -9,7 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMcpServer = exports.createMcpServer = exports.createMcpServerFromXs = exports.fetchMcpServers = exports.updateMcpServer = exports.fetchMcpServer = void 0;
+exports.fetchMcpServer = fetchMcpServer;
+exports.updateMcpServer = updateMcpServer;
+exports.fetchMcpServers = fetchMcpServers;
+exports.createMcpServerFromXs = createMcpServerFromXs;
+exports.createMcpServer = createMcpServer;
+exports.deleteMcpServer = deleteMcpServer;
 const request_1 = require("./request");
 const config_1 = require("../config");
 const vscode = require("vscode");
@@ -29,7 +34,6 @@ function fetchMcpServer(instanceName, workspaceId, mcpServerId) {
     queryParams.set("include_xanoscript", "true");
     return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/mcp_server/${mcpServerId}?${queryParams.toString()}`);
 }
-exports.fetchMcpServer = fetchMcpServer;
 /**
  * Update the Xanoscript version of a given MCP Server within your workspace.
  *
@@ -56,7 +60,6 @@ function updateMcpServer(instanceName, workspaceId, mcpServerId, script) {
         return fetchMcpServer(instanceName, workspaceId, mcpServerId);
     });
 }
-exports.updateMcpServer = updateMcpServer;
 /**
  * Fetch the list of MCP servers within your workspace.
  *
@@ -84,7 +87,6 @@ function fetchMcpServers(instanceName, workspaceId) {
         return mcpServers;
     });
 }
-exports.fetchMcpServers = fetchMcpServers;
 /**
  * Create a new MCP server using XanoScript
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -105,7 +107,6 @@ function createMcpServerFromXs(instanceName, workspaceId, script) {
         });
     });
 }
-exports.createMcpServerFromXs = createMcpServerFromXs;
 /**
  * Create a new MCP Server within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -137,7 +138,6 @@ function createMcpServer(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createMcpServer = createMcpServer;
 /**
  * Delete a MCP server within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -151,5 +151,4 @@ function deleteMcpServer(instanceName, workspaceId, mcpServerId) {
         });
     });
 }
-exports.deleteMcpServer = deleteMcpServer;
 //# sourceMappingURL=mcpServer.js.map

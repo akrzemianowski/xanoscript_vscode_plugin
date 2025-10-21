@@ -323,8 +323,8 @@ export const JsonInToken = createUniqToken({
 export const allTokens = uniq([
   WhiteSpace,
   NewlineToken,
-  ...CommentTokens,
   ...MultilineTokens,
+  ...CommentTokens, // Must come before ControlTokens to match // before single /
   StaticPathToken,
   DynamicPathToken,
   RegExpToken,

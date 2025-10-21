@@ -15,6 +15,11 @@ describe("objectColumnDefinition", () => {
     const parser = parse(`object variable {
       schema {
         int rank
+        object nested {
+          schema {
+            text label
+          }
+        }
       }
     }`);
     expect(parser.errors).to.be.empty;
