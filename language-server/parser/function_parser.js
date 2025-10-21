@@ -18,6 +18,8 @@ export function functionDeclaration($) {
     const testNames = [];
 
     $.sectionStack.push("functionDeclaration");
+    // Allow leading comments and newlines before the function declaration
+    $.SUBRULE($.optionalCommentBlockFn);
     const parent = $.CONSUME(FunctionToken);
     $.OR([
       { ALT: () => $.CONSUME(Identifier) },
@@ -28,6 +30,9 @@ export function functionDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasCache,
           ALT: () => {

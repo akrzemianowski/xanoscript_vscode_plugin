@@ -50,9 +50,7 @@ task daily_sales_report {
     }
   }
 
-  schedule {
-    events = [{starts_on: 2026-05-01 23:00:00+0000, freq: 86400}]
-  }
+  schedule = [{starts_on: 2026-05-01 23:00:00+0000, freq: 86400}]
 
   history = "inherit"
 }

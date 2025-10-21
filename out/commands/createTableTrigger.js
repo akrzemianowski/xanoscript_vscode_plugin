@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTableTriggerCmd = void 0;
+exports.createTableTriggerCmd = createTableTriggerCmd;
 const vscode = require("vscode");
 const openXanoscriptEditor_1 = require("./openXanoscriptEditor");
 const config_1 = require("../config");
@@ -87,5 +87,4 @@ function createTableTriggerCmd() {
         }
     });
 }
-exports.createTableTriggerCmd = createTableTriggerCmd;
 //# sourceMappingURL=createTableTrigger.js.map

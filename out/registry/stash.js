@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readStash = exports.applyStash = exports.stashChanges = void 0;
+exports.stashChanges = stashChanges;
+exports.applyStash = applyStash;
+exports.readStash = readStash;
 const vscode = require("vscode");
 const init_1 = require("./init");
 const config_1 = require("../config");
@@ -64,7 +66,6 @@ function stashChanges() {
         changesTreeDataProvider_1.changesProvider.refresh();
     });
 }
-exports.stashChanges = stashChanges;
 function applyStash() {
     return __awaiter(this, void 0, void 0, function* () {
         const stash = yield readStash();
@@ -94,7 +95,6 @@ function applyStash() {
         vscode.window.showInformationMessage("Stash applied");
     });
 }
-exports.applyStash = applyStash;
 /**
  * Get the registry from the local workspace
  *
@@ -125,5 +125,4 @@ function readStash() {
         }
     });
 }
-exports.readStash = readStash;
 //# sourceMappingURL=stash.js.map

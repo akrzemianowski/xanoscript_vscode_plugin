@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createCustomFunctionCmd = void 0;
+exports.createCustomFunctionCmd = createCustomFunctionCmd;
 const vscode = require("vscode");
 const openXanoscriptEditor_1 = require("./openXanoscriptEditor");
 const path_1 = require("path");
@@ -76,5 +76,4 @@ function createCustomFunctionCmd() {
         }
     });
 }
-exports.createCustomFunctionCmd = createCustomFunctionCmd;
 //# sourceMappingURL=createCustomFunction.js.map

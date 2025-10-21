@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createAgentCmd = void 0;
+exports.createAgentCmd = createAgentCmd;
 const vscode = require("vscode");
 const openXanoscriptEditor_1 = require("./openXanoscriptEditor");
 const config_1 = require("../config");
@@ -66,5 +66,4 @@ function createAgentCmd() {
         }
     });
 }
-exports.createAgentCmd = createAgentCmd;
 //# sourceMappingURL=createAgent.js.map

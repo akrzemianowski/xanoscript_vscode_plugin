@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOneRecordFunction = void 0;
+exports.getOneRecordFunction = getOneRecordFunction;
 const lodash_1 = require("lodash");
 /**
  * Generates a xanoscript function to retrieve a single record from a database table.
@@ -33,12 +33,11 @@ function ${path} {
     value = $model
   }
 
-  history = {inherit: true}
+  history = "inherit"
 }`;
     return {
         code: code.trim(),
         path: path + ".xs",
     };
 }
-exports.getOneRecordFunction = getOneRecordFunction;
 //# sourceMappingURL=getOneRecord.js.map

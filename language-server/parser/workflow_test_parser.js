@@ -11,6 +11,9 @@ export function workflowTestDeclaration($) {
     let hasTags = false;
 
     $.sectionStack.push("workflowTestDeclaration");
+    // Allow leading comments and newlines before the workflow_test declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     const parent = $.CONSUME(WorkflowTestToken);
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -20,6 +23,9 @@ export function workflowTestDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasDatasource,
           ALT: () => {

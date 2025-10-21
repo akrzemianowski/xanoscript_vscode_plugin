@@ -9,7 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteRealtimeTrigger = exports.createRealtimeTriggerFromXs = exports.createRealtimeTrigger = exports.updateRealtimeTrigger = exports.fetchRealtimeTrigger = exports.fetchRealtimeTriggers = exports.deleteRealtimeChannel = exports.createRealtimeChannelFromXs = exports.createRealtimeChannel = exports.updateRealtimeChannel = exports.fetchRealtimeChannel = exports.fetchRealtimeChannels = void 0;
+exports.fetchRealtimeChannels = fetchRealtimeChannels;
+exports.fetchRealtimeChannel = fetchRealtimeChannel;
+exports.updateRealtimeChannel = updateRealtimeChannel;
+exports.createRealtimeChannel = createRealtimeChannel;
+exports.createRealtimeChannelFromXs = createRealtimeChannelFromXs;
+exports.deleteRealtimeChannel = deleteRealtimeChannel;
+exports.fetchRealtimeTriggers = fetchRealtimeTriggers;
+exports.fetchRealtimeTrigger = fetchRealtimeTrigger;
+exports.updateRealtimeTrigger = updateRealtimeTrigger;
+exports.createRealtimeTrigger = createRealtimeTrigger;
+exports.createRealtimeTriggerFromXs = createRealtimeTriggerFromXs;
+exports.deleteRealtimeTrigger = deleteRealtimeTrigger;
 const request_1 = require("./request");
 function fetchRealtimeChannels(instanceName, workspaceId) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -27,7 +38,6 @@ function fetchRealtimeChannels(instanceName, workspaceId) {
         return channels;
     });
 }
-exports.fetchRealtimeChannels = fetchRealtimeChannels;
 function fetchRealtimeChannel(instanceName, workspaceId, channelId) {
     return __awaiter(this, void 0, void 0, function* () {
         const queryParams = new URLSearchParams();
@@ -35,7 +45,6 @@ function fetchRealtimeChannel(instanceName, workspaceId, channelId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/realtime/channel/${channelId}?${queryParams.toString()}`);
     });
 }
-exports.fetchRealtimeChannel = fetchRealtimeChannel;
 function updateRealtimeChannel(instanceName, workspaceId, channelId, xanoscript) {
     return __awaiter(this, void 0, void 0, function* () {
         const queryParams = new URLSearchParams();
@@ -49,7 +58,6 @@ function updateRealtimeChannel(instanceName, workspaceId, channelId, xanoscript)
         });
     });
 }
-exports.updateRealtimeChannel = updateRealtimeChannel;
 function createRealtimeChannel(instanceName, workspaceId, name) {
     return __awaiter(this, void 0, void 0, function* () {
         const xanoscript = `realtime_channel ${name} {
@@ -74,7 +82,6 @@ function createRealtimeChannel(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createRealtimeChannel = createRealtimeChannel;
 function createRealtimeChannelFromXs(instanceName, workspaceId, xanoscript) {
     return __awaiter(this, void 0, void 0, function* () {
         const queryParams = new URLSearchParams();
@@ -88,7 +95,6 @@ function createRealtimeChannelFromXs(instanceName, workspaceId, xanoscript) {
         });
     });
 }
-exports.createRealtimeChannelFromXs = createRealtimeChannelFromXs;
 function deleteRealtimeChannel(instanceName, workspaceId, channelId) {
     return __awaiter(this, void 0, void 0, function* () {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/realtime/channel/${channelId}`, {
@@ -96,7 +102,6 @@ function deleteRealtimeChannel(instanceName, workspaceId, channelId) {
         });
     });
 }
-exports.deleteRealtimeChannel = deleteRealtimeChannel;
 function fetchRealtimeTriggers(instanceName, workspaceId) {
     return __awaiter(this, void 0, void 0, function* () {
         let nextPage = 1;
@@ -113,7 +118,6 @@ function fetchRealtimeTriggers(instanceName, workspaceId) {
         return triggers;
     });
 }
-exports.fetchRealtimeTriggers = fetchRealtimeTriggers;
 function fetchRealtimeTrigger(instanceName, workspaceId, triggerId) {
     return __awaiter(this, void 0, void 0, function* () {
         const queryParams = new URLSearchParams();
@@ -121,7 +125,6 @@ function fetchRealtimeTrigger(instanceName, workspaceId, triggerId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/realtime/trigger/${triggerId}?${queryParams.toString()}`);
     });
 }
-exports.fetchRealtimeTrigger = fetchRealtimeTrigger;
 function updateRealtimeTrigger(instanceName, workspaceId, triggerId, xanoscript) {
     return __awaiter(this, void 0, void 0, function* () {
         const queryParams = new URLSearchParams();
@@ -135,7 +138,6 @@ function updateRealtimeTrigger(instanceName, workspaceId, triggerId, xanoscript)
         });
     });
 }
-exports.updateRealtimeTrigger = updateRealtimeTrigger;
 function createRealtimeTrigger(instanceName, workspaceId, name) {
     return __awaiter(this, void 0, void 0, function* () {
         const queryParams = new URLSearchParams();
@@ -182,7 +184,6 @@ function createRealtimeTrigger(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createRealtimeTrigger = createRealtimeTrigger;
 function createRealtimeTriggerFromXs(instanceName, workspaceId, xanoscript) {
     return __awaiter(this, void 0, void 0, function* () {
         const queryParams = new URLSearchParams();
@@ -196,7 +197,6 @@ function createRealtimeTriggerFromXs(instanceName, workspaceId, xanoscript) {
         });
     });
 }
-exports.createRealtimeTriggerFromXs = createRealtimeTriggerFromXs;
 function deleteRealtimeTrigger(instanceName, workspaceId, triggerId) {
     return __awaiter(this, void 0, void 0, function* () {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/realtime/trigger/${triggerId}`, {
@@ -204,5 +204,4 @@ function deleteRealtimeTrigger(instanceName, workspaceId, triggerId) {
         });
     });
 }
-exports.deleteRealtimeTrigger = deleteRealtimeTrigger;
 //# sourceMappingURL=realtime.js.map

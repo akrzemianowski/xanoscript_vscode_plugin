@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sync = exports.isSynching = void 0;
+exports.isSynching = isSynching;
+exports.sync = sync;
 const login_1 = require("../commands/login");
 const pull_1 = require("./pull");
 const push_1 = require("./push");
@@ -17,7 +18,6 @@ let synching = false;
 function isSynching() {
     return synching;
 }
-exports.isSynching = isSynching;
 /**
  * Syncs the registry with the local file system.
  *
@@ -42,5 +42,4 @@ function sync() {
         }
     });
 }
-exports.sync = sync;
 //# sourceMappingURL=sync.js.map

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadStaticCmd = void 0;
+exports.uploadStaticCmd = uploadStaticCmd;
 const static_1 = require("../metadata/static");
 const config_1 = require("../config");
 const vscode = require("vscode");
@@ -51,5 +51,4 @@ function uploadStaticCmd() {
         }
     });
 }
-exports.uploadStaticCmd = uploadStaticCmd;
 //# sourceMappingURL=uploadStatic.js.map

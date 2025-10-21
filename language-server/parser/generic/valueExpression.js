@@ -204,6 +204,7 @@ export function valueExpression($) {
               { ALT: () => $.SUBRULE($.completeAuthVariable) },
               { ALT: () => $.SUBRULE($.completeEnvVariable) },
               { ALT: () => $.SUBRULE($.completeInputVariable) },
+              { ALT: () => $.SUBRULE($.completeErrorVariable) }, // e.g., $error.code
               { ALT: () => $.SUBRULE($.shortFormVariable) },
             ]);
             return true;

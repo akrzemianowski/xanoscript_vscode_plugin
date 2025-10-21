@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.openXanoscriptUri = exports.openXanoscriptEditorCmd = void 0;
+exports.openXanoscriptEditorCmd = openXanoscriptEditorCmd;
+exports.openXanoscriptUri = openXanoscriptUri;
 const vscode = require("vscode");
 /**
  * When a user click on an endpoint on the tree view, this function will open the endpoint editor
@@ -28,7 +29,6 @@ function openXanoscriptEditorCmd(node) {
         }
     });
 }
-exports.openXanoscriptEditorCmd = openXanoscriptEditorCmd;
 /**
  * Directly open a XanoScript file by its URI
  * @param uri The URI can be generated using the buidUri functions
@@ -44,5 +44,4 @@ function openXanoscriptUri(uri) {
         }
     });
 }
-exports.openXanoscriptUri = openXanoscriptUri;
 //# sourceMappingURL=openXanoscriptEditor.js.map

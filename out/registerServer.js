@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerServer = void 0;
+exports.registerServer = registerServer;
 const vscode = require("vscode");
 const node_1 = require("vscode-languageclient/node");
 const path = require("path");
@@ -33,5 +33,4 @@ function registerServer(context) {
     client.start();
     return client;
 }
-exports.registerServer = registerServer;
 //# sourceMappingURL=registerServer.js.map

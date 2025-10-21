@@ -383,20 +383,13 @@ describe("table_trigger", () => {
         input {
         }
 
-        history = {
-          inherit: false
-          limit: 10
-        }
+        history = "inherit"
 
-        history = {
-          inherit: false
-          limit: 10
-        }
+        history = 100
 
         stack {
         }
       }`);
-
       expect(parser.errors).to.not.be.empty;
     });
 

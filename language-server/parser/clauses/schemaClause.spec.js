@@ -18,6 +18,14 @@ describe("schemaClause", () => {
     expect(parser.errors).to.be.empty;
   });
 
+  it("schemaClause accepts a comment above a field", () => {
+    const parser = parse(`schema {
+        // some comment
+        int rank
+      }`);
+    expect(parser.errors).to.be.empty;
+  });
+
   it("schemaClause accepts multiple fields", () => {
     const parser = parse(`schema {
         int rank

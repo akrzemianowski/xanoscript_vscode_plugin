@@ -4,9 +4,7 @@ task "my_test_task" {
   stack {
   }
   
-  schedule {
-    events = []
-  }
+  schedule = []
 
   history = "inherit"
 

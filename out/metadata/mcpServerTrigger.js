@@ -9,7 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMcpServerTrigger = exports.createMcpServerTrigger = exports.createMcpServerTriggerFromXs = exports.fetchMcpServerTriggers = exports.updateMcpServerTriggerScript = exports.fetchMcpServerTrigger = void 0;
+exports.fetchMcpServerTrigger = fetchMcpServerTrigger;
+exports.updateMcpServerTriggerScript = updateMcpServerTriggerScript;
+exports.fetchMcpServerTriggers = fetchMcpServerTriggers;
+exports.createMcpServerTriggerFromXs = createMcpServerTriggerFromXs;
+exports.createMcpServerTrigger = createMcpServerTrigger;
+exports.deleteMcpServerTrigger = deleteMcpServerTrigger;
 const request_1 = require("./request");
 const config_1 = require("../config");
 const vscode = require("vscode");
@@ -29,7 +34,6 @@ function fetchMcpServerTrigger(instanceName, workspaceId, triggerId) {
     queryParams.set("include_xanoscript", "true");
     return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/mcp_server/trigger/${triggerId}?${queryParams.toString()}`);
 }
-exports.fetchMcpServerTrigger = fetchMcpServerTrigger;
 /**
  * Update the Xanoscript version of a given MCP Server Trigger within your workspace.
  *
@@ -55,7 +59,6 @@ function updateMcpServerTriggerScript(instanceName, workspaceId, triggerId, scri
         });
     });
 }
-exports.updateMcpServerTriggerScript = updateMcpServerTriggerScript;
 /**
  * Fetch the list of MCP server triggers within your workspace.
  *
@@ -84,7 +87,6 @@ function fetchMcpServerTriggers(instanceName, workspaceId) {
         return mcpServerTriggers;
     });
 }
-exports.fetchMcpServerTriggers = fetchMcpServerTriggers;
 /**
  * Create a new MCP server trigger using XanoScript
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -105,7 +107,6 @@ function createMcpServerTriggerFromXs(instanceName, workspaceId, script) {
         });
     });
 }
-exports.createMcpServerTriggerFromXs = createMcpServerTriggerFromXs;
 /**
  * Create a new MCP Server Trigger within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -164,7 +165,6 @@ function createMcpServerTrigger(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createMcpServerTrigger = createMcpServerTrigger;
 /**
  * Delete an MCP server trigger within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -178,5 +178,4 @@ function deleteMcpServerTrigger(instanceName, workspaceId, triggerId) {
         });
     });
 }
-exports.deleteMcpServerTrigger = deleteMcpServerTrigger;
 //# sourceMappingURL=mcpServerTrigger.js.map

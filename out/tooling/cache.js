@@ -9,7 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.hasCache = exports.deleteCache = exports.setCache = exports.getCacheOrFillWith = exports.getCache = void 0;
+exports.getCache = getCache;
+exports.getCacheOrFillWith = getCacheOrFillWith;
+exports.setCache = setCache;
+exports.deleteCache = deleteCache;
+exports.hasCache = hasCache;
 const _cache = {};
 /**
  * Get a cached value
@@ -25,7 +29,6 @@ function getCache(key, defaultValue = null) {
     }
     return defaultValue;
 }
-exports.getCache = getCache;
 /**
  * Get a cached value or fill the cache with the provided function
  *
@@ -43,7 +46,6 @@ function getCacheOrFillWith(key, fillFn, ttl) {
         return value;
     });
 }
-exports.getCacheOrFillWith = getCacheOrFillWith;
 /**
  * Set a cached value
  *
@@ -59,7 +61,6 @@ function setCache(key, value, ttl) {
         expires: Date.now() + ttl,
     };
 }
-exports.setCache = setCache;
 /**
  * Delete a cached value
  * @param key
@@ -67,7 +68,6 @@ exports.setCache = setCache;
 function deleteCache(key) {
     delete _cache[key];
 }
-exports.deleteCache = deleteCache;
 /**
  * Check if a key exists in the cache
  *
@@ -86,5 +86,4 @@ function hasCache(key) {
     }
     return false;
 }
-exports.hasCache = hasCache;
 //# sourceMappingURL=cache.js.map

@@ -9,16 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getXanoscriptContent = void 0;
+exports.getXanoscriptContent = getXanoscriptContent;
 const cache_1 = require("../metadata/cache");
 const config_1 = require("../config");
 function getXanoscriptContent(objectType, obj) {
     return __awaiter(this, void 0, void 0, function* () {
-        // API groups don't have xanoscript content - they are just containers
-        if (!obj.xanoscript) {
-            // Generate a default xanoscript for api_group
-            return `api_group "${obj.name}" {\n}\n`;
-        }
         if (obj.xanoscript.status === "ok") {
             return obj.xanoscript.value;
         }
@@ -37,5 +32,4 @@ function getXanoscriptContent(objectType, obj) {
         }
     });
 }
-exports.getXanoscriptContent = getXanoscriptContent;
 //# sourceMappingURL=xsUtils.js.map

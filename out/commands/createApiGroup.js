@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createApiGroupCmd = void 0;
+exports.createApiGroupCmd = createApiGroupCmd;
 const vscode = require("vscode");
 const config_1 = require("../config");
 const path_1 = require("path");
@@ -49,7 +49,7 @@ function createApiGroupCmd(groupName) {
                 vscode.window.showInformationMessage(`API group "${groupName}" created successfully`);
                 const apiGroupContent = `api_group "${groupName}" {
   canonical = "${groupName}"
-  history = {inherit: true}
+  history = "inherit"
 }`;
                 // create the file
                 yield vscode.workspace.fs.writeFile(fileUri, Buffer.from(apiGroupContent));
@@ -67,5 +67,4 @@ function createApiGroupCmd(groupName) {
         return groupName;
     });
 }
-exports.createApiGroupCmd = createApiGroupCmd;
 //# sourceMappingURL=createApiGroup.js.map

@@ -1,5 +1,7 @@
+// some comment goes here
 agent "A customer service agent" {
   canonical = "toI_s1PH"
+
   llm = {
     type            : "openai"
     max_steps       : 5

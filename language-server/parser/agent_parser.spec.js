@@ -574,4 +574,26 @@ describe("agent", () => {
 
     expect(parser.errors).to.be.empty;
   });
+
+  it("should allow comments prior to agent declaration", () => {
+    const parser = xanoscriptParser(`// This is a comment
+// on multiple lines
+agent with_history {
+      canonical = "history_123"
+      history = 100
+      llm = {
+        type         : "xano-free"
+        system_prompt: "You are a helpful assistant."
+        max_steps    : 5
+        prompt       : "some prompt"
+        temperature: 0.5
+        search_grounding: true
+      }
+      tools = [
+        {name: "tool1"}
+      ]
+    }`);
+
+    expect(parser.errors).to.be.empty;
+  });
 });

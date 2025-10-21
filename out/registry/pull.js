@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMatchingNewFileIndex = exports.pull = exports.isPulling = void 0;
+exports.isPulling = isPulling;
+exports.pull = pull;
+exports.getMatchingNewFileIndex = getMatchingNewFileIndex;
 const vscode = require("vscode");
 const types_1 = require("./types");
 const path_1 = require("path");
@@ -42,7 +44,6 @@ let pulling = false;
 function isPulling() {
     return pulling;
 }
-exports.isPulling = isPulling;
 /**
  * Pull remote changes from Xano into the local Xano script filesystem
  *
@@ -155,9 +156,6 @@ function pull() {
                 pulling = false;
                 return;
             }
-            const workspaceConfig = vscode.workspace.getConfiguration("xanoscript");
-            const apiUrl = workspaceConfig.get("xanoUrl", "https://app.xano.com");
-            const isProd = apiUrl === "https://app.xano.com";
             let workflowTests = [];
             let agents = [];
             let agentTriggers = [];
@@ -169,100 +167,98 @@ function pull() {
             let realtimeChannels = [];
             let realtimeTriggers = [];
             // TODO: disable once 2.0 is out
-            if (!isProd) {
-                updateProgress("workflow_tests");
-                workflowTests = yield (0, workflowTest_1.fetchWorkflowTests)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch workflow tests: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
+            updateProgress("workflow_tests");
+            workflowTests = yield (0, workflowTest_1.fetchWorkflowTests)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch workflow tests: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("agents");
+            agents = yield (0, agent_1.fetchAgents)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch agents: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("agent triggers");
+            agentTriggers = yield (0, agentTrigger_1.fetchAgentTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch agent triggers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("MCP servers");
+            mcpServers = yield (0, mcpServer_1.fetchMcpServers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch MCP servers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("MCP server triggers");
+            mcpServerTriggers = yield (0, mcpServerTrigger_1.fetchMcpServerTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch MCP server triggers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("table triggers");
+            tableTriggers = yield (0, tableTrigger_1.fetchTableTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch table triggers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("addons");
+            addOns = yield (0, addon_1.fetchAddOns)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch addons: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("middlewares");
+            middlewares = yield (0, middleware_1.fetchMiddlewares)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch middlewares: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("realtime channels");
+            realtimeChannels = yield (0, realtime_1.fetchRealtimeChannels)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                var _a;
+                if (!((_a = error.message) === null || _a === void 0 ? void 0 : _a.startsWith("Please enable"))) {
+                    vscode.window.showWarningMessage(`Failed to fetch realtime channels: ${error.message || error}`);
                 }
-                updateProgress("agents");
-                agents = yield (0, agent_1.fetchAgents)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch agents: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("agent triggers");
-                agentTriggers = yield (0, agentTrigger_1.fetchAgentTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch agent triggers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("MCP servers");
-                mcpServers = yield (0, mcpServer_1.fetchMcpServers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch MCP servers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("MCP server triggers");
-                mcpServerTriggers = yield (0, mcpServerTrigger_1.fetchMcpServerTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch MCP server triggers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("table triggers");
-                tableTriggers = yield (0, tableTrigger_1.fetchTableTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch table triggers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("addons");
-                addOns = yield (0, addon_1.fetchAddOns)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch addons: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("middlewares");
-                middlewares = yield (0, middleware_1.fetchMiddlewares)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch middlewares: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("realtime channels");
-                realtimeChannels = yield (0, realtime_1.fetchRealtimeChannels)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    var _a;
-                    if (!((_a = error.message) === null || _a === void 0 ? void 0 : _a.startsWith("Please enable"))) {
-                        vscode.window.showWarningMessage(`Failed to fetch realtime channels: ${error.message || error}`);
-                    }
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
-                updateProgress("realtime triggers");
-                realtimeTriggers = yield (0, realtime_1.fetchRealtimeTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
-                    vscode.window.showWarningMessage(`Failed to fetch realtime triggers: ${error.message || error}`);
-                    return [];
-                });
-                if (token.isCancellationRequested) {
-                    pulling = false;
-                    return;
-                }
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
+            }
+            updateProgress("realtime triggers");
+            realtimeTriggers = yield (0, realtime_1.fetchRealtimeTriggers)(config_1.config.instanceName, config_1.config.workspaceId).catch((error) => {
+                vscode.window.showWarningMessage(`Failed to fetch realtime triggers: ${error.message || error}`);
+                return [];
+            });
+            if (token.isCancellationRequested) {
+                pulling = false;
+                return;
             }
             // --- from this point, we don't allow cancelling anymore ---
             for (const apiGroup of apiGroups) {
@@ -501,64 +497,12 @@ function pull() {
                         console.error(`Unknown file operation ${fileOperation.operation}`);
                 }
             }
-            // Clean api_group duplicates before saving registry
-            // This prevents multiple records with the same path but different IDs (especially id=0)
-            const apiGroupsByPath = new Map();
-            const indicesToRemove = [];
-            // First pass: identify duplicates
-            for (let i = 0; i < registry.length; i++) {
-                const record = registry[i];
-                if (record.type === types_1.XanoObjectType.API_GROUP) {
-                    const existing = apiGroupsByPath.get(record.path);
-                    if (existing === undefined) {
-                        // First record for this path
-                        apiGroupsByPath.set(record.path, i);
-                    }
-                    else {
-                        // We have a duplicate
-                        const existingRecord = registry[existing];
-                        // Keep the record with valid ID (not 0)
-                        if (record.id !== 0 && existingRecord.id === 0) {
-                            // Current record is better, mark old one for removal
-                            indicesToRemove.push(existing);
-                            apiGroupsByPath.set(record.path, i);
-                        }
-                        else if (existingRecord.id !== 0 && record.id === 0) {
-                            // Existing is better, mark current for removal
-                            indicesToRemove.push(i);
-                        }
-                        else if (record.id === 0 && existingRecord.id === 0) {
-                            // Both have id=0, keep the first one (mark current for removal)
-                            indicesToRemove.push(i);
-                        }
-                        else if (existingRecord.id !== 0 && record.id !== 0 && existingRecord.id !== record.id) {
-                            // Both have different valid IDs - keep the one with higher ID (more recent)
-                            if (record.id > existingRecord.id) {
-                                indicesToRemove.push(existing);
-                                apiGroupsByPath.set(record.path, i);
-                            } else {
-                                indicesToRemove.push(i);
-                            }
-                        }
-                        // If both have the same valid ID, keep the first one
-                        else if (existingRecord.id === record.id) {
-                            indicesToRemove.push(i);
-                        }
-                    }
-                }
-            }
-            // Second pass: remove duplicates (from end to start to preserve indices)
-            const uniqueIndicesToRemove = [...new Set(indicesToRemove)].sort((a, b) => b - a);
-            for (const index of uniqueIndicesToRemove) {
-                registry.splice(index, 1);
-            }
             yield (0, registry_1.saveRegistry)(registry);
             changesTreeDataProvider_1.changesProvider.refresh();
         }))
             .then(() => (pulling = false), () => (pulling = false));
     });
 }
-exports.pull = pull;
 function pullObject(fileOperations, registry, obj, objType, objPath) {
     return __awaiter(this, void 0, void 0, function* () {
         // check if the record is in the registry
@@ -609,14 +553,6 @@ function newRegistryRecord(fileOperations, obj, objType, path) {
         const localFilePath = (0, path_1.join)(config_1.ROOT_PATH, record.path);
         record.sha256 = (0, fsUtils_1.getFileHash)(yield (0, xsUtils_1.getXanoscriptContent)(objType, obj));
         record.original = Buffer.from(yield (0, xsUtils_1.getXanoscriptContent)(objType, obj)).toString("base64");
-        // Ensure parent directory exists before creating the file
-        const parentDir = (0, path_1.dirname)(localFilePath);
-        fileOperations.push({
-            operation: "create",
-            content: "",
-            fileType: vscode.FileType.Directory,
-            filePath: parentDir,
-        });
         fileOperations.push({
             operation: "create",
             content: yield (0, xsUtils_1.getXanoscriptContent)(objType, obj),
@@ -656,14 +592,6 @@ function updateExistingRegistryRecord(fileOperations, record, script) {
         if (record.status === types_1.XanoStatus.UNCHANGED) {
             record.sha256 = (0, fsUtils_1.getFileHash)(script);
             record.original = Buffer.from(script).toString("base64");
-            // Ensure parent directory exists before updating the file
-            const parentDir = (0, path_1.dirname)(localFilePath);
-            fileOperations.push({
-                operation: "update",
-                content: "",
-                fileType: vscode.FileType.Directory,
-                filePath: parentDir,
-            });
             fileOperations.push({
                 operation: "update",
                 content: script,
@@ -679,14 +607,6 @@ function updateExistingRegistryRecord(fileOperations, record, script) {
             if (patchedScript) {
                 record.sha256 = (0, fsUtils_1.getFileHash)(script);
                 record.original = Buffer.from(script).toString("base64");
-                // Ensure parent directory exists before updating the file (in case it was deleted)
-                const parentDir = (0, path_1.dirname)(localFilePath);
-                fileOperations.push({
-                    operation: "update",
-                    content: "",
-                    fileType: vscode.FileType.Directory,
-                    filePath: parentDir,
-                });
                 fileOperations.push({
                     operation: "update",
                     content: patchedScript,
@@ -787,7 +707,6 @@ function getMatchingNewFileIndex(registry, obj, objType) {
         return -1;
     });
 }
-exports.getMatchingNewFileIndex = getMatchingNewFileIndex;
 /**
  * Compare a remote xanoscript with a local file
  * @param obj XanoObject the remote Xanoscript record
@@ -798,11 +717,6 @@ function compareWithLocalFile(obj, registryRecord) {
     return __awaiter(this, void 0, void 0, function* () {
         const localFilePath = (0, path_1.join)(config_1.ROOT_PATH, registryRecord.path);
         const localScript = yield (0, fsUtils_1.readFile)(localFilePath);
-        // For api_group and other objects without xanoscript, compare with generated content
-        if (!obj.xanoscript) {
-            const generatedContent = yield (0, xsUtils_1.getXanoscriptContent)(registryRecord.type, obj);
-            return generatedContent === localScript;
-        }
         return obj.xanoscript.status === "ok" && obj.xanoscript.value === localScript;
     });
 }

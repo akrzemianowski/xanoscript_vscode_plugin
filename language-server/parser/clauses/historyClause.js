@@ -11,7 +11,7 @@ export function historyClause($) {
     const parent = $.CONSUME(HistoryToken); // "history"
     $.CONSUME(EqualToken); // "="
     $.SUBRULE($.schemaParseEnumFn, {
-      ARGS: [parent, [false, "inherit", 0, 100, 1000, 10000, "all"]],
+      ARGS: [parent, [false, "inherit", 0, 10, 100, 1000, 10000, "all"]],
     });
 
     $.sectionStack.pop();

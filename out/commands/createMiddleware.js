@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createMiddlewareCmd = void 0;
+exports.createMiddlewareCmd = createMiddlewareCmd;
 const vscode = require("vscode");
 const openXanoscriptEditor_1 = require("./openXanoscriptEditor");
 const config_1 = require("../config");
@@ -63,5 +63,4 @@ function createMiddlewareCmd() {
         }
     });
 }
-exports.createMiddlewareCmd = createMiddlewareCmd;
 //# sourceMappingURL=createMiddleware.js.map

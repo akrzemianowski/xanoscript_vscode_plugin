@@ -9,7 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMiddleware = exports.createMiddlewareFromXs = exports.createMiddleware = exports.updateMiddleware = exports.fetchMiddleware = exports.fetchMiddlewares = void 0;
+exports.fetchMiddlewares = fetchMiddlewares;
+exports.fetchMiddleware = fetchMiddleware;
+exports.updateMiddleware = updateMiddleware;
+exports.createMiddleware = createMiddleware;
+exports.createMiddlewareFromXs = createMiddlewareFromXs;
+exports.deleteMiddleware = deleteMiddleware;
 const lodash_1 = require("lodash");
 const config_1 = require("../config");
 const request_1 = require("./request");
@@ -41,7 +46,6 @@ function fetchMiddlewares(instanceName, workspaceId) {
         return middlewares;
     });
 }
-exports.fetchMiddlewares = fetchMiddlewares;
 /**
  * Fetch a middleware with its XanoScript definition
  *
@@ -60,7 +64,6 @@ function fetchMiddleware(instanceName, workspaceId, middlewareId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/middleware/${middlewareId}?${queryParams.toString()}`);
     });
 }
-exports.fetchMiddleware = fetchMiddleware;
 /**
  * Update a middleware with XanoScript
  *
@@ -87,7 +90,6 @@ function updateMiddleware(instanceName, workspaceId, middlewareId, xanoscript) {
         });
     });
 }
-exports.updateMiddleware = updateMiddleware;
 /**
  * Create a new middleware using XanoScript template
  *
@@ -124,7 +126,6 @@ function createMiddleware(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createMiddleware = createMiddleware;
 /**
  * Create a new middleware using XanoScript
  *
@@ -146,7 +147,6 @@ function createMiddlewareFromXs(instanceName, workspaceId, xanoscript) {
         });
     });
 }
-exports.createMiddlewareFromXs = createMiddlewareFromXs;
 /**
  * Delete a middleware
  *
@@ -161,5 +161,4 @@ function deleteMiddleware(instanceName, workspaceId, middlewareId) {
         });
     });
 }
-exports.deleteMiddleware = deleteMiddleware;
 //# sourceMappingURL=middleware.js.map

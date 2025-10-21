@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getManyRecordsQuery = void 0;
+exports.getManyRecordsQuery = getManyRecordsQuery;
 /**
  * Generates a xanoscript endpoint to retrieve a single record from a database table.
  *
@@ -62,12 +62,11 @@ query ${tableName} verb=GET {
     value = $model
   }
 
-  history = {inherit: true}
+  history = "inherit"
 }}`;
     return {
         code: code.trim(),
         path: `${apiGroupName}/${tableName}_GET.xs`,
     };
 }
-exports.getManyRecordsQuery = getManyRecordsQuery;
 //# sourceMappingURL=getManyRecords.js.map

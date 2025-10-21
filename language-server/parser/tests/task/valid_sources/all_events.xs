@@ -5,8 +5,7 @@ task "list dogs" {
     } as $clients
   }
 
-  schedule {
-    events = [
+  schedule = [
       {starts_on: 2025-03-17 18:33:50+0000}
       {starts_on: 2025-03-17 18:33:55+0000, freq: 172800}
       {
@@ -15,5 +14,4 @@ task "list dogs" {
         ends_on  : 2029-03-15 18:34:02+0000
       }
     ]
-  }
 }

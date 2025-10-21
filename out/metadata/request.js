@@ -9,7 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.XsNotFoundError = exports.XsSyntaxError = exports.metadataRequest = exports.metadataXanoRequest = exports.metadataInstanceRequest = void 0;
+exports.XsNotFoundError = exports.XsSyntaxError = void 0;
+exports.metadataInstanceRequest = metadataInstanceRequest;
+exports.metadataXanoRequest = metadataXanoRequest;
+exports.metadataRequest = metadataRequest;
 const vscode = require("vscode");
 const cache_1 = require("./cache");
 const secrets_1 = require("../secrets");
@@ -34,7 +37,6 @@ function metadataInstanceRequest(instanceName, path, params) {
         return metadataRequest(url, params);
     });
 }
-exports.metadataInstanceRequest = metadataInstanceRequest;
 /**
  * Makes a request to Xano main Metadata API using your access Token.
  * Here you can fetch instances, auth status and snippet informations.
@@ -50,7 +52,6 @@ function metadataXanoRequest(path, params) {
         return metadataRequest(url, params);
     });
 }
-exports.metadataXanoRequest = metadataXanoRequest;
 /**
  * Open a request to the metadata API using your access token.
  * @param url
@@ -58,8 +59,8 @@ exports.metadataXanoRequest = metadataXanoRequest;
  * @returns
  */
 function metadataRequest(url, params) {
-    var _a;
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         const accessToken = yield (0, secrets_1.getAccessToken)();
         const isFormData = (params === null || params === void 0 ? void 0 : params.body) instanceof FormData;
         const response = yield (!isFormData
@@ -103,7 +104,6 @@ function metadataRequest(url, params) {
         }
     });
 }
-exports.metadataRequest = metadataRequest;
 class XsSyntaxError extends Error {
     constructor(message, syntaxError) {
         super(message);

@@ -6,7 +6,7 @@
 	"preview": true,
 	"main": "./dist/extension.js",
 	"description": "A language to represent your workspace",
-	"version": "0.0.70",
+	"version": "0.0.80",
 	"engines": {
 		"vscode": "^1.96.0"
 	},
@@ -185,25 +185,6 @@
 				"modelDescription": "Fetches the OpenAPI specification for API endpoints provided by the backend. This tool should be used when building webpages that consume the Xano backend."
 			},
 			{
-				"name": "generate_xano_api_sdk",
-				"when": "xano.enabled",
-				"displayName": "Generate Xano API SDK",
-				"canBeReferencedInPrompt": true,
-				"toolReferenceName": "generate_xano_api_sdk",
-				"icon": "$(file-code)",
-				"userDescription": "Generate an SDK for the Xano API",
-				"modelDescription": "Generates a Typescript SDK for interacting with the Xano API endpoints. This tool should be used when building webpages that consume the Xano backend. Prefer `static/src/extension/xano` as the output directory for the generated SDK.",
-				"inputSchema": {
-					"type": "object",
-					"properties": {
-						"outputDir": {
-							"type": "string",
-							"description": "The relative directory path to save the generated SDK file"
-						}
-					}
-				}
-			},
-			{
 				"name": "push_all_changes_to_xano",
 				"when": "xano.enabled",
 				"displayName": "Push All Changes to Xano",
@@ -255,6 +236,15 @@
 					"type": "string",
 					"default": "https://app.xano.com",
 					"description": "The xano root URL."
+				},
+				"xanoscript.tablePrimaryKeyType": {
+					"type": "string",
+					"default": "int",
+					"description": "The default key type for tables.",
+					"enum": [
+						"int",
+						"uuid"
+					]
 				},
 				"xanoscript.draftMode": {
 					"type": "boolean",
@@ -736,6 +726,7 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.22.0",
+		"@hey-api/openapi-ts": "0.86.1",
 		"@types/assert": "^1.5.11",
 		"@types/diff": "^7.0.0",
 		"@types/lodash": "^4.17.14",
@@ -753,8 +744,7 @@
 		"globals": "^16.0.0",
 		"npm-run-all": "^4.1.5",
 		"sinon": "^20.0.0",
-		"ts-openapi-codegen": "^0.5.1",
-		"typescript": "^4.0.0",
+		"typescript": "^5.5.3",
 		"typescript-eslint": "^8.27.0",
 		"webpack": "^5.98.0",
 		"webpack-cli": "^6.0.1"
@@ -774,8 +764,8 @@
 		"vscode-languageserver-textdocument": "^1.0.12"
 	},
 	"__metadata": {
-		"installedTimestamp": 1760852160088,
+		"installedTimestamp": 1761021794903,
 		"targetPlatform": "undefined",
-		"size": 53015357
+		"size": 34174367
 	}
 }

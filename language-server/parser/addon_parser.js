@@ -15,6 +15,8 @@ export function addonDeclaration($) {
     let hasTags = false;
 
     $.sectionStack.push("addonDeclaration");
+    // Allow leading comments and newlines before the addon declaration
+    $.SUBRULE($.optionalCommentBlockFn);
     const parent = $.CONSUME(AddonToken);
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -24,6 +26,9 @@ export function addonDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasDescription,
           ALT: () => {

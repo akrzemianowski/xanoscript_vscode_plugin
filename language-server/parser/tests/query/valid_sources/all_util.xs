@@ -39,6 +39,25 @@ query all_util verb=GET {
     } as $x4
   
     util.get_vars as $x5
+
+    util.send_email {
+      service_provider = "xano"
+      subject = "hellow"
+      message = "Hey there"
+    } as $xano_email
+  
+    util.send_email {
+      api_key = $env.secret_key
+      service_provider = "resend"
+      subject = "hellow"
+      message = "Hey there"
+      to = "some_email@xano.com"
+      bcc = []|push:"foo@goo.com"
+      cc = ["me@me.com", "john@be.com"]
+      from = "admin@xano.com"
+      reply_to = "no-reply@xano.com"
+      scheduled_at = "2025-11-26T01:01:02.00"
+    }
   }
 
   response = $x1

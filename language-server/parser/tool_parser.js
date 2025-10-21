@@ -16,6 +16,9 @@ export function toolDeclaration($) {
     let hasTags = false;
 
     $.sectionStack.push("toolDeclaration");
+    // Allow leading comments and newlines before the tool declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     const parent = $.CONSUME(ToolToken);
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -25,6 +28,9 @@ export function toolDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasDescription,
           ALT: () => {

@@ -58,7 +58,6 @@ describe("nakedStack", () => {
     value = "value2"
   }
 }`);
-
     expect(parser.errors).to.be.empty;
   });
 });

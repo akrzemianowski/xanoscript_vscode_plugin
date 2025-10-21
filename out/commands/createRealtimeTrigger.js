@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createRealtimeTriggerCmd = void 0;
+exports.createRealtimeTriggerCmd = createRealtimeTriggerCmd;
 const vscode = require("vscode");
 const openXanoscriptEditor_1 = require("./openXanoscriptEditor");
 const config_1 = require("../config");
@@ -119,5 +119,4 @@ function createRealtimeTriggerCmd() {
         }
     });
 }
-exports.createRealtimeTriggerCmd = createRealtimeTriggerCmd;
 //# sourceMappingURL=createRealtimeTrigger.js.map

@@ -8,7 +8,7 @@ var XanoStatus;
     XanoStatus["CHANGED"] = "changed";
     XanoStatus["ERROR"] = "error";
     XanoStatus["NOTFOUND"] = "notfound";
-})(XanoStatus = exports.XanoStatus || (exports.XanoStatus = {}));
+})(XanoStatus || (exports.XanoStatus = XanoStatus = {}));
 var XanoObjectType;
 (function (XanoObjectType) {
     XanoObjectType["FUNCTION"] = "function";
@@ -28,5 +28,5 @@ var XanoObjectType;
     XanoObjectType["REALTIME_CHANNEL"] = "realtime_channel";
     XanoObjectType["REALTIME_TRIGGER"] = "realtime_trigger";
     XanoObjectType["UNKNOWN"] = "unknown";
-})(XanoObjectType = exports.XanoObjectType || (exports.XanoObjectType = {}));
+})(XanoObjectType || (exports.XanoObjectType = XanoObjectType = {}));
 //# sourceMappingURL=types.js.map

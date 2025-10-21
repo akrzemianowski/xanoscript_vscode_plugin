@@ -9,7 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAgent = exports.createAgentFromXs = exports.createAgent = exports.updateAgent = exports.fetchAgent = exports.fetchAgents = void 0;
+exports.fetchAgents = fetchAgents;
+exports.fetchAgent = fetchAgent;
+exports.updateAgent = updateAgent;
+exports.createAgent = createAgent;
+exports.createAgentFromXs = createAgentFromXs;
+exports.deleteAgent = deleteAgent;
 const lodash_1 = require("lodash");
 const config_1 = require("../config");
 const request_1 = require("./request");
@@ -41,7 +46,6 @@ function fetchAgents(instanceName, workspaceId) {
         return agents;
     });
 }
-exports.fetchAgents = fetchAgents;
 /**
  * Fetch an agent with its XanoScript definition
  *
@@ -60,7 +64,6 @@ function fetchAgent(instanceName, workspaceId, agentId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/agent/${agentId}?${queryParams.toString()}`);
     });
 }
-exports.fetchAgent = fetchAgent;
 /**
  * Update an agent with XanoScript
  *
@@ -87,7 +90,6 @@ function updateAgent(instanceName, workspaceId, agentId, xanoscript) {
         });
     });
 }
-exports.updateAgent = updateAgent;
 /**
  * Create a new agent using XanoScript template
  *
@@ -120,7 +122,6 @@ function createAgent(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createAgent = createAgent;
 /**
  * Create a new agent using XanoScript
  *
@@ -142,7 +143,6 @@ function createAgentFromXs(instanceName, workspaceId, xanoscript) {
         });
     });
 }
-exports.createAgentFromXs = createAgentFromXs;
 /**
  * Delete an agent
  *
@@ -157,5 +157,4 @@ function deleteAgent(instanceName, workspaceId, agentId) {
         });
     });
 }
-exports.deleteAgent = deleteAgent;
 //# sourceMappingURL=agent.js.map

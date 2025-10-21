@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pushCmd = void 0;
+exports.pushCmd = pushCmd;
 const push_1 = require("../registry/push");
 function pushCmd() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -21,5 +21,4 @@ function pushCmd() {
         }
     });
 }
-exports.pushCmd = pushCmd;
 //# sourceMappingURL=push.js.map

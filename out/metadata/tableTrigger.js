@@ -9,7 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTableTrigger = exports.createTableTrigger = exports.createTableTriggerFromXs = exports.fetchTableTriggers = exports.updateTableTrigger = exports.fetchTableTrigger = void 0;
+exports.fetchTableTrigger = fetchTableTrigger;
+exports.updateTableTrigger = updateTableTrigger;
+exports.fetchTableTriggers = fetchTableTriggers;
+exports.createTableTriggerFromXs = createTableTriggerFromXs;
+exports.createTableTrigger = createTableTrigger;
+exports.deleteTableTrigger = deleteTableTrigger;
 const request_1 = require("./request");
 const config_1 = require("../config");
 const vscode = require("vscode");
@@ -30,7 +35,6 @@ function fetchTableTrigger(instanceName, workspaceId, triggerId) {
     queryParams.set("include_xanoscript", "true");
     return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/table/trigger/${triggerId}?${queryParams.toString()}`);
 }
-exports.fetchTableTrigger = fetchTableTrigger;
 /**
  * Update the Xanoscript version of a given Table Trigger within your workspace.
  *
@@ -56,7 +60,6 @@ function updateTableTrigger(instanceName, workspaceId, triggerId, script) {
         });
     });
 }
-exports.updateTableTrigger = updateTableTrigger;
 /**
  * Fetch the list of table triggers within your workspace.
  *
@@ -84,7 +87,6 @@ function fetchTableTriggers(instanceName, workspaceId) {
         return tableTriggers;
     });
 }
-exports.fetchTableTriggers = fetchTableTriggers;
 /**
  * Create a new table trigger using XanoScript
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -105,7 +107,6 @@ function createTableTriggerFromXs(instanceName, workspaceId, script) {
         });
     });
 }
-exports.createTableTriggerFromXs = createTableTriggerFromXs;
 /**
  * Create a new Table Trigger within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -148,7 +149,6 @@ function createTableTrigger(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createTableTrigger = createTableTrigger;
 /**
  * Delete a table trigger within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -162,5 +162,4 @@ function deleteTableTrigger(instanceName, workspaceId, triggerId) {
         });
     });
 }
-exports.deleteTableTrigger = deleteTableTrigger;
 //# sourceMappingURL=tableTrigger.js.map

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createMcpServerTriggerCmd = void 0;
+exports.createMcpServerTriggerCmd = createMcpServerTriggerCmd;
 const vscode = require("vscode");
 const openXanoscriptEditor_1 = require("./openXanoscriptEditor");
 const config_1 = require("../config");
@@ -100,5 +100,4 @@ function createMcpServerTriggerCmd() {
         }
     });
 }
-exports.createMcpServerTriggerCmd = createMcpServerTriggerCmd;
 //# sourceMappingURL=createMcpServerTrigger.js.map

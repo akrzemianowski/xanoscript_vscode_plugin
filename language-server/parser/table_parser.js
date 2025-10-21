@@ -19,6 +19,9 @@ import { Identifier, NewlineToken } from "../lexer/tokens.js";
 export function tableDeclaration($) {
   return () => {
     $.sectionStack.push("tableDeclaration");
+    // Allow leading comments and newlines before the table declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     $.CONSUME(TableToken); // "table"
     $.OR1([
       {
@@ -50,6 +53,9 @@ export function tableDeclaration($) {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // Allow multiple new lines between clauses
       // Zero or more clauses, each potentially followed by new lines
       $.OR([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasDescription,
           ALT: () => $.SUBRULE($.descriptionFieldAttribute),

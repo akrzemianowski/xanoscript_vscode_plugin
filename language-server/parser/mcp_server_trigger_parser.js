@@ -20,6 +20,9 @@ export function mcpServerTriggerDeclaration($) {
     let hasTags = false;
 
     $.sectionStack.push("mcpServerTriggerDeclaration");
+    // Allow leading comments and newlines before the mcp_server_trigger declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     const parent = $.CONSUME(McpServerTriggerToken); // mcp_server_trigger
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -29,6 +32,9 @@ export function mcpServerTriggerDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasActions,
           ALT: () => {

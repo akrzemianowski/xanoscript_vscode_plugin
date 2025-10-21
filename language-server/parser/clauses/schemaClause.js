@@ -1,3 +1,4 @@
+import { CommentToken } from "../../lexer/comment.js";
 import { LCurly, RCurly } from "../../lexer/control.js";
 import { NewlineToken, SchemaToken } from "../../lexer/tokens.js";
 
@@ -21,6 +22,7 @@ export function schemaClause($) {
       $.MANY(() => {
         $.AT_LEAST_ONE1(() => $.CONSUME1(NewlineToken)); // at least one new line
         $.OR([
+          { ALT: () => $.CONSUME(CommentToken) },
           {
             ALT: () => $.SUBRULE($.objectColumnDefinition, { ARGS: [schema] }),
           },

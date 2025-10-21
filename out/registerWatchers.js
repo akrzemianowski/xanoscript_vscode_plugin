@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerWatchers = void 0;
+exports.registerWatchers = registerWatchers;
 const vscode = require("vscode");
 const config_1 = require("./config");
 const registry_1 = require("./registry/registry");
@@ -98,5 +98,4 @@ function registerWatchers(context) {
         }
     })));
 }
-exports.registerWatchers = registerWatchers;
 //# sourceMappingURL=registerWatchers.js.map

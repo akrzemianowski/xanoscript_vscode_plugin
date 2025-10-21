@@ -18,6 +18,9 @@ export function workspaceTriggerDeclaration($) {
     let hasTags = false;
 
     $.sectionStack.push("workspaceTriggerDeclaration");
+    // Allow leading comments and newlines before the workspace_trigger declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     const parent = $.CONSUME(WorkspaceTriggerToken); // workspace_trigger
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -27,6 +30,9 @@ export function workspaceTriggerDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasActions,
           ALT: () => {

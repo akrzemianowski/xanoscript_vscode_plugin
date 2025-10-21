@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTableCmd = void 0;
+exports.createTableCmd = createTableCmd;
 const vscode = require("vscode");
 const openXanoscriptEditor_1 = require("./openXanoscriptEditor");
 const lodash_1 = require("lodash");
@@ -52,12 +52,14 @@ function createTableCmd() {
         }
         tableName = tableName.replace(/([^a-zA-Z0-9/]+)/g, "_");
         tableDescription = (tableDescription || "").replace(/"/g, '\\"');
+        const vsconfig = vscode.workspace.getConfiguration("xanoscript");
+        const tablePrimaryKeyType = vsconfig.get("tablePrimaryKeyType", "int");
         const tableContent = `table "${tableName}" {
   description = "${tableDescription || ""}"
   auth = ${authChoice.value ? "true" : "false"} 
 
   schema {
-    int id
+    ${tablePrimaryKeyType} id
     timestamp created_at?=now
   }
 
@@ -88,5 +90,4 @@ function createTableCmd() {
         }
     });
 }
-exports.createTableCmd = createTableCmd;
 //# sourceMappingURL=createTable.js.map

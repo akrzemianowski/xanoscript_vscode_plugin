@@ -1,3 +1,4 @@
+import { DotToken, Identifier } from "../../lexer/tokens.js";
 import { InputVariable } from "../../lexer/variables.js";
 
 /**
@@ -8,6 +9,8 @@ import { InputVariable } from "../../lexer/variables.js";
 export function completeInputVariable($) {
   return () => {
     $.CONSUME(InputVariable);
+    $.CONSUME(DotToken);
+    $.CONSUME(Identifier);
     $.SUBRULE($.chainedIdentifier);
   };
 }

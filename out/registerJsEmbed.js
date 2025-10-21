@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerJsEmbed = void 0;
+exports.registerJsEmbed = registerJsEmbed;
 const vscode = require("vscode");
 const js_embedding_1 = require("./tooling/js_embedding");
 function registerJsEmbed(context) {
@@ -89,5 +89,4 @@ function registerJsEmbed(context) {
         }),
     };
 }
-exports.registerJsEmbed = registerJsEmbed;
 //# sourceMappingURL=registerJsEmbed.js.map

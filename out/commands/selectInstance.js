@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrSelectInstance = exports.selectInstance = exports.selectInstanceCmd = void 0;
+exports.selectInstanceCmd = selectInstanceCmd;
+exports.selectInstance = selectInstance;
+exports.getOrSelectInstance = getOrSelectInstance;
 const vscode = require("vscode");
 const lodash_1 = require("lodash");
 const workspace_1 = require("../metadata/workspace");
@@ -36,7 +38,6 @@ function selectInstanceCmd() {
         }
     });
 }
-exports.selectInstanceCmd = selectInstanceCmd;
 function selectInstance() {
     return __awaiter(this, void 0, void 0, function* () {
         const instances = (0, lodash_1.keyBy)(yield (0, workspace_1.fetchInstances)(), (instance) => `${instance.display} (${instance.name})`);
@@ -49,7 +50,6 @@ function selectInstance() {
         return instances[instanceSelected];
     });
 }
-exports.selectInstance = selectInstance;
 /**
  * Attempt to use the config instance name to fetch the instance and
  * fallback on asking the user to select an instance.
@@ -80,5 +80,4 @@ function getOrSelectInstance() {
         }
     });
 }
-exports.getOrSelectInstance = getOrSelectInstance;
 //# sourceMappingURL=selectInstance.js.map

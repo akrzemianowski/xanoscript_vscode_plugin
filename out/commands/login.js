@@ -9,7 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.assertUserIsAuthenticated = exports.xanoWebLogin = exports.signupCmd = exports.changeAccessToken = exports.loginCmd = void 0;
+exports.loginCmd = loginCmd;
+exports.changeAccessToken = changeAccessToken;
+exports.signupCmd = signupCmd;
+exports.xanoWebLogin = xanoWebLogin;
+exports.assertUserIsAuthenticated = assertUserIsAuthenticated;
 const vscode = require("vscode");
 const login_1 = require("../metadata/login");
 const secrets_1 = require("../secrets");
@@ -78,7 +82,6 @@ function loginCmd() {
         }
     });
 }
-exports.loginCmd = loginCmd;
 function changeAccessToken() {
     return __awaiter(this, void 0, void 0, function* () {
         const accessToken = yield vscode.window.showInputBox({
@@ -96,7 +99,6 @@ function changeAccessToken() {
         return me;
     });
 }
-exports.changeAccessToken = changeAccessToken;
 function signupCmd() {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, assertHasWorkspace_1.assertHasWorkspace)();
@@ -110,9 +112,8 @@ function signupCmd() {
         }
     });
 }
-exports.signupCmd = signupCmd;
-function xanoWebLogin(signup = false) {
-    return __awaiter(this, void 0, void 0, function* () {
+function xanoWebLogin() {
+    return __awaiter(this, arguments, void 0, function* (signup = false) {
         // Get the API URL from configuration
         const vsconfig = vscode.workspace.getConfiguration("xanoscript");
         const apiUrl = vsconfig.get("xanoUrl", "https://app.xano.com");
@@ -170,7 +171,6 @@ function xanoWebLogin(signup = false) {
         }
     });
 }
-exports.xanoWebLogin = xanoWebLogin;
 /**
  * Ensure the user is logged in to Xano and has a valid access token.
  * If not, prompt them to log in or provide a new access token.
@@ -193,5 +193,4 @@ function assertUserIsAuthenticated() {
         }
     });
 }
-exports.assertUserIsAuthenticated = assertUserIsAuthenticated;
 //# sourceMappingURL=login.js.map

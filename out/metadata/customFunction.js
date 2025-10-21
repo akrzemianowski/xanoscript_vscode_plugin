@@ -9,7 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCustomFunction = exports.createCustomFunctionFromXs = exports.createCustomFunction = exports.updateCustomFunction = exports.fetchCustomFunction = exports.fetchCustomFunctions = void 0;
+exports.fetchCustomFunctions = fetchCustomFunctions;
+exports.fetchCustomFunction = fetchCustomFunction;
+exports.updateCustomFunction = updateCustomFunction;
+exports.createCustomFunction = createCustomFunction;
+exports.createCustomFunctionFromXs = createCustomFunctionFromXs;
+exports.deleteCustomFunction = deleteCustomFunction;
 const config_1 = require("../config");
 const request_1 = require("./request");
 const vscode = require("vscode");
@@ -40,7 +45,6 @@ function fetchCustomFunctions(instanceName, workspaceId) {
         return customFunctions;
     });
 }
-exports.fetchCustomFunctions = fetchCustomFunctions;
 /**
  * Fetch a custom function with its XanoScript definition
  *
@@ -59,7 +63,6 @@ function fetchCustomFunction(instanceName, workspaceId, functionId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/function/${functionId}?${queryParams.toString()}`);
     });
 }
-exports.fetchCustomFunction = fetchCustomFunction;
 /**
  * Update a custom function with XanoScript
  *
@@ -88,7 +91,6 @@ function updateCustomFunction(instanceName, workspaceId, functionId, xanoscript)
         return fetchCustomFunction(instanceName, workspaceId, functionId);
     });
 }
-exports.updateCustomFunction = updateCustomFunction;
 /**
  * Create a new custom function using XanoScript
  *
@@ -127,7 +129,6 @@ function createCustomFunction(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createCustomFunction = createCustomFunction;
 /**
  * Create a new custom function ysing XanoScript
  *
@@ -149,7 +150,6 @@ function createCustomFunctionFromXs(instanceName, workspaceId, xanoscript) {
         });
     });
 }
-exports.createCustomFunctionFromXs = createCustomFunctionFromXs;
 /**
  * Delete a custom function
  *
@@ -164,5 +164,4 @@ function deleteCustomFunction(instanceName, workspaceId, functionId) {
         });
     });
 }
-exports.deleteCustomFunction = deleteCustomFunction;
 //# sourceMappingURL=customFunction.js.map

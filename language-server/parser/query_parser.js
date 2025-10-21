@@ -33,6 +33,9 @@ export function queryDeclaration($) {
     const testNames = [];
 
     $.sectionStack.push("queryDeclaration");
+    // Allow leading comments and newlines before the query declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     const parent = $.CONSUME(QueryToken);
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) }, // "foo/bar"
@@ -53,6 +56,9 @@ export function queryDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasAuth,
           ALT: () => {

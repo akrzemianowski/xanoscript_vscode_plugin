@@ -19,6 +19,9 @@ export function taskDeclaration($) {
     const testNames = [];
 
     $.sectionStack.push("taskDeclaration");
+    // Allow leading comments and newlines before the task declaration
+    $.SUBRULE($.optionalCommentBlockFn);
+
     $.CONSUME(TaskToken);
     $.OR([
       { ALT: () => $.CONSUME(StringLiteral) },
@@ -28,6 +31,9 @@ export function taskDeclaration($) {
     $.MANY(() => {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
+        {
+          ALT: () => $.SUBRULE($.commentBlockFn),
+        },
         {
           GATE: () => !hasActive,
           ALT: () => {

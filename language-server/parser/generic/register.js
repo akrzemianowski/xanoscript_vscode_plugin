@@ -9,6 +9,7 @@ import { castedValue } from "./castedValue.js";
 import { chainedIdentifier } from "./chainedIdentifier.js";
 import { completeAuthVariable } from "./completeAuthVariable.js";
 import { completeEnvVariable } from "./completeEnvVariable.js";
+import { completeErrorVariable } from "./completeErrorVariable.js";
 import { completeInputVariable } from "./completeInputVariable.js";
 import { enumValue } from "./enumValue.js";
 import { filterFn } from "./filterFn.js";
@@ -19,6 +20,10 @@ import { mockAttribute } from "./mockAttribute.js";
 import { numberValue } from "./numberValue.js";
 import { objectAttrReq } from "./objectAttrReq.js";
 import { objectWithAttributes } from "./objectWithAttributes.js";
+import {
+  commentBlockFn,
+  optionalCommentBlockFn,
+} from "./optionalCommentBlock.js";
 import { pipedFilter } from "./pipedFilter.js";
 import { requiredValueFnBody } from "./requiredValueFnBody.js";
 import { shortFormVariable } from "./shortFormVariable.js";
@@ -84,6 +89,15 @@ export const register = ($) => {
     "completeInputVariable",
     completeInputVariable($)
   );
+  $.completeErrorVariable = $.RULE(
+    "completeErrorVariable",
+    completeErrorVariable($)
+  );
   $.completeEnvVariable = $.RULE("completeEnvVariable", completeEnvVariable($));
   $.asVariable = $.RULE("asVariable", asVariable($));
+  $.optionalCommentBlockFn = $.RULE(
+    "optionalCommentBlockFn",
+    optionalCommentBlockFn($)
+  );
+  $.commentBlockFn = $.RULE("commentBlockFn", commentBlockFn($));
 };

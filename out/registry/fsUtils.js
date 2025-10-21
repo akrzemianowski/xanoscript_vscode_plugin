@@ -9,7 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUriFor = exports.getFileHash = exports.deleteFile = exports.readFile = exports.writeFile = exports.readdir = exports.createDirectory = exports.isDirectory = exports.stat = exports.fileExists = void 0;
+exports.fileExists = fileExists;
+exports.stat = stat;
+exports.isDirectory = isDirectory;
+exports.createDirectory = createDirectory;
+exports.readdir = readdir;
+exports.writeFile = writeFile;
+exports.readFile = readFile;
+exports.deleteFile = deleteFile;
+exports.getFileHash = getFileHash;
+exports.getUriFor = getUriFor;
 const vscode = require("vscode");
 const crypto_1 = require("crypto");
 const path_1 = require("path");
@@ -25,7 +34,6 @@ function fileExists(path) {
         }
     });
 }
-exports.fileExists = fileExists;
 /**
  * A light wrapper around the vscode.workspace.fs.stat function
  * useful for testing as it allows to mock the function (functions under fs. cannot be stubbed)
@@ -38,14 +46,12 @@ function stat(path) {
         return vscode.workspace.fs.stat(fileUri);
     });
 }
-exports.stat = stat;
 function isDirectory(path) {
     return __awaiter(this, void 0, void 0, function* () {
         const fileStat = yield stat(path);
         return fileStat.type === vscode.FileType.Directory;
     });
 }
-exports.isDirectory = isDirectory;
 /**
  * A light wrapper around the vscode.workspace.fs.createDirectory function
  * useful for testing as it allows to mock the function (functions under fs. cannot be stubbed)
@@ -57,7 +63,6 @@ function createDirectory(path) {
         return vscode.workspace.fs.createDirectory(folderUri);
     });
 }
-exports.createDirectory = createDirectory;
 function readdir(path) {
     return __awaiter(this, void 0, void 0, function* () {
         const fileUri = typeof path === "string" ? vscode.Uri.file(path) : path;
@@ -65,7 +70,6 @@ function readdir(path) {
         return files.map((file) => file[0]);
     });
 }
-exports.readdir = readdir;
 /**
  * A light wrapper around the vscode.workspace.fs.writeFile function
  * useful for testing as it allows to mock the function (functions under fs. cannot be stubbed)
@@ -79,7 +83,6 @@ function writeFile(path, content) {
         yield vscode.workspace.fs.writeFile(fileUri, contentBuffer);
     });
 }
-exports.writeFile = writeFile;
 /**
  * A light wrapper around the vscode.workspace.fs.readFile function
  * useful for testing as it allows to mock the function (functions under fs. cannot be stubbed)
@@ -87,14 +90,13 @@ exports.writeFile = writeFile;
  * @param encoding
  * @returns
  */
-function readFile(path, encoding = "utf8") {
-    return __awaiter(this, void 0, void 0, function* () {
+function readFile(path_2) {
+    return __awaiter(this, arguments, void 0, function* (path, encoding = "utf8") {
         const fileUri = typeof path === "string" ? vscode.Uri.file(path) : path;
         const fileContent = yield vscode.workspace.fs.readFile(fileUri);
         return Buffer.from(fileContent).toString(encoding);
     });
 }
-exports.readFile = readFile;
 /**
  * A light wrapper around the vscode.workspace.fs.delete function
  * useful for testing as it allows to mock the function (functions under fs. cannot be stubbed)
@@ -106,7 +108,6 @@ function deleteFile(path) {
         return yield vscode.workspace.fs.delete(fileUri);
     });
 }
-exports.deleteFile = deleteFile;
 /**
  * Get the hash of a xanoscript content
  * @param content The xanoscript content
@@ -117,7 +118,6 @@ function getFileHash(content) {
     hash.update(content);
     return hash.digest("hex");
 }
-exports.getFileHash = getFileHash;
 function getUriFor(...path) {
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (!workspaceFolders) {
@@ -125,5 +125,4 @@ function getUriFor(...path) {
     }
     return vscode.Uri.file((0, path_1.join)(workspaceFolders[0].uri.fsPath, ...path));
 }
-exports.getUriFor = getUriFor;
 //# sourceMappingURL=fsUtils.js.map

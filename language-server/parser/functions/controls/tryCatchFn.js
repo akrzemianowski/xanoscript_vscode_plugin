@@ -35,7 +35,9 @@ export function tryCatchFn($) {
           ALT: () => {
             hasCatch = true;
             $.CONSUME(CatchToken);
+            $.sectionStack.push("catchFn");
             $.OPTION1(() => $.SUBRULE1($.nakedStackFn));
+            $.sectionStack.pop();
           },
         },
         {

@@ -125,12 +125,17 @@ export function schemaParseObjectFn($) {
       const missingKeyNames = missingKeys.filter(
         (k) => !isOptionalAttribute(k)
       );
-      if (missingKeyNames.length) {
+      if (missingKeyNames.length > 1) {
         $.addInvalidValueError(
           lastToken || token,
-          `The following required key(s) are missing: ${missingKeyNames.join(
+          `The following required keys are missing: ${missingKeyNames.join(
             ", "
           )}`
+        );
+      } else if (missingKeyNames.length === 1) {
+        $.addInvalidValueError(
+          lastToken || token,
+          `Missing required key '${missingKeyNames[0]}'`
         );
       }
     }

@@ -9,7 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRegistryIndex = exports.extractNameFromContent = exports.getRegistryByPath = exports.removeRegistryByPath = exports.updateRegistryByPath = exports.refreshRegistry = exports.scanRegistry = exports.fileContent = exports.saveRegistry = exports.readRegistry = exports.getRegistry = exports.registryFileExists = void 0;
+exports.registryFileExists = registryFileExists;
+exports.getRegistry = getRegistry;
+exports.readRegistry = readRegistry;
+exports.saveRegistry = saveRegistry;
+exports.fileContent = fileContent;
+exports.scanRegistry = scanRegistry;
+exports.refreshRegistry = refreshRegistry;
+exports.updateRegistryByPath = updateRegistryByPath;
+exports.removeRegistryByPath = removeRegistryByPath;
+exports.getRegistryByPath = getRegistryByPath;
+exports.extractNameFromContent = extractNameFromContent;
+exports.getRegistryIndex = getRegistryIndex;
 const vscode = require("vscode");
 const path_1 = require("path");
 const config_1 = require("../config");
@@ -27,7 +38,6 @@ function registryFileExists() {
         }
     });
 }
-exports.registryFileExists = registryFileExists;
 function getRegistry() {
     return __awaiter(this, void 0, void 0, function* () {
         if (__cached_registry) {
@@ -38,7 +48,6 @@ function getRegistry() {
         }
     });
 }
-exports.getRegistry = getRegistry;
 /**
  * Get the registry from the local workspace
  *
@@ -74,7 +83,6 @@ function readRegistry() {
         }
     });
 }
-exports.readRegistry = readRegistry;
 /**
  * Save the registry to the workspace registry file
  * @param registry XanoFileRegistry
@@ -98,7 +106,6 @@ function saveRegistry(registry) {
         }
     });
 }
-exports.saveRegistry = saveRegistry;
 /**
  * Get the type of the object based on its content
  * @param content
@@ -200,7 +207,6 @@ function fileContent(path) {
         }
     });
 }
-exports.fileContent = fileContent;
 function scanRegistry(paths) {
     return __awaiter(this, void 0, void 0, function* () {
         let registry = yield readRegistry();
@@ -212,7 +218,6 @@ function scanRegistry(paths) {
         return registry;
     });
 }
-exports.scanRegistry = scanRegistry;
 /**
  * Refresh the local index by checking if the file exists and if it has changed
  *
@@ -284,7 +289,6 @@ function refreshRegistry(registry, path) {
         }
     });
 }
-exports.refreshRegistry = refreshRegistry;
 /**
  * Mutate provided registry by updating the record at the given path
  * @param registry
@@ -300,7 +304,6 @@ function updateRegistryByPath(registry, path, update) {
     }
     return registry;
 }
-exports.updateRegistryByPath = updateRegistryByPath;
 /**
  * Mutate provided registry by removing the record at the given path
  * @param registry
@@ -315,7 +318,6 @@ function removeRegistryByPath(registry, path) {
     }
     return registry;
 }
-exports.removeRegistryByPath = removeRegistryByPath;
 /**
  * Get a record from the registry by its path
  * @param registry
@@ -325,7 +327,6 @@ function getRegistryByPath(registry, path) {
     const recordIdx = registry.findIndex((record) => path === record.path);
     return registry[recordIdx];
 }
-exports.getRegistryByPath = getRegistryByPath;
 /**
  * Extract the name from the first line of a XanoScript file
  * Files typically start with: "type name {" (e.g., "table user {" or "function utils/factorial {")
@@ -349,7 +350,6 @@ function extractNameFromContent(content) {
     }
     return null;
 }
-exports.extractNameFromContent = extractNameFromContent;
 /**
  * Read the registry and return an object organized by type with names extracted from files
  * @returns RegistryTypeIndex
@@ -396,5 +396,4 @@ function getRegistryIndex() {
         return index;
     });
 }
-exports.getRegistryIndex = getRegistryIndex;
 //# sourceMappingURL=registry.js.map

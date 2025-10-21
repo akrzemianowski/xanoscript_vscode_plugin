@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test-one": "mocha",
-    "test": "mocha \"*/**/*.spec.js\"",
+    "test": "mocha \"**/*.spec.js\"",
     "test-alt": "NODE_OPTIONS=\"--trace-warnings\" mocha --loader node \"*/**/*.spec.js\"",
     "lint": "eslint . --ext .js",
     "lint:fix": "eslint . --ext .js --fix",

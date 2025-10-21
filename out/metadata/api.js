@@ -9,7 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteApiEndpoint = exports.deleteApiGroup = exports.createApiGroupFromXs = exports.createApiGroup = exports.createApiEndpoint = exports.createApiEndpointFromXs = exports.updateApiEndpoint = exports.updateApiGroup = exports.fetchApiEndpoints = exports.fetchApiEndpoint = exports.fetchApiGroupsContent = exports.fetchApiGroups = void 0;
+exports.fetchApiGroups = fetchApiGroups;
+exports.fetchApiGroupsContent = fetchApiGroupsContent;
+exports.fetchApiEndpoint = fetchApiEndpoint;
+exports.fetchApiEndpoints = fetchApiEndpoints;
+exports.updateApiGroup = updateApiGroup;
+exports.updateApiEndpoint = updateApiEndpoint;
+exports.createApiEndpointFromXs = createApiEndpointFromXs;
+exports.createApiEndpoint = createApiEndpoint;
+exports.createApiGroup = createApiGroup;
+exports.createApiGroupFromXs = createApiGroupFromXs;
+exports.deleteApiGroup = deleteApiGroup;
+exports.deleteApiEndpoint = deleteApiEndpoint;
 const config_1 = require("../config");
 const vscode = require("vscode");
 const request_1 = require("./request");
@@ -39,7 +50,6 @@ function fetchApiGroups(instanceName, workspaceId) {
         return apiGroups;
     });
 }
-exports.fetchApiGroups = fetchApiGroups;
 /**
  * Fetch the content of a specific API group
  *
@@ -67,7 +77,6 @@ function fetchApiGroupsContent(instanceName, workspaceId, apiGroupId) {
         return apiEndpoints;
     });
 }
-exports.fetchApiGroupsContent = fetchApiGroupsContent;
 /**
  * Fetch the content of a specific API endpoint with its XanoScript definition
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -86,7 +95,6 @@ function fetchApiEndpoint(instanceName, workspaceId, apiGroupId, apiId) {
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/apigroup/${apiGroupId}/api/${apiId}?${queryParams.toString()}`);
     });
 }
-exports.fetchApiEndpoint = fetchApiEndpoint;
 /**
  * Fetch the content of a specific API endpoint with its XanoScript definition
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -108,7 +116,6 @@ function fetchApiEndpoints(instanceName, workspaceId) {
         return endpoints;
     });
 }
-exports.fetchApiEndpoints = fetchApiEndpoints;
 /**
  * Update the content of a specific API endpoint with XanoScript
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -131,7 +138,6 @@ function updateApiGroup(instanceName, workspaceId, apiGroupId, xanoscript) {
         });
     });
 }
-exports.updateApiGroup = updateApiGroup;
 /**
  * Update the configuration of a specific API group with XanoScript
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -158,7 +164,6 @@ function updateApiEndpoint(instanceName, workspaceId, apiGroupId, apiId, xanoscr
         });
     });
 }
-exports.updateApiEndpoint = updateApiEndpoint;
 /**
  * Create a new blank API endpoint within an API group
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -179,7 +184,6 @@ function createApiEndpointFromXs(instanceName, workspaceId, apiGroupId, xanoscri
         });
     });
 }
-exports.createApiEndpointFromXs = createApiEndpointFromXs;
 /**
  * Create a new blank API endpoint within an API group
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -208,7 +212,6 @@ function createApiEndpoint(instanceName, workspaceId, apiGroupId, name, verb) {
         });
     });
 }
-exports.createApiEndpoint = createApiEndpoint;
 /**
  * Create a new API group within a workspace
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -217,8 +220,8 @@ exports.createApiEndpoint = createApiEndpoint;
  * @param description the description of the API group (optional)
  * @param swagger whether to enable the swagger UI for the API group (optional)
  */
-function createApiGroup(instanceName, workspaceId, name, description = "", swagger = true) {
-    return __awaiter(this, void 0, void 0, function* () {
+function createApiGroup(instanceName_1, workspaceId_1, name_1) {
+    return __awaiter(this, arguments, void 0, function* (instanceName, workspaceId, name, description = "", swagger = true) {
         const branch = encodeURIComponent(config_1.config.branch);
         return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/apigroup`, {
             method: "POST",
@@ -232,7 +235,6 @@ function createApiGroup(instanceName, workspaceId, name, description = "", swagg
         });
     });
 }
-exports.createApiGroup = createApiGroup;
 /**
  * Create a new API group within a workspace
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -253,7 +255,6 @@ function createApiGroupFromXs(instanceName, workspaceId, xanoscript) {
         });
     });
 }
-exports.createApiGroupFromXs = createApiGroupFromXs;
 /**
  * Delete an API group within a workspace
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -268,7 +269,6 @@ function deleteApiGroup(instanceName, workspaceId, apiGroupId) {
         });
     });
 }
-exports.deleteApiGroup = deleteApiGroup;
 /**
  * Delete an API endpoint within an API group
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -284,5 +284,4 @@ function deleteApiEndpoint(instanceName, workspaceId, apiGroupId, apiId) {
         });
     });
 }
-exports.deleteApiEndpoint = deleteApiEndpoint;
 //# sourceMappingURL=api.js.map

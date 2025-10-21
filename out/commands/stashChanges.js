@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.stashChangesCmd = void 0;
+exports.stashChangesCmd = stashChangesCmd;
 const stash_1 = require("../registry/stash");
 function stashChangesCmd() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -22,5 +22,4 @@ function stashChangesCmd() {
         }
     });
 }
-exports.stashChangesCmd = stashChangesCmd;
 //# sourceMappingURL=stashChanges.js.map

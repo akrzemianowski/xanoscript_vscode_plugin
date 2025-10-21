@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.assertHasWorkspace = void 0;
+exports.assertHasWorkspace = assertHasWorkspace;
 const vscode = require("vscode");
 /**
  * Asserts that a workspace folder is opened in VSCode.
@@ -29,5 +29,4 @@ function assertHasWorkspace() {
         }
     });
 }
-exports.assertHasWorkspace = assertHasWorkspace;
 //# sourceMappingURL=assertHasWorkspace.js.map

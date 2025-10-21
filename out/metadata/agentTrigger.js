@@ -9,7 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAgentTriggerSecurity = exports.deleteAgentTrigger = exports.createAgentTrigger = exports.createAgentTriggerFromXs = exports.fetchAgentTriggers = exports.updateAgentTriggerScript = exports.fetchAgentTrigger = void 0;
+exports.fetchAgentTrigger = fetchAgentTrigger;
+exports.updateAgentTriggerScript = updateAgentTriggerScript;
+exports.fetchAgentTriggers = fetchAgentTriggers;
+exports.createAgentTriggerFromXs = createAgentTriggerFromXs;
+exports.createAgentTrigger = createAgentTrigger;
+exports.deleteAgentTrigger = deleteAgentTrigger;
+exports.updateAgentTriggerSecurity = updateAgentTriggerSecurity;
 const request_1 = require("./request");
 const config_1 = require("../config");
 const vscode = require("vscode");
@@ -29,7 +35,6 @@ function fetchAgentTrigger(instanceName, workspaceId, triggerId) {
     queryParams.set("include_xanoscript", "true");
     return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/agent/trigger/${triggerId}?${queryParams.toString()}`);
 }
-exports.fetchAgentTrigger = fetchAgentTrigger;
 /**
  * Update the Xanoscript version of a given Agent Trigger within your workspace.
  *
@@ -55,7 +60,6 @@ function updateAgentTriggerScript(instanceName, workspaceId, triggerId, script) 
         });
     });
 }
-exports.updateAgentTriggerScript = updateAgentTriggerScript;
 /**
  * Fetch the list of agent triggers within your workspace.
  *
@@ -83,7 +87,6 @@ function fetchAgentTriggers(instanceName, workspaceId) {
         return agentTriggers;
     });
 }
-exports.fetchAgentTriggers = fetchAgentTriggers;
 /**
  * Create a new agent trigger using XanoScript
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -104,7 +107,6 @@ function createAgentTriggerFromXs(instanceName, workspaceId, script) {
         });
     });
 }
-exports.createAgentTriggerFromXs = createAgentTriggerFromXs;
 /**
  * Create a new Agent Trigger within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -154,7 +156,6 @@ function createAgentTrigger(instanceName, workspaceId, name) {
         });
     });
 }
-exports.createAgentTrigger = createAgentTrigger;
 /**
  * Delete an agent trigger within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -168,7 +169,6 @@ function deleteAgentTrigger(instanceName, workspaceId, triggerId) {
         });
     });
 }
-exports.deleteAgentTrigger = deleteAgentTrigger;
 /**
  * Update agent trigger security configuration and access controls.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -186,5 +186,4 @@ function updateAgentTriggerSecurity(instanceName, workspaceId, triggerId, securi
         },
     });
 }
-exports.updateAgentTriggerSecurity = updateAgentTriggerSecurity;
 //# sourceMappingURL=agentTrigger.js.map

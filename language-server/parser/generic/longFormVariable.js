@@ -1,3 +1,4 @@
+import { DotToken, Identifier } from "../../lexer/tokens.js";
 import { LongFormVariable } from "../../lexer/variables.js";
 
 /**
@@ -12,6 +13,8 @@ import { LongFormVariable } from "../../lexer/variables.js";
 export function longFormVariable($) {
   return () => {
     $.CONSUME(LongFormVariable);
+    $.CONSUME(DotToken);
+    $.CONSUME(Identifier);
     $.SUBRULE($.chainedIdentifier);
   };
 }

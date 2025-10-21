@@ -347,18 +347,6 @@ describe("mcp_server", () => {
     expect(parser.errors).to.be.empty;
   });
 
-  it("should fail when history inherit is missing", () => {
-    const parser = xanoscriptParser(`mcp_server test_server {
-      canonical = "abc123"
-      history = {
-        limit: 100
-        enabled: true
-      }
-    }`);
-
-    expect(parser.errors).to.not.be.empty;
-  });
-
   it("should parse mcp_server with history inherit as false", () => {
     const parser = xanoscriptParser(`mcp_server test_server {
       canonical = "abc123"

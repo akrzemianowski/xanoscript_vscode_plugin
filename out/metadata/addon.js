@@ -9,7 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAddon = exports.createAddon = exports.createAddonFromXs = exports.fetchAddOns = exports.updateAddon = exports.fetchAddOn = void 0;
+exports.fetchAddOn = fetchAddOn;
+exports.updateAddon = updateAddon;
+exports.fetchAddOns = fetchAddOns;
+exports.createAddonFromXs = createAddonFromXs;
+exports.createAddon = createAddon;
+exports.deleteAddon = deleteAddon;
 const request_1 = require("./request");
 const vscode = require("vscode");
 /**
@@ -22,7 +27,6 @@ const vscode = require("vscode");
 function fetchAddOn(instanceName, workspaceId, addonId) {
     return (0, request_1.metadataInstanceRequest)(instanceName, `workspace/${workspaceId}/addon/${addonId}`);
 }
-exports.fetchAddOn = fetchAddOn;
 /**
  * Update the Xanoscript version of a given Addon within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -42,7 +46,6 @@ function updateAddon(instanceName, workspaceId, addonId, xanoscript) {
         },
     });
 }
-exports.updateAddon = updateAddon;
 /**
  * Fetch the list of addons within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -68,7 +71,6 @@ function fetchAddOns(instanceName, workspaceId) {
         return addons;
     });
 }
-exports.fetchAddOns = fetchAddOns;
 /**
  * Create a new addon within your workspace using XanoScript.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -91,7 +93,6 @@ function createAddonFromXs(instanceName, workspaceId, xanoscript) {
         return fetchAddOn(instanceName, workspaceId, response.id);
     });
 }
-exports.createAddonFromXs = createAddonFromXs;
 /**
  * Create a new addon within your workspace with form data.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -101,8 +102,8 @@ exports.createAddonFromXs = createAddonFromXs;
  * @param branch the branch for the addon
  * @returns
  */
-function createAddon(instanceName, workspaceId, name, description, branch = "v1") {
-    return __awaiter(this, void 0, void 0, function* () {
+function createAddon(instanceName_1, workspaceId_1, name_1, description_1) {
+    return __awaiter(this, arguments, void 0, function* (instanceName, workspaceId, name, description, branch = "v1") {
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
@@ -118,7 +119,6 @@ function createAddon(instanceName, workspaceId, name, description, branch = "v1"
         return fetchAddOn(instanceName, workspaceId, response.id);
     });
 }
-exports.createAddon = createAddon;
 /**
  * Delete an addon within your workspace.
  * @param instanceName unique name of the instance abfc-1234-efgh
@@ -132,5 +132,4 @@ function deleteAddon(instanceName, workspaceId, addonId) {
         });
     });
 }
-exports.deleteAddon = deleteAddon;
 //# sourceMappingURL=addon.js.map
